@@ -16,18 +16,21 @@ return new class extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->bigIncrements('id');
             // $table->string('zoho_lead_id')->nullable();
-            $table->string('Customer Name')->nullable();
-            $table->string('Contact Number')->length(50)->nullable();
+            $table->string('Customer_Name')->nullable();
+            $table->string('Contact_Number')->length(50)->nullable();
 
-            $table->string('POC Name')->nullable();
+            $table->string('POC_Name')->nullable();
             $table->string('Industry')->nullable();
-            $table->string('Lead Source')->nullable();
+            $table->string('Lead_Source')->nullable();
 
             $table->string('Email')->nullable();
-            $table->string('First Contact Date')->nullable();
+            $table->string('First_Contact_Date')->nullable();
 
-            $table->unsignedBigInteger('industry id')->length(3)->nullable();
-            $table->unsignedBigInteger('lead source id')->length(3)->nullable();
+
+            $table->string('Lead_Status')->nullable();
+
+            $table->unsignedBigInteger('industry_id')->length(3)->nullable();
+            $table->unsignedBigInteger('lead_source_id')->length(3)->nullable();
 
             $table->timestamps();
         });

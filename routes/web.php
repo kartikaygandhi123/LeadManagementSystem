@@ -3,6 +3,8 @@
 use App\Http\Controllers\brandProfileController;
 use App\Http\Controllers\contactsController;
 use App\Http\Controllers\createLeadController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\leadsController;
 use App\Http\Controllers\mastersAddUsersController;
 use App\Http\Controllers\mastersAllBusinessController;
@@ -14,7 +16,8 @@ use App\Http\Controllers\mastersAllObServiceController;
 use App\Http\Controllers\mastersAllStageController;
 use App\Http\Controllers\opportunitiesController;
 use App\Http\Controllers\reportsController;
-
+use App\Http\Controllers\RequirementsMapController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,14 +32,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('dashboard', function () {
-    return view('dashboard');
-});
 
-Route::post('newcustomer', [leadsController::class, 'store']);
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+// Route::get('dashboard', function () {
+//     return view('dashboard');
+// });
+
+// Route::group(["prefix" => "/", "middleware" => "super_admin"], function () {
+
+Route::get('dashboard', [DashboardController::class, 'dashboardShow'])->name('dashboard');
+
+
+Route::post('followupshow', [leadsController::class, 'store']);
+Route::post('demo', [leadsController::class, 'update']);
+
 Route::get('brandshow', [brandProfileController::class, 'brandShow']);
 Route::get('contactsshow', [contactsController::class, 'contactsShow']);
 Route::get('leadsshow', [leadsController::class, 'leadsShow']);
@@ -51,4 +75,16 @@ Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustry
 Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
 Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
 Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+
+// Custom
+
 Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
+// Route::get('testform', [createLeadController::class, 'createLeadShow']);
+Route::get('fetchcustomer', [createLeadController::class, 'fetchcustomer']);
+Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
+
+Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
+
+// Route::view('testlogin', 'site.testlogin');
+// Route::view('testform', 'site.testform');  // testform

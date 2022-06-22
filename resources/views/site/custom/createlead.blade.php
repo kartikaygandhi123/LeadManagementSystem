@@ -1,5 +1,18 @@
-@extends('layouts.mainLayout') @section('content')
+@extends('layouts.mainLayout')
+
+
+@section('style')
+    <style>
+
+    </style>
+
+
+@section('content')
     {{-- Radio button --}}
+    <link href="/assets/vendor_components/select2/dist/css/select2.min.css" rel="stylesheet" />
+
+
+
 
     <div class="col-12">
         <div class="box box-solid box-primary">
@@ -9,68 +22,50 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                <div class="col-lg-3">
-                    <hr class="d-lg-none">
-                    <h5>Select Customer</h5>
+                <div class="form-group">
 
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                            data-toggle="dropdown">Select</button>
-                        <div class="dropdown-menu">
+                    <label>Select Customer</label>
+                    <select class="form-control dropdown-item select2 col-md-5 " id="select_customer" onchange='show_form()'>
+                        <optgroup>
+                            <option id="create_new" value="create_new"><button class="btn btn-sm" id="create_new_customer">
+                                    <p style="color: yellow !important;">*Create
+                                        New
+                                        Customer</p>
+                            </option>
+                        </optgroup>
 
-                            <label class="dropdown-item" onclick='check()'>Holiscope</label>
-                            <a class="dropdown-item" href="#">Holiscope</a>
-                            <a class="dropdown-item" href="#">Holisol</a>
-                            <a class="dropdown-item" href="#">Saprootz</a>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item bg-red" id="create_new_customer">Create New Customer</button>
-                        </div>
-                    </div>
+                        <optgroup>
+                            <option selected disabled>Choose Existing</option>
 
-                    <br><br><br><br><br><br>
+                            @foreach ($lead as $item)
+                                <option value="{{ $item['id'] }}">{{ $item['Customer_Name'] }}</option>
+                            @endforeach
+
+                        </optgroup>
+
+
+                    </select>
+                    <br>
+
+
                 </div>
-
-
-                {{-- <select  class="select2" >
-                @for ($i = 1; $i <= 5; $i++)
-                <option>option {{$i}}</option>
-                @endfor
-                <option id="create_new_customer">Create New Customer</option>
-              </select> --}}
-
-
-
-
-
-
-
-                {{-- <div class="demo-radio-button">
-             <input
-                    name="group1"
-                    type="radio"
-                    class="with-gap"
-                    id="radio_3"
-                />
-                <label for="radio_3">Existing Customer</label>
-                <input
-                    name="group1"
-                    type="radio"
-                    id="radio_4"
-                    class="with-gap"
-                />
-                <label for="radio_4">New Customer</label>
-                
-            </div> --}}
             </div>
-            <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </div>
-    <div id="check"></div>
+
+    {{-- Appending through Javascript --}}
+    <div id="append_form"></div>
+    {{-- Appending through Javascript --}}
+
+
+
     <div style="display: none" id="newcustomerform" class="row justify-content-center">
         <div class="col-md-12 mt-3">
+
             <div class="card">
+
                 <div class="card-header">
+
                     <div class="row">
                         <h2 id="form_heading" class="card-title">New Customer</h2>
                     </div>
@@ -78,9 +73,10 @@
                 <div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form method="post" id="myLeadform" name="myform" action="newcustomer">
+                    <form method="post" id="myLeadform" name="myform" action="followupshow">
                         @csrf
                         <input type="hidden" name="flag_id" id="flag" />
+                        <input type="hidden" name="id" id="id_update" />
                         <div class="card-body">
                             <div class="col-md-12">
                                 <div class="col-12 text-primary">
@@ -104,29 +100,24 @@
                                                                         style="
                                                                         text-align: right;
                                                                     ">
-                                                                        <label for="Customer Name"
-                                                                            class="col-form-label">Customer
-                                                                            Name<span
+                                                                        <label for="Customer_Name"
+                                                                            class="col-form-label">Customer_Name<span
                                                                                 style="
                                                                                 color: red;
                                                                             ">*</span></label>
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <input
-                                                                            name="Customer
-                                                                        Name"
-                                                                            type="text" class="form-control"
-                                                                            id="Customer
-                                                                        Name"
-                                                                            tabindex="1" pattern="[a-zA-Z\s]+" required />
+                                                                        <input name="Customer_Name" type="text"
+                                                                            class="form-control" id="Customer_Name"
+                                                                            tabindex="1"
+                                                                            pattern="[a-zA-Z\s\[1-9]{1}[0-9]{6}[0-9]{3}]+"
+                                                                            required />
                                                                         <span class="error"
                                                                             style="
                                                                             color: red;
                                                                         ">
-                                                                            <p
-                                                                                id="customer
-                                                                            Name">
+                                                                            <p id="customer_Name">
                                                                             </p>
                                                                         </span>
                                                                     </div>
@@ -134,33 +125,22 @@
 
                                                                 <div class="form-group row mb-4">
                                                                     <div class="col-md-5 alnright"
-                                                                        style="
-                                                                        text-align: right;
-                                                                    ">
-                                                                        <label
-                                                                            for="POC
-                                                                        Name"
-                                                                            class="col-form-label">POC
-                                                                            Name<span
+                                                                        style=" text-align: right; ">
+                                                                        <label for="POC_Name"
+                                                                            class="col-form-label">POC_Name<span
                                                                                 style="
                                                                                 color: red;
                                                                             ">*</span></label>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <input
-                                                                            name="POC
-                                                                        Name"
-                                                                            type="text" class="form-control"
-                                                                            id="POC
-                                                                        Name"
+                                                                        <input name="POC_Name" type="text"
+                                                                            class="form-control" id="POC_Name"
                                                                             tabindex="3" pattern="[a-zA-Z\s]+" required />
                                                                         <span class="error"
                                                                             style="
                                                                             color: red;
                                                                         ">
-                                                                            <p
-                                                                                id="poc
-                                                                            Name">
+                                                                            <p id="poc_Name">
                                                                             </p>
                                                                         </span>
                                                                     </div>
@@ -171,39 +151,30 @@
                                                                         style="
                                                                         text-align: right;
                                                                     ">
-                                                                        <label
-                                                                            for="Contact
-                                                                        Number"
-                                                                            class="col-form-label">Contact
-                                                                            Number<span
+                                                                        <label for="Contact_Number"
+                                                                            class="col-form-label">Contact_Number<span
                                                                                 style="
                                                                                 color: red;
                                                                             ">*</span></label>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <input type="number"
-                                                                            name="Contact
-                                                                        Number"
-                                                                            class="form-control"
-                                                                            id="Contact
-                                                                        Number"
+                                                                        <input type="number" name="Contact_Number"
+                                                                            class="form-control" id="Contact_Number"
                                                                             tabindex="5" maxlength="10"
                                                                             pattern="[1-9]{1}[0-9]{6}[0-9]{3} " required />
                                                                         <span class="error"
                                                                             style="
                                                                             color: red;
                                                                         ">
-                                                                            <p
-                                                                                id="contact
-                                                                            Number">
+                                                                            <p id="contact_Number">
                                                                             </p>
                                                                         </span>
-                                                                        @if ($errors->first('phone_number'))
+                                                                        @if ($errors->first('Contact_Number'))
                                                                             <span class="error"
                                                                                 style="
                                                                             color: red;
                                                                         ">
-                                                                                {{ $errors->first('phone_number') }}
+                                                                                {{ $errors->first('Contact_Number') }}
                                                                             </span>
                                                                         @endif
                                                                     </div>
@@ -241,51 +212,17 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- <div class="form-group row mb-4">
-                                                                                            <div class="col-md-5 alnright" style="text-align: right;">
-                                                                                                <label for="contact_name" class="col-form-label">Add Remarks</label>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <input name="remarks" type="text" class="form-control" id="remarks" tabindex="3">
-                                                                                            </div>
-                                                                                        </div>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="col-md-5 alnright" style="text-align: right;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <label for="contact_name" class="col-form-label">Add Remarks</label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="col-md-6">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input name="remarks" type="text" class="form-control" id="remarks" tabindex="3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>-->
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group row mb-4">
-                                                                    {{-- <div
-                                                                    class="col-md-5 alnright"
-                                                                    style="
-                                                                        text-align: right;
-                                                                    "
-                                                                >
-                                                                    <label
-                                                                        for="lead_owner"
-                                                                        class="col-form-label"
-                                                                        >Lead
-                                                                        Owner
-                                                                        <span
-                                                                            style="
-                                                                                color: red;
-                                                                            "
-                                                                            >*</span
-                                                                        ></label
-                                                                    >
-                                                                </div> --}} {{-- <div
-                                                                    class="col-md-6"
-                                                                >
-                                                                    <select
-                                                                        name="owner_id"
-                                                                        id="owner"
-                                                                        class="form-control select2"
-                                                                        tabindex="2"
-                                                                        required
-                                                                    >
-                                                                        <option
-                                                                            value=""
-                                                                        >
-                                                                            -None-
-                                                                        </option>
-                                                                    </select>
-                                                                </div> --}}
+
                                                                 </div>
                                                                 <div class="form-group row mb-4">
                                                                     <div class="col-md-5 alnright"
@@ -301,8 +238,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <select name="Industry" id="Industry"
-                                                                            class="form-control select2" tabindex="4"
-                                                                            required>
+                                                                            class="form-control " tabindex="4" required>
                                                                             <option value="">
                                                                                 -None-
                                                                             </option>
@@ -319,30 +255,24 @@
                                                                         style="
                                                                         text-align: right;
                                                                     ">
-                                                                        <label
-                                                                            for="Lead
-                                                                        Source"
-                                                                            class="col-form-label">Lead
-                                                                            Source
+                                                                        <label for="Lead_Source"
+                                                                            class="col-form-label">Lead_Source
                                                                             <span
                                                                                 style="
                                                                                 color: red;
                                                                             ">*</span></label>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <select name="lead_source_id"
-                                                                            id="Lead
-                                                                        Source"
-                                                                            class="form-control select2" tabindex="6"
+                                                                        <select name="Lead_Source_name"
+                                                                            id="Lead_Source_name" class="form-control "
                                                                             required>
-                                                                            <option value>
+                                                                            <option value="">
                                                                                 -None-
                                                                             </option>
 
-                                                                            @foreach ($leadsource as $leadsource)
-                                                                                <option
-                                                                                    value=" {{ $leadsource['lead_source'] }}">
-                                                                                    {{ $leadsource['lead_source'] }}
+                                                                            @foreach ($leadsource as $lead)
+                                                                                <option value="{{ $lead->lead_source }}">
+                                                                                    {{ $lead->lead_source }}
                                                                                 </option>
                                                                             @endforeach
 
@@ -355,53 +285,27 @@
                                                                         style="
                                                                         text-align: right;
                                                                     ">
-                                                                        <label
-                                                                            for="First
-                                                                        Contact
-                                                                        Date"
-                                                                            class="col-form-label">First
-                                                                            Contact
-                                                                            Date<span
+                                                                        <label for="First_Contact_Date"
+                                                                            class="col-form-label">First_Contact_Date<span
                                                                                 style="
                                                                                 color: red;
                                                                             ">*</span></label>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <input
-                                                                            name="First
-                                                                        Contact
-                                                                        Date"
-                                                                            type="date" class="form-control"
-                                                                            id="First
-                                                                        Contact
-                                                                        Date"
-                                                                            tabindex="3" required />
+                                                                        <input name="First_Contact_Date" type="date"
+                                                                            class="form-control" id="First_Contact_Date"
+                                                                            tabindex="3" required
+                                                                            value="<?php echo date('Y-m-d'); ?>" />
                                                                         <span class="error"
                                                                             style="
                                                                             color: red;
                                                                         ">
-                                                                            <p
-                                                                                id="first
-                                                                            Contact
-                                                                            Date">
+                                                                            <p id="first_Contact_Date">
                                                                             </p>
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <!-- <div class="form-group row mb-4">
-                                                                                            <div class="col-md-5 alnright" style="text-align: right;">
-                                                                                                <label for="location" class="col-form-label">Location</label>
-                                                                                            </div>
-                                                                                            <div class="input-group col-md-6">
-                                                                                                <select name="cities_id" id="cities_id" class="form-control select2" tabindex="10">
-                                                                                                <option value="">-None-</option>
-                                                                                                   
-                                                                                                </select>
-                                                                                                <div class="input-group-append">
-                                                                                                    <span class="input-group-text square" data-toggle="modal" data-target="#modal2"><i class="fas fa-th-large"></i></span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>-->
+                                                                <!-- <div class="form-group row mb-4">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,9 +316,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-actions">
+
+
+
+                        {{-- Lead Status dropdown --}}
+                        <div class="form-actions text-right">
+
+                            <div class="form-group row mb-4">
+                                <div class="col-md-5 alnright"
+                                    style="
+                                    text-align: right;
+                                ">
+                                    <label for="Lead_Status" class="col-form-label">Lead Status
+                                        <span
+                                            style="
+                                            color: red;
+                                        ">*</span></label>
+                                </div>
+                                <div class="col-md-3  ">
+                                    <select name="Lead_Status" id="Lead_Status" class="form-control select2"
+                                        tabindex="4" required>
+                                        <option disabled>
+                                            Select Lead Status
+                                        </option>
+                                        <option value="Prospect">
+                                            Prospect
+                                        </option>
+
+                                        <option value="Qualified">
+                                            Qualified
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+
                             <div class="text-right" id="hidelead">
-                                <a href="#" class="btn btn-default btn-md" tabindex="8">Cancel</a>
+                                {{-- <a href="#" class="btn btn-default btn-md" tabindex="8">Cancel</a> --}}
                                 <button class="btn btn-primary btn-md" id="saveLead" tabindex="9">
                                     Save
                                 </button>
@@ -428,36 +371,107 @@
 
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script>
-        function check() {
-            console.log("checked");
-            let gud = document.getElementById("newcustomerform").innerHTML;
-            console.log(gud);
-            a.style.display = "none";
-            document.getElementById('check').style.display = "block";
-            document.getElementById('check').innerHTML = gud;
-            document.getElementById('form_heading').innerHTML = "Existing Customer";
+    <script src="/assets/vendor_components/select2/dist/js/select2.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        function fetchcustomer() {
+
+            $id = document.getElementById("select_customer").value;
+            $.ajax({
+                type: "GET",
+                data: {
+                    'find': $id
+                },
+                url: "{{ URL::to('fetchcustomer') }}",
+
+
+                success: function(response) {
+
+
+                    $('#Customer_Name').val(response.customers.Customer_Name);
+                    $('#POC_Name').val(response.customers.POC_Name);
+                    $('#Contact_Number').val(response.customers.Contact_Number);
+                    $('#Email').val(response.customers.Email);
+                    $('#Industry').val(response.customers.Industry);
+                    $('#Lead_Source_name').val(response.customers.Lead_Source);
+                    $('#First_Contact_Date').val(response.customers.First_Contact_Date);
+                    $('#id_update').val(response.customers.id);
+
+
+                    // $('#pin').val(data.pincode);
+                }
+            });
         }
-        var a = document.getElementById("newcustomerform");
-        var c = document.getElementById("create_new_customer");
-
-        c.addEventListener("click", function() {
-            console.log("clicked");
-            a.style.display = "block";
-            document.getElementById('check').style.display = "none";
-        });
     </script>
 
 
 
     <script>
-        // var date = new Date()
-        // var day = date.getDate();
-        // var month = date.getMonth()+1;
-        // var year = date.getFullYear();
+        function show_form() {
 
-        // var fullDate = `${day}.${month}.${year}.`;
-        // console.log(fullDate);
+            var a = document.getElementById("newcustomerform");
+            // console.log(document.getElementById("select_customer").value);
+            if (document.getElementById("select_customer").value == 'create_new') {
+
+                console.log("clicked");
+                a.style.display = "block";
+                document.getElementById('append_form').style.display = "none";
+
+            } else {
+
+
+
+                console.log('fetchcustomer');
+
+                let gud = document.getElementById("newcustomerform").innerHTML;
+
+                a.style.display = "none";
+                document.getElementById('append_form').style.display = "block";
+                document.getElementById('append_form').innerHTML = gud;
+                document.getElementById('form_heading').innerHTML = "Existing Customer";
+                document.getElementById("select_customer").value;
+                document.getElementById("myLeadform").action = "demo";
+
+
+                document.getElementById('saveLead').innerHTML = "Save"; //changed From Update To save
+
+                fetchcustomer();
+
+
+
+
+            }
+
+
+
+
+
+
+        }
     </script>
+
+
+    <script>
+        $('#select_customer').select2();
+    </script>
+
+
+
+
+
+    {{-- <script>
+        $(document).on('click', '#okSave', function() {
+            //alert('theer');
+            $('#flag').val(1);
+            $('#myLeadform').submit();
+
+        })
+    </script> --}}
+
+
+
 @endsection
