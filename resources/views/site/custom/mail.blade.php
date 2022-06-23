@@ -11,12 +11,13 @@
 <body>
 
 
-    <form action="#" style="border: 2px solid black; font-weight:900;">
+    <form style="display: flex; justify-content:center">
 
 
-        <h1>{{ $remarks }}
-        </h1>
-        <h1>{{ $followupdate }}</h1>
+        <h1>Remarks</h1><br>
+        <p>{{ $remarks }}</p><br>
+        <h1>Follow-Up Date</h1><br>
+        <p>{{ $followupdate }}</p>
 
     </form>
 

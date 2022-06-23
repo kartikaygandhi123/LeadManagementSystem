@@ -14,7 +14,7 @@ class FollowupController extends Controller
     {
 
         $stage = Lead::where('id', $id)->first();
-        // dd($stage);
+
 
         return view('site.custom.followup', ['stage' => $stage]);
     }
@@ -37,8 +37,7 @@ class FollowupController extends Controller
             $message->to('kartikaygandhi123@gmail.com')->subject('FollowUp');
         });
 
-        // return "sent";
+
         return redirect('createleadshow')->with('success', 'email scheduled');
-        // return "Your email has been sent successfully";
     }
 }

@@ -17,8 +17,8 @@ class createLeadController extends Controller
         $leadsource = LeadSource::get();
         $lead = Lead::get();
 
+        // return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
         return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
-        // return view('site.testform', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
     }
 
     function fetchcustomer(Request $req)
