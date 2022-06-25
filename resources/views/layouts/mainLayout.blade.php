@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="icon" href="../images/favicon.ico" />
+    <link rel="icon" href="/images/favicon.ico" />
 
     <title>LMS</title>
 
@@ -15,16 +15,16 @@
 
 
     <!-- Bootstrap 4.0-->
-    <link rel="stylesheet" href="../assets/vendor_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/vendor_components/bootstrap/dist/css/bootstrap.css" />
 
     <!-- Bootstrap extend-->
-    <link rel="stylesheet" href="css/bootstrap-extend.css" />
+    <link rel="stylesheet" href="/css/bootstrap-extend.css" />
 
     <!-- theme style -->
-    <link rel="stylesheet" href="css/master_style.css" />
+    <link rel="stylesheet" href="/css/master_style.css" />
 
     <!-- NeoX Admin skins -->
-    <link rel="stylesheet" href="css/skins/_all-skins.css" />
+    <link rel="stylesheet" href="/css/skins/_all-skins.css" />
     @yield('style')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -94,10 +94,10 @@
 
 
     <!-- jQuery 3 -->
-    <script src="../assets/vendor_components/jquery/dist/jquery.js"></script>
+    <script src="/assets/vendor_components/jquery/dist/jquery.js"></script>
 
     <!-- jQuery UI 1.11.4 -->
-    <script src="../assets/vendor_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -105,44 +105,44 @@
     </script>
 
     <!-- popper -->
-    <script src="../assets/vendor_components/popper/dist/popper.min.js"></script>
+    <script src="/assets/vendor_components/popper/dist/popper.min.js"></script>
 
     <!-- Bootstrap 4.0-->
-    <script src="../assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
 
     <!-- Slimscroll -->
-    <script src="../assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- FastClick -->
-    <script src="../assets/vendor_components/fastclick/lib/fastclick.js"></script>
+    <script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 
     <!-- apexcharts -->
-    <script src="../assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
-    <script src="../assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+    <script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
+    <script src="/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
     <!-- peity -->
-    <script src="../assets/vendor_components/jquery.peity/jquery.peity.js"></script>
+    <script src="/assets/vendor_components/jquery.peity/jquery.peity.js"></script>
 
     <!-- NeoX Admin App -->
-    <script src="js/template.js"></script>
+    <script src="/js/template.js"></script>
 
     <!-- NeoX Admin dashboard demo (This is only for demo purposes) -->
-    <script src="js/pages/dashboard.js"></script>
+    <script src="/js/pages/dashboard.js"></script>
 
     <!-- NeoX Admin for demo purposes -->
-    <script src="js/demo.js"></script>
+    <script src="/js/demo.js"></script>
 
 
-    <script src="../../../assets/vendor_components/datatable/datatables.min.js"></script>
+    <script src="/assets/vendor_components/datatable/datatables.min.js"></script>
 
     <!-- NeoX Admin for Data Table -->
-    <script src="js/pages/data-table.js"></script>
+    <script src="/js/pages/data-table.js"></script>
 
     {{-- select2 --}}
-    {{-- <script src="../../../assets/vendor_components/select2/dist/js/select2.full.js"></script> --}}
+    {{-- <script src="///assets/vendor_components/select2/dist/js/select2.full.js"></script> --}}
 
 
-    <script src="js/app.js"></script>
+    <script src="/js/app.js"></script>
 
 
 </body>

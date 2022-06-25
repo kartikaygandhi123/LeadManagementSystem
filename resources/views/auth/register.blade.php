@@ -1,77 +1,149 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../images/favicon.ico">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <title> Registration </title>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="../../../assets/vendor_components/bootstrap/dist/css/bootstrap.min.css">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+    <!-- Bootstrap extend-->
+    <link rel="stylesheet" href="../../css/bootstrap-extend.css">
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../css/master_style.css">
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+    <!-- NeoX Admin skins -->
+    <link rel="stylesheet" href="../../css/skins/_all-skins.css">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+ <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+ <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+ <![endif]-->
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+</head>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+<body class="hold-transition bg-img" style="background-image:url(../../../images/holisol.jpg)" data-overlay=5>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+    <div class="container pt-3 h-p100">
+        <div class="row h-p100 justify-content-sm-center align-items-center">
+            <div class="col-sm-6 col-md-4">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                <div class="card border-info text-center">
+                    <div class="card-header">
+                        Register a new User
+                    </div>
+                    <div class="card-body">
+                        <img src="../../../images/holi.png" class="img-fluid rounded-circle w-150 mb-10">
+                        <h4 class="text-center mb-20">LMS Registration</h4>
+                        <form action="{{ route('register') }}" method="POST" class="form-signin">
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            @if (Session::get('success'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
+                            @if (Session::get('error'))
+                                <div class="alert alert-danger">
+                                    {{ Session::get('error') }}
+                                </div>
+                            @endif
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                            @csrf
+                            <input id="name" type="text"
+                                class="form-control mb-2 @error('name') is-invalid @enderror" name="name"
+                                value="{{ old('name') }}" placeholder="Name" autocomplete="name" autofocus>
+
+                            <span class="invalid-feedback" role="alert"><strong>
+                                    @error('name')
+                                        {{ $message }}
+                                    @enderror
+                                </strong></span>
+
+
+
+                            <input id="email" type="email"
+                                class="form-control mb-2 @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" placeholder="Email" autocomplete="email">
+
+                            <span class="invalid-feedback" role="alert"><strong>
+                                    @error('email')
+                                        {{ $message }}
+                                    @enderror
+                                </strong></span>
+
+
+
+                            <input id="password" type="password"
+                                class="form-control mb-2 @error('password') is-invalid @enderror" name="password"
+                                placeholder="Password" autocomplete="new-password">
+
+                            <span class="invalid-feedback" role="alert"><strong>
+                                    @error('password')
+                                        {{ $message }}
+                                    @enderror
+                                </strong></span>
+
+
+
+
+
+
+
+
+
+
+                            <input id="password-confirm" type="password" class="form-control mb-2"
+                                name="password_confirmation" placeholder="Retype Password" autocomplete="new-password">
+
+
+                            <span class="invalid-feedback" role="alert"><strong>
+                                    @error('password_confirmation')
+                                        {{ $message }}
+                                    @enderror
+                                </strong></span>
+
+
+
+                            <button class="btn btn-lg btn-primary btn-block mb-20"
+                                type="submit">{{ __('Register') }}</button>
+
+
+
+
+
+
+                        </form>
+                    </div>
                 </div>
+                <p class="float-right text-white"><b>Already have an
+                        account?</b><a href="{{ route('login') }}" class="text-primary m-l-5">
+                        Log In</a></p>
             </div>
         </div>
     </div>
-</div>
-@endsection
+
+
+    <!-- jQuery 3 -->
+    <script src="../../../assets/vendor_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- popper -->
+    <script src="../../../assets/vendor_components/popper/dist/popper.min.js"></script>
+
+    <!-- Bootstrap 4.0-->
+    <script src="../../../assets/vendor_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

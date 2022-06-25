@@ -64,17 +64,17 @@
                     <ul class="dropdown-menu scale-up">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="../images/user5-128x128.jpg" class="float-left rounded-circle" alt="User Image" />
+                            <img src="../images/login.png" class="float-left rounded-circle" alt="User Image" />
 
                             <p>
                                 {{ Auth::user()->name }}
                             </p>
                         </li>
 
-                        < <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row no-gutters">
-                                    {{-- <div class="col-12 text-left">
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row no-gutters">
+                                {{-- <div class="col-12 text-left">
                                     <a href="#"><i class="ion ion-person"></i> My Profile</a>
                                 </div>
                                 <div class="col-12 text-left">
@@ -88,21 +88,21 @@
                                     <a href="#"><i class="ti-settings"></i> Account Setting</a>
                                 </div>
                                 <div role="separator" class="divider col-12"></div> --}}
-                                    <div class="col-12 text-left">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                                <div class="col-12 text-left">
+                                    <a class="dropdown-item" href="{{ route('logout') }} "
+                                        onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
+                                        {{ __('Logout') }}
+                                    </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
-                                <!-- /.row -->
-                            </li>
+                            </div>
+                            <!-- /.row -->
+                        </li>
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->

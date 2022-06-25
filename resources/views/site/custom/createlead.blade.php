@@ -265,12 +265,12 @@
                 data: {
                     'find': $id
                 },
-                url: "{{ URL::to('fetchcustomer') }}",
+                url: "{{ URL::to('admin/fetchcustomer') }}",
 
 
                 success: function(response) {
 
-
+                    console.log(response);
                     $('#Customer_Name').val(response.customers.Customer_Name);
                     $('#POC_Name').val(response.customers.POC_Name);
                     $('#Contact_Number').val(response.customers.Contact_Number);

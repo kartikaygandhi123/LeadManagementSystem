@@ -8,7 +8,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form action="/sendhtmlemail" method="POST" enctype="multipart/form-data" class="form-horizontal form-element">
+        <form action="/user/sendhtmlemail" method="POST" enctype="multipart/form-data" class="form-horizontal form-element">
             @csrf
             <div class="box-body">
 

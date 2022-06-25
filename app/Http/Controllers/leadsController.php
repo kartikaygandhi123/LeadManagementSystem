@@ -48,7 +48,9 @@ class leadsController extends Controller
     {
         // $data = Lead::where('id', $req->id)->get();
         $id = $req->id;
+
         $data = Lead::find($req->id);
+
         $data->Customer_Name = $req->Customer_Name;
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;

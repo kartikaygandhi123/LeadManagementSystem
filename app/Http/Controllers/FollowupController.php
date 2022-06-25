@@ -38,6 +38,6 @@ class FollowupController extends Controller
         });
 
 
-        return redirect('createleadshow')->with('success', 'email scheduled');
+        return redirect('admin/createleadshow')->with('success', 'email scheduled');
     }
 }
