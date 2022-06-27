@@ -1,6 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -11,70 +15,55 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-         DB::table('users')->insert([
-        	['zoho_user_id'=> 'zcrm_3021791000005989120','name' => 'Aditya Arya', 'email' => 'arya.aditya@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$.7VxqYp0Qy.L.ev8kcFWrea0B7FlZwKHWPWqVPKU8UXK8YdwsJtmC', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0],
-            ['zoho_user_id'=> 'zcrm_3021791000000187311','name' => 'Sandeep Kumar', 'email' => 'sandeep.kumar@holisolindia.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000187321','name' => 'Vivek Kamath', 'email' => 'vivek.kamath@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000187834','name' => 'Pratyaksh Verma', 'email' => 'pratyaksh.verma@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000187868','name' => 'John Paul', 'email' => 'john.paul@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000187884','name' => 'Rupesh Kumar', 'email' => 'rupesh.kumar@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000243003','name' => 'Dheeraj Sharma', 'email' => 'dheeraj.sharma@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000365004','name' => 'Geetanshu Chaudhary', 'email' => 'geetanshu.chaudhary@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371069','name' => 'Kamal Singh', 'email' => 'kamal.singh@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371137','name' => 'Rupesh Choudhary', 'email' => 'rupesh.choudhary@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371178','name' => 'R Shridhar Shridhar', 'email' => 'r.shridhar@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371190','name' => 'Vikram Verma', 'email' => 'vikram.verma@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371086','name' => 'Ajit Sharma', 'email' => 'ajit.sharma@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000187876','name' => 'Ajay Kanwar', 'email' => 'ajay.kanwar@holisolindia.com', 'role_id' => '1', 'password' => '$2y$10$7pyvLWSsY1L9uIu0h5ye0.pJUdg0mCKrd3zPmXUz4bODeY//S/1Ja', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000195003','name' => 'Anoop Raizada', 'email' => 'anoop.raizada@holisolindia.com', 'role_id' => '1', 'password' => '$2y$10$0dQJXI.9qAWkz2hTeROsruhx6Bkj4R5YCC4k9TFSYqfnTnht/OF8y', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000408004','name' => 'Arindam Bhattacharya', 'email' => 'arindam.bhattacharya@holisollogistics.com', 'role_id' => '2', 'password' =>'$2y$10$69Y2fmtF92R1mmOU1nBLEeyLC08FSZJky.mWpTMpuq2w4pOfHDhQa', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000006847172','name' => 'Arpit Shankar', 'email' => 'arpit.shankar@holisollogistics.com', 'role_id' => '2', 'password' =>'$2y$10$pLrq5EtrrONQkbM88fRp2.K6nNbFVtyOvKaysf.402nRaSwZhj8rK', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000371098','name' => 'Ashish Sharma', 'email' => 'ashish.sharma@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$jGgXfxl6s0kkw/CjARFPMueKUCS.KQkQ1P.qLAWi.tScVtsFmpv9q', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000007987006','name' => 'Dharm Pal', 'email' => 'dharm.pal@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$gDZ/SFgn/qxpoXh1IkFxouHFXhpwWbRcP3Sg3vlyyFRjUN6/iB/V.', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000138011','name' => 'Kiran Chopra', 'email' => 'kiran.chopra@holisollogistics.com', 'role_id' => '1', 'password' => '$2y$10$jjReaMCnlGT10etrPXMQ1O.04yu5o/Bsm2q7yfSpAb9SoA22NFD1K', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000006062064','name' => 'Kshitij Sharma', 'email' => 'kshitij.sharma@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$fiP6DXMdwPvnRhqtK.Ucf.0HgkNCQGL9J6Td2X1muFhx4vXIn9DPG', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000374031','name' => 'Manish Ahuja', 'email' => 'manish.ahuja@holisolindia.com', 'role_id' => '1', 'password' => '$2y$10$LB.SZNIJgURNUmrsUW9L5.8y3OxGA2dkNERPqbolmB96fZs32a7X6', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000374041','name' => 'Naveen Rawat', 'email' => 'naveen.rawat@holisolindia.com', 'role_id' => '1', 'password' => '$2y$10$TFYcwYhp4Fp8F56xJcKc5.kb/u6abZrC.USKPLQTXuhAAQvRBcztm', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000371154','name' => 'Nihar Parida', 'email' => 'nihar.parida@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$hlKABi57xb5YPUOOjXvCbOI0ID.QZNu3q3VQ.zb55c4qJ1VT5LkwC', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000006562106','name' => 'Pavan kumar Yadav', 'email' => 'pavan.yadav@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$NJL2nMXvDfmdXtWsNj0vKeU2jG7iSLC8.qV2QkDtnM/EyG3OB6KjG', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000187844','name' => 'Rahul Dogar', 'email' => 'rahulsdogar@holisolindia.com', 'role_id' => '1', 'password' => '$2y$10$ArOHiiLUUwortIH8CsUdn.6D2S/nS4E/U52NEw02.JKrPbrYYWJPe', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000005857003','name' => 'Saurabh Singh', 'email' => 'saurabh.singh@holisollogistics.com', 'role_id' => '1', 'password' => '$2y$10$TyT8eGZEoJFUgmicW4tbq.zadSaoAsV1QNEPPF/z1V4numAN8g452', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000187860','name' => 'Shailendra Parkar', 'email' => 'shailendra.parkar@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$.cYNgKYxN0IMDXQ15ugmpe9ze6bid2qzbiNd2zqM8YaU4VJT0FX9e', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000187852','name' => 'Shalin Sharma', 'email' => 'shalin.sharma@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$eRr0ga81kEwzJCAyBxSi.OwcZbK2etSi3gkOOE12/ZH2h303hw1Fa', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000001012001','name' => 'Shubham Sharma', 'email' => 'shubham.sharma@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$UXF/QbKMo37GX5bqHJi5w.Ht7C2wvmC3wGU4p09xnckWkbfQ/1sAO', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1,'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000000402001','name' => 'Umang Gaur', 'email' => 'umang.gaur@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$VJuNNsSfV6DuD/jEW5ROi.jp3.Hr6hBqXrL1sqyt3taPtcuYP2VYO', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-        	['zoho_user_id'=> 'zcrm_3021791000006562148','name' => 'Vikram Sen', 'email' => 'vikram.sen@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$Ef.PnwYzuyGfxjnEnN1.8u4b5/HmSftOsJI6J5EJv2UA7/IyYSpIC', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-        	['zoho_user_id'=> 'zcrm_3021791000005989097','name' => 'Yashraj Rao', 'email' => 'yashraj.rao@holisollogistics.com', 'role_id' => '2', 'password' => '$2y$10$Xcoq.JTyswJr8x6gJcUQOOuml8Z7RQSNYw0MeuMyjtFG290F9IuSW', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371207','name' => 'Krishna Chander', 'email' => 'krishna.chander@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371224','name' => 'Satendra Kumar Pathak', 'email' => 'satendra.pathak@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371241','name' => 'Akash Shukla', 'email' => 'akash.shukla@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000371253','name' => 'Piyush Kamra', 'email' => 'piyush.kamra@holisolindia.com', 'role_id' => '2', 'password' => '$2y$10$SJa67btPDWv0vkk6belcBuWHnpm.mHupQ3kkzcYcUD9t8uSpVe/Yy', 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 1],
-            ['zoho_user_id'=> 'zcrm_3021791000000371265','name' => 'Mukul Chaudhary', 'email' => 'mukul.chaudhary@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000408032','name' => 'Sathish Jayakumar', 'email' => 'sathish.j@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-            ['zoho_user_id'=> 'zcrm_3021791000000408047','name' => 'Suraj Narang', 'email' => 'suraj.narang@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-             ['zoho_user_id'=> 'zcrm_3021791000001087001','name' => 'Dhananjay Johri', 'email' => 'dhananjay.johri@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-             ['zoho_user_id'=> 'zcrm_3021791000001150001','name' => 'Ashish Chakravarti', 'email' => 'e-ashish.chakravarti@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-             ['zoho_user_id'=> 'zcrm_3021791000001534101','name' => 'Shubham Agrawal', 'email' => 'shubham.agrawal@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-             ['zoho_user_id'=> 'zcrm_3021791000002500004','name' => 'Srinivasan Choks', 'email' => 'srinivasan.choks@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-              ['zoho_user_id'=> 'zcrm_3021791000003619018','name' => 'Munendra Yadav', 'email' => 'munendra.yadav@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-               ['zoho_user_id'=> 'zcrm_3021791000003619090','name' => 'Saransh Paul', 'email' => 'saransh.paul@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                ['zoho_user_id'=> 'zcrm_3021791000003920002','name' => 'Abhinav Sharma', 'email' => 'abhinav@holisolpeople.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000004070005','name' => 'Manjit Kaur', 'email' => 'manjit.kaur@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000004070023','name' => 'Ashutosh Kumar', 'email' => 'ashutosh.kumar1@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000004270004','name' => 'Parag Bansal', 'email' => 'parag.bansal@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000004661142','name' => 'Sourabh Chakravorty', 'email' => 'sourabh.chakravorty@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000005657003','name' => 'Vivek Sinha', 'email' => 'vivek.sinha@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000005694001','name' => 'Viraj Lal', 'email' => 'viraj.lal@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000006562127','name' => 'Rajeev Nadda', 'email' => 'rajeev.nadda@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000006847193','name' => 'Kanishk Mittal', 'email' => 'kanishk.mittal@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000007293218','name' => 'Ashutosh Singh', 'email' => 'ashutosh.singh@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> 'zcrm_3021791000008064010','name' => 'Saurav Bawa', 'email' => 'saurav.bawa@holisollogistics.com', 'role_id' => '2', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' => 0 ],
-                 ['zoho_user_id'=> '','name' => 'Super Admin', 'email' => 'super.admin@holisollogistics.com', 'role_id' => '3', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' =>  1],
-                 ['zoho_user_id'=> 'zcrm_3021791000008064010','name' => 'Super Admin', 'email' => 'super.admin@holisollogistics.com', 'role_id' => '3', 'password' => Hash::make('secret'), 'created_at' => date('Y-m-d H:i:s'), 'department_role_id' => 1, 'cities_id' => 14, 'contact_id' => 1, 'active' =>  1],
-
-
+        DB::table('users')->insert([
+            'role_id' => '1',
+            'name' => 'Retail BD Head',
+            'email' => 'retailbdhead@gmail.com',
+            'password' => bcrypt('pass@admin'),
         ]);
-        DB::table('users')->where('org_id',null)->update(['org_id'=>1]);
+
+        DB::table('users')->insert([
+            'role_id' => '2',
+            'name' => 'IPL BD Head',
+            'email' => 'iplbdhead@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+
+        DB::table('users')->insert([
+            'role_id' => '3',
+            'name' => 'Tech BD Head',
+            'email' => 'techbdhead@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+        DB::table('users')->insert([
+            'role_id' => '4',
+            'name' => 'Retail BD',
+            'email' => 'retailbd@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+        DB::table('users')->insert([
+            'role_id' => '5',
+            'name' => 'Tech BD',
+            'email' => 'techbd@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+        DB::table('users')->insert([
+            'role_id' => '6',
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+        DB::table('users')->insert([
+            'role_id' => '7',
+            'name' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
+        DB::table('users')->insert([
+            'role_id' => '8',
+            'name' => 'IPL BD',
+            'email' => 'iplbd@gmail.com',
+            'password' => bcrypt('pass@admin'),
+        ]);
     }
 }

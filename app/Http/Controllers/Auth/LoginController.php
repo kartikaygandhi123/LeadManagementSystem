@@ -28,17 +28,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     protected function redirectTo()
     {
-
-        if (Auth()->user()->role_id == 7) {
-
-            return route('admin.dashboard');
-        } elseif (Auth()->user()->role_id == 1) {
-            return route('user.dashboard');
-        }
+        // 
     }
 
     /**
@@ -48,7 +42,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-
         $this->middleware('guest')->except('logout');
     }
 
@@ -61,6 +54,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
+        // dd('here');
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
 
             if (auth()->user()->role_id == 7) {
@@ -68,10 +62,12 @@ class LoginController extends Controller
             } elseif (auth()->user()->role_id == 1) {
 
                 return redirect()->route('user.dashboard');
+            } else {
+                return view('site.errorinternal');
             }
         } else {
 
-            return redirect()->route('login')->with('error', 'Email And Password Combination is wrong');
+            return redirect()->route('login')->with('error', 'Email And Password Combination is Wrong');
         }
     }
 }

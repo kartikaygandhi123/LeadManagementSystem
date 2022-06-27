@@ -4,7 +4,7 @@
         <span class="sr-only">Toggle navigation</span>
     </a>
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a href="#" class="logo">
         <!-- mini logo -->
         <b class="logo-mini">
             <span class="light-logo"><img src="../images/logo-light.png" alt="logo" /></span>

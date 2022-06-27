@@ -41,6 +41,7 @@
         @include('layouts.header')
 
         <!-- Left side column. contains the logo and sidebar -->
+
         @include('layouts.asideL')
 
         <div class="content-wrapper">
