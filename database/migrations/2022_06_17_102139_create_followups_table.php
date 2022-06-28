@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('followups', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('lead_id')->nullable();
+
+
+            $table->string('Follow_up_date')->nullable();
+
+
+            $table->string('remarks')->nullable();
+
+
+
             $table->timestamps();
         });
     }

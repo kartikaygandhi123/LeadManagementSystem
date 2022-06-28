@@ -67,7 +67,7 @@ class leadsController extends Controller
 
 
         if ($req->Lead_Status == "Prospect") {
-            return view('site.custom.followup', ['data' => $data]);
+            return view('site.custom.followup', ['data' => $data, 'id' => $id]);
         } elseif ($req->Lead_Status == "Qualified")
             return view('site.custom.requirementsmapshow', ['data' => $data]);
 

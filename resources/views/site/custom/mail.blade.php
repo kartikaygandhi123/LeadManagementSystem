@@ -11,6 +11,7 @@
     </style>
 </head>
 
+
 <body>
     <div style="margin:0;padding:0">
         <div class="adM"> </div>
@@ -71,14 +72,17 @@
 
                                                             <h3>Remarks:
                                                                 <b>
-                                                                    <font style="color:green">{{ $remarks }}
+                                                                    {{-- {{ dd($followup->Remarks) }} --}}
+                                                                    <font style="color:#17a2b8">{{ $remarks }}
                                                                     </font>
                                                                 </b>
                                                             </h3>
 
                                                             <h3>Follow-Up Date :
                                                                 <b>
-                                                                    <font style="color:green">{{ $followupdate }}
+                                                                    <font style="color:#17a2b8">
+
+                                                                        {{ $date }}
                                                                     </font>
                                                                 </b>
                                                             </h3>

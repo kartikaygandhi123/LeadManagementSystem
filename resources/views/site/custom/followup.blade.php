@@ -7,7 +7,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form action="/admin/sendhtmlemail" method="POST" enctype="multipart/form-data" class="form-horizontal form-element">
+        <form action="/admin/savefollowup" method="POST" enctype="multipart/form-data" class="form-horizontal form-element">
             @csrf
             <div class="box-body">
 
@@ -18,6 +18,8 @@
                     <!-- /.input group -->
 
                     <div class="form-group row">
+                        <input type="hidden" value="{{ $id }}" name="id">
+
                         <label for="example-text-input" class="col-sm-5 col-form-label">Remarks:</label>
                         <div class="col-sm-10">
                             {{-- <input class="form-control" type="text" value="Johen Doe" id="example-text-input"> --}}

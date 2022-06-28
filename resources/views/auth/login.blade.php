@@ -118,7 +118,7 @@
 
 
 
-                            <button class="btn btn-lg btn-success btn-block mb-20"
+                            <button class="btn btn-lg btn-primary btn-block mb-20"
                                 type="submit">{{ __('Login') }}</button>
                             @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">

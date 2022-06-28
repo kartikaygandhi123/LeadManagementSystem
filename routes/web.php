@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::view('test', 'site.custom.mail');
 
 // Route::get('dashboard', function () {
 //     return view('dashboard');
@@ -74,7 +74,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventB
     Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
-    Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
+    // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
 
 });
 
@@ -108,5 +109,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'PreventBac
     Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
-    Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
+    Route::post('sendhtmlemail', [FollowupController::class, 'saveFollowup']);   // Mail
 });
