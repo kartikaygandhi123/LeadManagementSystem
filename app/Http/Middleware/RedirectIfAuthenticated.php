@@ -24,11 +24,23 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
 
 
-            if (Auth::guard($guard)->check() && Auth::user()->role_id == 7) {
+            if (Auth::guard($guard)->check() && Auth::user()->role_id == 1) {
 
+                return redirect()->route('retailbdhead.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 2) {
+                return redirect()->route('iplbdhead.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 3) {
+                return redirect()->route('techbdhead.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 4) {
+                return redirect()->route('retailbd.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 5) {
+                return redirect()->route('techbd.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 6) {
                 return redirect()->route('admin.dashboard');
-            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 1) {
-                return redirect()->route('user.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 7) {
+                return redirect()->route('superuser.dashboard');
+            } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 8) {
+                return redirect()->route('iplbd.dashboard');
             } else {
                 return $next($request);
             }

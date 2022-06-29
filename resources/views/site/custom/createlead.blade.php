@@ -265,7 +265,7 @@
                 data: {
                     'find': $id
                 },
-                url: "{{ URL::to('admin/fetchcustomer') }}",
+                url: "{{ URL::to('fetchcustomer') }}",
 
 
                 success: function(response) {
