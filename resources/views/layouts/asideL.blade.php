@@ -11,41 +11,45 @@
                 </a>
 
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="iconsmind-Air-Balloon"></i>
-                    <span>Masters</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
-                    </li>
-                    <li>
-                        <a href="allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
-                    </li>
-                    <li>
-                        <a href="alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All Departments</a>
-                    </li>
-                    <li>
-                        <a href="allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
-                    </li>
-                    <li>
-                        <a href="allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All LeadSource</a>
-                    </li>
-                    <li>
-                        <a href="allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB Service</a>
-                    </li>
-                    <li>
-                        <a href="allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All Business</a>
-                    </li>
-                    <li>
-                        <a href="allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
-                    </li>
-                </ul>
-            </li>
+
+
+            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+                <li class="treeview">
+                    <a href="#">
+                        <i class="iconsmind-Air-Balloon"></i>
+                        <span>Masters</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
+                        </li>
+                        <li>
+                            <a href="allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
+                        </li>
+                        <li>
+                            <a href="alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All Departments</a>
+                        </li>
+                        <li>
+                            <a href="allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
+                        </li>
+                        <li>
+                            <a href="allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All LeadSource</a>
+                        </li>
+                        <li>
+                            <a href="allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB Service</a>
+                        </li>
+                        <li>
+                            <a href="allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All Business</a>
+                        </li>
+                        <li>
+                            <a href="allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
             <li>
                 <a href="leadsshow">
                     <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
@@ -70,14 +74,14 @@
                     </span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="opportunitiesshow">
                     <i class="iconsmind-Cloud-Email"></i> <span>Opportunities</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a href="reportsshow">
                     <i class="iconsmind-Bar-Chart"></i> <span>Reports</span>

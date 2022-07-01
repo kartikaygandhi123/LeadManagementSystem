@@ -83,7 +83,10 @@
         @include('layouts.footer')
 
         <!-- Control Sidebar -->
-        @include('layouts.asideR')
+
+        @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+            @include('layouts.asideR')
+        @endif
         <!-- /.control-sidebar -->
 
         <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->

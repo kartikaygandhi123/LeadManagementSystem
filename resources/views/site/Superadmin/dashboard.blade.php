@@ -39,9 +39,9 @@
     <section class="content">
         <div class="row">
             <div class="col-xl-3 col-md-6 col-12">
-                <div class="box box-body bg-primary">
+                <div class="box box-body bg-success">
                     <div class="flexbox">
-                        <div id="spark1"></div>
+                        {{-- <div id="spark1"></div> --}}
                         <span class="font-size-40 font-weight-200">{{ $leads }}</span>
                     </div>
                     <div class="text-right">Leads</div>
@@ -51,7 +51,7 @@
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="box box-body bg-danger">
                     <div class="flexbox">
-                        <div id="spark2"></div>
+
                         <span class="font-size-40 font-weight-200">{{ $stages }}</span>
                     </div>
                     <div class="text-right">Stages</div>
@@ -61,7 +61,7 @@
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="box box-body bg-warning">
                     <div class="flexbox">
-                        <div id="spark3"></div>
+
                         <span class="font-size-40 font-weight-200">{{ $industry }}</span>
                     </div>
                     <div class="text-right">Industries</div>
@@ -71,10 +71,10 @@
             <div class="col-xl-3 col-md-6 col-12">
                 <div class="box box-body bg-info">
                     <div class="flexbox">
-                        <div id="spark4"></div>
-                        <span class="font-size-40 font-weight-200">16,568</span>
+
+                        <span class="font-size-40 font-weight-200">{{ $usercount }}</span>
                     </div>
-                    <div class="text-right">Income</div>
+                    <div class="text-right">Users</div>
                 </div>
             </div>
             <!-- /.col -->
@@ -90,7 +90,7 @@
     {{-- Leads --}}
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
-            <h4 class="box-title">Leads</h4>
+            <h4 class="box-title">Users</h4>
             <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
         </div>
         <!-- /.box-header -->
@@ -99,29 +99,22 @@
                 <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                     <thead>
                         <tr>
-                            <th>Customer_Name</th>
-                            <th>Contact_Number</th>
-                            <th>POC_Name</th>
-                            <th>Industry</th>
-                            <th>Lead_Source</th>
+                            <th>Role_Id</th>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>First_Contact_Date</th>
-                            <th>Lead_Status</th>
+                            <th>Role Name</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($leadsname as $item)
+                        @foreach ($users as $user)
                             <tr>
-                                <td>{{ $item['Customer_Name'] }}</td>
-                                <td>{{ $item['Contact_Number'] }}</td>
-                                <td>{{ $item['POC_Name'] }}</td>
-                                <td>{{ $item['Industry'] }}</td>
-                                <td>{{ $item['Lead_Source'] }}</td>
-                                <td>{{ $item['Email'] }}</td>
-                                <td>{{ $item['First_Contact_Date'] }}</td>
-                                <td>{{ $item['Lead_Status'] }}</td>
+                                <td>{{ $user['role_id'] }}</td>
+                                <td>{{ $user['name'] }}</td>
+                                <td>{{ $user['email'] }}</td>
+                                <td>{{ $user->roles->role_name ?? '' }}</td>
                             </tr>
                         @endforeach
 
@@ -129,14 +122,10 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Customer_Name</th>
-                            <th>Contact_Number</th>
-                            <th>POC_Name</th>
-                            <th>Industry</th>
-                            <th>Lead_Source</th>
+                            <th>Role_Id</th>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>First_Contact_Date</th>
-                            <th>Lead_Status</th>
+                            <th>Role Name</th>
                         </tr>
                     </tfoot>
                 </table>

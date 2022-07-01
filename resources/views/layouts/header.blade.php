@@ -106,9 +106,12 @@
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="iconsmind-Gears-2"></i></a>
-                </li>
+
+                @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="iconsmind-Gears-2"></i></a>
+                    </li>
+                @endif
 
             </ul>
         </div>

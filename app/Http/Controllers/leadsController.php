@@ -10,23 +10,39 @@ class leadsController extends Controller
 {
     function leadsShow()
     {
-        $leads = Lead::get();
+        $leads = Lead::with('created_by_user')->get();
+        //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
     function store(Request $req)
     {
 
+
+        $this->validate(
+            $req,
+            [
+                'Customer_Name' => ['required', 'string', 'max:255'],
+                'Email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'Contact_Number' => ['required', 'min:10', 'numeric'],
+
+            ]
+        );
+
+
         $data = new Lead;
 
 
-        $data->Customer_Name = $req->Customer_Name;
-        $data->Contact_Number = $req->Contact_Number;
-        $data->POC_Name = $req->POC_Name;
-        $data->Industry = $req->Industry;
-        $data->Lead_Source = $req->Lead_Source;
-        $data->Email = $req->Email;
-        $data->First_Contact_Date = $req->First_Contact_Date;
-        $data->Lead_Status = $req->Lead_Status;
+        $data->Customer_Name = $req->Input(['Customer_Name']);
+        $data->Contact_Number = $req->Input(['Contact_Number']);
+        $data->POC_Name = $req->Input(['POC_Name']);
+        $data->Industry = $req->Input(['Industry']);
+        $data->Lead_Source = $req->Input(['Lead_Source_name']);
+
+        $data->Email = $req->Input(['Email']);
+        $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
+        $data->Lead_Status = $req->Input(['Lead_Status']);
+
+        $data->created_by = \auth()->user()->id;
 
         if ($data->save()) {
             $data->stage = "Lead";
@@ -46,6 +62,8 @@ class leadsController extends Controller
     }
     function update(Request $req)
     {
+
+
         // $data = Lead::where('id', $req->id)->get();
         $id = $req->id;
 
@@ -56,6 +74,7 @@ class leadsController extends Controller
         $data->POC_Name = $req->POC_Name;
         $data->Industry = $req->Industry;
         $data->Lead_Source = $req->Lead_Source;
+
         $data->Email = $req->Email;
         $data->First_Contact_Date = $req->First_Contact_Date;
         $data->Lead_Status = $req->Lead_Status;

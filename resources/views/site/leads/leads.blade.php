@@ -23,6 +23,8 @@
                             <th>Email</th>
                             <th>First_Contact_Date</th>
                             <th>Lead_Status</th>
+                            <th>Created By</th>
+
                             <th>Stage</th>
 
                         </tr>
@@ -38,8 +40,11 @@
                                 <td>{{ $item['Lead_Source'] }}</td>
                                 <td>{{ $item['Email'] }}</td>
                                 <td>{{ $item['First_Contact_Date'] }}</td>
+
+
                                 <td>{{ $item['Lead_Status'] }}</td>
-                                <td>{{ $item['stage'] }}</td>
+                                <td>{{ $item['created_by_user']['name'] }}</td>
+                                <td style="color: rgb(87, 209, 87)">{{ $item['stage'] }}</td>
                             </tr>
                         @endforeach
 
@@ -55,6 +60,9 @@
                             <th>Email</th>
                             <th>First_Contact_Date</th>
                             <th>Lead_Status</th>
+                            <th>Created By</th>
+
+                            <th>Stage</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -17,7 +17,7 @@ use App\Http\Controllers\mastersAllStageController;
 use App\Http\Controllers\opportunitiesController;
 use App\Http\Controllers\reportsController;
 use App\Http\Controllers\RequirementsMapController;
-use App\Http\Controllers\TechBdHeadController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventB
     Route::get('reportsshow', [reportsController::class, 'reportsShow']);
     // Masters
     Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
+    Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
     Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
     Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
@@ -80,39 +81,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventB
     Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
 
 });
-
-// User Routes
-
-// Route::group(['prefix' => 'user', 'middleware' => ['isUser', 'auth', 'PreventBackHistory']], function () {
-//     Route::get('dashboard', [DashboardController::class, 'dashboardShow'])->name('user.dashboard');
-
-//     Route::post('followupshow', [leadsController::class, 'store']);
-//     Route::post('demo', [leadsController::class, 'update']);
-
-//     Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-//     Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-//     Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-//     Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-//     Route::get('reportsshow', [reportsController::class, 'reportsShow']);
-//     // Masters
-//     Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-//     Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-//     Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-//     Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-//     Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-//     Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-//     Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-//     Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
-
-//     // Custom
-
-//     Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-//     //     Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
-//     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
-//     Route::post('sendhtmlemail', [FollowupController::class, 'saveFollowup']);   // Mail
-// });
-
 
 //1. retailbdhead
 
@@ -290,6 +258,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventB
     Route::get('reportsshow', [reportsController::class, 'reportsShow']);
     // Masters
     Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
+    Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
     Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
     Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
@@ -322,6 +291,7 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['isSuperAdmin', 'auth', 
     Route::get('reportsshow', [reportsController::class, 'reportsShow']);
     // Masters
     Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
+    Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
     Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
     Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);

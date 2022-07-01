@@ -166,8 +166,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer" style="justify-content: center">
-                <button type="submit" class="btn btn-default ">Cancel</button>
-                <button type="submit" class="btn btn-info ">Sign in</button>
+
+                <button type="submit" class="btn btn-success ">Save</button>
             </div>
             <!-- /.box-footer -->
         </form>

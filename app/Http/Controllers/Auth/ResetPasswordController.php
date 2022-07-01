@@ -33,9 +33,21 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         if (Auth::check() && Auth::user()->role_id == 1) {
-            $this->redirectTo = route('admin.dashboard');
+            $this->redirectTo = route('retailbdhead.dashboard');
         } elseif (Auth::check() && Auth::user()->role_id == 2) {
-            $this->redirectTo = route('user.dashboard');
+            $this->redirectTo = route('iplbdhead.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 3) {
+            $this->redirectTo = route('techbdhead.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 4) {
+            $this->redirectTo = route('retailbd.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 5) {
+            $this->redirectTo = route('techbd.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 6) {
+            $this->redirectTo = route('admin.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 7) {
+            $this->redirectTo = route('superuser.dashboard');
+        } elseif (Auth::check() && Auth::user()->role_id == 8) {
+            $this->redirectTo = route('iplbd.dashboard');
         }
 
         $this->middleware('guest')->except('logout');

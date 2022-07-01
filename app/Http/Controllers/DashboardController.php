@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\Stages;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,7 +19,10 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+
+        return view('dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
 
@@ -29,7 +33,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Retailbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Retailbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
     function IplBdHead(Request $req)
@@ -39,7 +45,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Iplbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Iplbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
     function TechBdHead(Request $req)
@@ -49,7 +57,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Techbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Techbdhead.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
 
@@ -60,7 +70,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Retailbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Retailbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
 
@@ -71,7 +83,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Techbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Techbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
     function Admin(Request $req)
@@ -81,7 +95,9 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Admin.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Admin.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
     function SuperAdmin(Request $req)
@@ -91,7 +107,11 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Superadmin.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+
+
+        return view('site.Superadmin.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 
     function IplBd(Request $req)
@@ -101,6 +121,8 @@ class DashboardController extends Controller
         $leadsname = Lead::get();
         $industry = Industry::count();
         $stages = Stages::count();
-        return view('site.Iplbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname]);
+        $usercount = User::count();
+        $users = User::with('roles')->get();
+        return view('site.Iplbd.dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
     }
 }
