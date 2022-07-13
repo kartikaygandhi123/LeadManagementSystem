@@ -232,8 +232,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
     Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 
-    // Stage
-    Route::get('stage', [StageController::class, 'Stage']);
+
 });
 
 

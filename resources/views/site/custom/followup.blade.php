@@ -37,7 +37,10 @@
 
                     <!-- /.input group -->
 
+
                     <div class="form-group row">
+
+
                         <input type="hidden" value="{{ $data->id }}" name="id">
 
                         <label for="example-text-input" class="col-sm-5 col-form-label">Remarks:</label>
@@ -46,6 +49,9 @@
                             <textarea class="form-control" type="text" value="" name="remarks" id="Remarks"></textarea>
                         </div>
                     </div>
+
+
+
                     <div class="form-group row">
                         <label for="example-date-input" class="col-sm-5 col-form-label">Follow-Up Date</label>
                         <div class="col-sm-10">
@@ -53,6 +59,9 @@
                                 id="Follow_Up_Date">
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
             <!-- /.box-body -->
