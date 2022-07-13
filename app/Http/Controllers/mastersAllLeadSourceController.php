@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllLeadSourceController extends Controller
 {
-    //
+
     function AllLeadSourceShow()
     {
         $leadsource = LeadSource::get();

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllStageController extends Controller
 {
-    //
+
     function AllStageShow()
     {
         $stages = Stages::get();

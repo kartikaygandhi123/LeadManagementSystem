@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllObServiceController extends Controller
 {
-    //
+
     function AllObServiceShow()
     {
         $lobservices = LobService::get();

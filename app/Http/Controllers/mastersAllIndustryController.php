@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllIndustryController extends Controller
 {
-    //
+
     function AllIndustryShow()
     {
 

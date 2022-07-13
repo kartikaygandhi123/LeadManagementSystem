@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllBusinessController extends Controller
 {
-    //
+
     function AllBusinessShow()
     {
         $business = AllBusiness::get();

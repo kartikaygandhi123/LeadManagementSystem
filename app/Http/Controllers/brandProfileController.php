@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class BrandProfileController extends Controller
 {
-    //
+
     function BrandShow()
     {
         $brand = Lead::get();

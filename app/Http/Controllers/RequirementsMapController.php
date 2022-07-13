@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class RequirementsMapController extends Controller
 {
-    //
+
     function RequirementsMapShow()
     {
 

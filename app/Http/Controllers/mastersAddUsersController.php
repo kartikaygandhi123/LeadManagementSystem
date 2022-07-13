@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class MastersAddUsersController extends Controller
 {
-    //
+
     function AddUsersShow()
     {
         $users = Role::get();

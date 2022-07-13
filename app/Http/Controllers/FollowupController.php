@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 
 class FollowupController extends Controller
 {
-    //
+
 
     function FollowupShow($id)
     {

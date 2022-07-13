@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MastersAllDepartmentsController extends Controller
 {
-    //
+
     function AllDepartmentsShow()
     {
         $departments = Department::get();
