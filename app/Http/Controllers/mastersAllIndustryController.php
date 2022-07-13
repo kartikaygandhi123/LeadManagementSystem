@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 
-class mastersAllIndustryController extends Controller
+class MastersAllIndustryController extends Controller
 {
     //
-    function allIndustryShow()
+    function AllIndustryShow()
     {
 
         $industries = Industry::get();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\followup;
+use App\Models\Followup;
 use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -11,7 +11,7 @@ class FollowupController extends Controller
 {
     //
 
-    function followupShow($id)
+    function FollowupShow($id)
     {
 
         $stage = Lead::where('id', $id)->first();
@@ -21,10 +21,10 @@ class FollowupController extends Controller
     }
 
 
-    public function saveFollowup(Request $req)
+    public function SaveFollowup(Request $req)
     {
 
-        $followup = new followup;
+        $followup = new Followup;
         $followup->Follow_up_date = $req->date;
         $followup->lead_id = $req->id;
 

@@ -369,7 +369,7 @@
                 document.getElementById('append_form').innerHTML = gud;
                 document.getElementById('form_heading').innerHTML = "Existing Customer";
                 document.getElementById("select_customer").value;
-                document.getElementById("myLeadform").action = "demo";
+                document.getElementById("myLeadform").action = "existingupdate";
 
 
                 document.getElementById('saveLead').innerHTML = "Save"; //changed From Update To save

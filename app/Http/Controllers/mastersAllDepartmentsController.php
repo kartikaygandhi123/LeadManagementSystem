@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
-class mastersAllDepartmentsController extends Controller
+class MastersAllDepartmentsController extends Controller
 {
     //
-    function allDepartmentsShow()
+    function AllDepartmentsShow()
     {
         $departments = Department::get();
         return view('site.masters.alldepartments', ['departments' => $departments]);

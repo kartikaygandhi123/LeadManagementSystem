@@ -8,10 +8,10 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class mastersAddUsersController extends Controller
+class MastersAddUsersController extends Controller
 {
     //
-    function addUsersShow()
+    function AddUsersShow()
     {
         $users = Role::get();
         $lobs = AllBusiness::get();
@@ -19,7 +19,7 @@ class mastersAddUsersController extends Controller
         return view('site.masters.addusers', ['users' => $users, 'lobs' => $lobs, 'cities' => $cities]);
     }
 
-    function saveUser(Request $request)
+    function SaveUser(Request $request)
     {
         $request->validate(
             [

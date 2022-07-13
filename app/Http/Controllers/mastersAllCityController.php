@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use Illuminate\Http\Request;
 
-class mastersAllCityController extends Controller
+class MastersAllCityController extends Controller
 {
     //
-    function allCityShow()
+    function AllCityShow()
     {
 
         $cities = City::get();

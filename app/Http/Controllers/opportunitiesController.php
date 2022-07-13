@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class opportunitiesController extends Controller
+class OpportunitiesController extends Controller
 {
     //
-    function opportunitiesShow()
+    function OpportunitiesShow()
     {
         return view('site.opportunities.opportunities');
     }

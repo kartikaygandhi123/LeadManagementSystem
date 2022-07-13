@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\LobService;
 use Illuminate\Http\Request;
 
-class mastersAllObServiceController extends Controller
+class MastersAllObServiceController extends Controller
 {
     //
-    function allObServiceShow()
+    function AllObServiceShow()
     {
         $lobservices = LobService::get();
         return view('site.masters.alllobservice', ['lobservices' => $lobservices]);

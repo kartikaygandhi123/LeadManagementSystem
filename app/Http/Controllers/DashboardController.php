@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     //
 
-    function dashboardShow(Request $req)
+    function DashboardShow(Request $req)
     {
 
         $leads = Lead::count();

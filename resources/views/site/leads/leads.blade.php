@@ -15,7 +15,9 @@
                 <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                     <thead>
                         <tr>
-                            <th>Action</th>
+                            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+                                <th>Action</th>
+                            @endif
                             <th>Customer_Name</th>
                             <th>Contact_Number</th>
                             <th>POC_Name</th>
@@ -50,7 +52,8 @@
 
 
 
-                                        <a href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
+                                        <a onclick="return confirm('Are you sure you want to Delete?')"
+                                            href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
                                     </td>
                                 @endif
 
@@ -78,7 +81,9 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Action</th>
+                            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+                                <th>Action</th>
+                            @endif
                             <th>Customer Name</th>
                             <th>Contact Number</th>
                             <th>POC Name</th>

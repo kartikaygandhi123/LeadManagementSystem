@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class reportsController extends Controller
+class ReportsController extends Controller
 {
     //
-    function reportsShow()
+    function ReportsShow()
     {
 
         return view('site.reports.reports');

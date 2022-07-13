@@ -1,24 +1,6 @@
 @extends('layouts.mainLayout')
 
 @section('content')
-    <style>
-        form {
-
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-
-            width: 80%;
-            border: 1px solid grey
-        }
-    </style>
-
-
-
-
     {{-- select2 --}}
     <link href="/assets/vendor_components/select2/dist/css/select2.min.css" rel="stylesheet" />
 

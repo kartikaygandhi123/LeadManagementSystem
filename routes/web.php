@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\brandProfileController;
-use App\Http\Controllers\contactsController;
-use App\Http\Controllers\createLeadController;
+use App\Http\Controllers\BrandProfileController;
+use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\CreateLeadController;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowupController;
-use App\Http\Controllers\leadsController;
-use App\Http\Controllers\mastersAddUsersController;
-use App\Http\Controllers\mastersAllBusinessController;
-use App\Http\Controllers\mastersAllCityController;
-use App\Http\Controllers\mastersAllDepartmentsController;
-use App\Http\Controllers\mastersAllIndustryController;
-use App\Http\Controllers\mastersAllLeadSourceController;
-use App\Http\Controllers\mastersAllObServiceController;
-use App\Http\Controllers\mastersAllStageController;
-use App\Http\Controllers\opportunitiesController;
-use App\Http\Controllers\reportsController;
+use App\Http\Controllers\LeadsController;
+use App\Http\Controllers\MastersAddUsersController;
+use App\Http\Controllers\MastersAllBusinessController;
+use App\Http\Controllers\MastersAllCityController;
+use App\Http\Controllers\MastersAllDepartmentsController;
+use App\Http\Controllers\MastersAllIndustryController;
+use App\Http\Controllers\MastersAllLeadSourceController;
+use App\Http\Controllers\MastersAllObServiceController;
+use App\Http\Controllers\MastersAllStageController;
+use App\Http\Controllers\OpportunitiesController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RequirementsMapController;
 use App\Http\Controllers\StageController;
 use Illuminate\Support\Facades\Auth;
@@ -23,359 +24,292 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+
+// Outside the Auth
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::view('test', 'site.custom.mail');
-Route::get('fetchcustomer', [createLeadController::class, 'fetchcustomer']);
-
-Route::put('update-lead/{id}', [leadsController::class, 'Update_Lead'])->name('update_lead');
-
-Route::post('/stage_status', [leadsController::class, 'Update_stage_status'])->name('stage_status');
+Route::get('fetchcustomer', [CreateLeadController::class, 'Fetchcustomer']);
+Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
+Route::post('/stage_status', [LeadsController::class, 'Update_stage_status'])->name('stage_status');
 
 
-// Route::get('dashboard', function () {
-//     return view('dashboard');
-// });
+
 
 Route::middleware(['middleware' => 'PreventBackHistory'])->group(function () {
-
     Auth::routes();
 });
 
-
-
-
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Admin Routes
-
-// Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
-//     Route::get('dashboard', [DashboardController::class, 'dashboardShow'])->name('admin.dashboard');
-
-
-//     Route::post('followupshow', [leadsController::class, 'store']);
-//     Route::post('demo', [leadsController::class, 'update']);
-//     Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-//     Route::get('edit-lead/{id}', [leadsController::class, 'Edit_Lead']);
-//     Route::put('update-lead/{id}', [leadsController::class, 'Update_Lead']);
-//     Route::get('delete-lead/{id}', [leadsController::class, 'Delete_Lead']);
-
-
-
-
-//     Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-//     Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-
-
-
-
-//     Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-//     Route::get('reportsshow', [reportsController::class, 'reportsShow']);
-//     // Masters
-//     Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-//     Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
-//     Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-//     Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-//     Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-//     Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-//     Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-//     Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-//     Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
-
-//     // Custom
-
-//     Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-
-//     Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
-//     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
-//     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-//     Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
-
-//     // Stage
-//     Route::get('stage', [StageController::class, 'Stage']);
-// });
 
 //1. retailbdhead
 
-Route::group(['prefix' => 'retailbdhead', 'middleware' => ['isRetailBdHead', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'retailbdhead', 'middleware' => ['IsRetailBdHead', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'RetailBdHead'])->name('retailbdhead.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
 
     // Custom
-
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
+
 //2. iplbdhead
 
-Route::group(['prefix' => 'iplbdhead', 'middleware' => ['isIplBdHead', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'iplbdhead', 'middleware' => ['IsIplBdHead', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'IplBdHead'])->name('iplbdhead.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
 
     // Custom
-
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
+
 //3. techbdhead
 
-Route::group(['prefix' => 'techbdhead', 'middleware' => ['isTechBdHead', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'techbdhead', 'middleware' => ['IsTechBdHead', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'TechBdHead'])->name('techbdhead.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
 
     // Custom
-
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
 //4. retailbd
 
-Route::group(['prefix' => 'retailbd', 'middleware' => ['isRetailBd', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'retailbd', 'middleware' => ['IsRetailBd', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'RetailBd'])->name('retailbd.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
 
     // Custom
 
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
-
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
+
 //5. techbd
 
-Route::group(['prefix' => 'techbd', 'middleware' => ['isTechBd', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'PreventBackHistory']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'TechBd'])->name('techbd.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
 
     // Custom
 
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
 
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
 //6. Admin
 
-Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventBackHistory']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('edit_lead', [leadsController::class, 'Edit_Lead'])->name('edit_lead');
-    // Route::put('update-lead/{id}', [leadsController::class, 'Update_Lead'])->name('update_lead');
+    Route::get('edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
+    // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
 
-    Route::get('view_lead', [leadsController::class, 'getView_Lead'])->name('view_lead');
+    Route::get('view_lead', [LeadsController::class, 'getView_Lead'])->name('view_lead');
 
-    Route::get('delete-lead/{id}', [leadsController::class, 'Delete_Lead']);
-
-
+    Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
 
 
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow'])->name('leads_show');
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+
+
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leads_show');
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+    Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
+    Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
+    Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);
+    Route::get('alldepartmentsshow', [MastersAllDepartmentsController::class, 'AllDepartmentsShow']);
+    Route::get('allindustryshow', [MastersAllIndustryController::class, 'AllIndustryShow']);
+    Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
+    Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
+    Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
 
     // Custom
 
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
 
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 
     // Stage
     Route::get('stage', [StageController::class, 'Stage']);
 });
+
+
+
+
+
+
 //7. SuperUser
 
-Route::group(['prefix' => 'superuser', 'middleware' => ['isSuperAdmin', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'superuser', 'middleware' => ['IsSuperAdmin', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'SuperAdmin'])->name('superuser.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
 
-    Route::get('edit-lead/{id}', [leadsController::class, 'Edit_Lead']);
-    // Route::put('update-lead/{id}', [leadsController::class, 'Update_Lead'])->name('update_lead');
-    Route::get('view_lead', [leadsController::class, 'getView_Lead'])->name('view_lead');
-    Route::get('delete-lead/{id}', [leadsController::class, 'Delete_Lead']);
+    Route::get('edit-lead/{id}', [LeadsController::class, 'Edit_Lead']);
+    // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
+    Route::get('view_lead', [LeadsController::class, 'getView_Lead'])->name('view_lead');
+    Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow'])->name('leads_show');
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leads_show');
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::post('saveuser', [mastersAddUsersController::class, 'saveUser']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+    Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
+    Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
+    Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);
+    Route::get('alldepartmentsshow', [MastersAllDepartmentsController::class, 'AllDepartmentsShow']);
+    Route::get('allindustryshow', [MastersAllIndustryController::class, 'AllIndustryShow']);
+    Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
+    Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
+    Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
 
     // Custom
 
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
 
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
+
+
+
+
+
+
 
 //8.IplBd
 
-Route::group(['prefix' => 'iplbd', 'middleware' => ['isIplBd', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventBackHistory']], function () {
     Route::get('dashboard', [DashboardController::class, 'IplBd'])->name('iplbd.dashboard');
-    Route::post('followupshow', [leadsController::class, 'store']);
-    Route::post('demo', [leadsController::class, 'update']);
+    Route::post('followupshow', [LeadsController::class, 'Store']);
+    Route::post('existingupdate', [LeadsController::class, 'Update']);
 
-    Route::get('brandshow', [brandProfileController::class, 'brandShow']);
-    Route::get('contactsshow', [contactsController::class, 'contactsShow']);
-    Route::get('leadsshow', [leadsController::class, 'leadsShow']);
-    Route::get('opportunitiesshow', [opportunitiesController::class, 'opportunitiesShow']);
-    Route::get('reportsshow', [reportsController::class, 'reportsShow']);
+    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
+    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
-    Route::get('addusersshow', [mastersAddUsersController::class, 'addUsersShow']);
-    Route::get('allbusinessshow', [mastersAllBusinessController::class, 'allBusinessShow']);
-    Route::get('allcityshow', [mastersAllCityController::class, 'allCityShow']);
-    Route::get('alldepartmentsshow', [mastersAllDepartmentsController::class, 'allDepartmentsShow']);
-    Route::get('allindustryshow', [mastersAllIndustryController::class, 'allIndustryShow']);
-    Route::get('allleadsourceshow', [mastersAllLeadSourceController::class, 'allLeadSourceShow']);
-    Route::get('allobserviceshow', [mastersAllObServiceController::class, 'allObServiceShow']);
-    Route::get('allstageshow', [mastersAllStageController::class, 'allStageShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
 
     // Custom
 
-    Route::get('createleadshow', [createLeadController::class, 'createLeadShow']);
+    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
 
-    Route::get('followupshow/{id}', [FollowupController::class, 'followupShow']);
+    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'saveFollowup']);   // Mail
+    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });

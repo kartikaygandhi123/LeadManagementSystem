@@ -7,10 +7,10 @@ use App\Models\Lead;
 use App\Models\LeadSource;
 use Illuminate\Http\Request;
 
-class createLeadController extends Controller
+class CreateLeadController extends Controller
 {
     //
-    function createLeadShow()
+    function CreateLeadShow()
     {
 
         $industries = Industry::get();
@@ -21,7 +21,7 @@ class createLeadController extends Controller
         return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
     }
 
-    function fetchcustomer(Request $req)
+    function Fetchcustomer(Request $req)
     {
         $find = $req->get('find');
 

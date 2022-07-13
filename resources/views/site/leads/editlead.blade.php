@@ -210,7 +210,7 @@
 
                 {{-- 4th row upto here --}}
 
-                <div class="text-right" id="hidelead">
+                <div class="text-right box-footer" id="hidelead">
                     {{-- <a href="#" class="btn btn-default btn-md" tabindex="8">Cancel</a> --}}
                     <button type="submit" class="btn btn-primary btn-sm">
                         Update

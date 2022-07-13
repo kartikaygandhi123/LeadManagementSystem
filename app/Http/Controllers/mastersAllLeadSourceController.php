@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\LeadSource;
 use Illuminate\Http\Request;
 
-class mastersAllLeadSourceController extends Controller
+class MastersAllLeadSourceController extends Controller
 {
     //
-    function allLeadSourceShow()
+    function AllLeadSourceShow()
     {
         $leadsource = LeadSource::get();
         return view('site.masters.allleadsource', ['leadsource' => $leadsource]);

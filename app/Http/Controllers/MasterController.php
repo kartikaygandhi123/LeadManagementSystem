@@ -30,7 +30,7 @@ class MasterController extends Controller
 
     function allBusinessShow()
     {
-        dd('here');
+
         $business = AllBusiness::get();
         return view('site.masters.allbusiness', ['business' => $business]);
     }

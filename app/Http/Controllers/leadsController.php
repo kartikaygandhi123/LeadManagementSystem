@@ -8,19 +8,24 @@ use App\Models\LeadSource;
 use App\Models\Stages;
 use Illuminate\Http\Request;
 
-class leadsController extends Controller
+class LeadsController extends Controller
 {
-    function leadsShow()
+
+
+
+
+    function LeadsShow()
     {
         $leads = Lead::with('created_by_user')->get();
 
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
-    function store(Request $req)
+
+
+
+    function Store(Request $req)
     {
-
-
         $this->validate(
             $req,
             [
@@ -30,21 +35,15 @@ class leadsController extends Controller
 
             ]
         );
-
-
         $data = new Lead;
-
-
         $data->Customer_Name = $req->Input(['Customer_Name']);
         $data->Contact_Number = $req->Input(['Contact_Number']);
         $data->POC_Name = $req->Input(['POC_Name']);
         $data->Industry = $req->Input(['Industry']);
         $data->Lead_Source = $req->Input(['Lead_Source_name']);
-
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
         $data->Lead_Status = $req->Input(['Lead_Status']);
-
         $data->created_by = \auth()->user()->id;
 
         if ($data->save()) {
@@ -56,28 +55,19 @@ class leadsController extends Controller
             return view('site.custom.followup', ['data' => $data]);
         } elseif ($req->Lead_Status == "Qualified")
             return view('site.custom.requirementsmapshow', ['data' => $data]);
-
-
-        // if ($req->Lead_Status == "Prospect") {
-        //     return redirect('followupshow', $data);
-        // } elseif ($req->Lead_Status == "Qualified")
-        //     return redirect('requirementsmapshow', $data);
     }
-    function update(Request $req)
+
+
+
+    function Update(Request $req)
     {
-
-
-        // $data = Lead::where('id', $req->id)->get();
         $id = $req->id;
-
         $data = Lead::find($req->id);
-
         $data->Customer_Name = $req->Customer_Name;
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;
         $data->Industry = $req->Industry;
         $data->Lead_Source = $req->Lead_Source;
-
         $data->Email = $req->Email;
         $data->First_Contact_Date = $req->First_Contact_Date;
         $data->Lead_Status = $req->Lead_Status;
@@ -86,42 +76,29 @@ class leadsController extends Controller
             $data->stage = "Lead";
             $data->update();
         }
-
-
         if ($req->Lead_Status == "Prospect") {
             return view('site.custom.followup', ['data' => $data, 'id' => $id]);
         } elseif ($req->Lead_Status == "Qualified")
             return view('site.custom.requirementsmapshow', ['data' => $data]);
-
-        // if ($req->Lead_Status == "Prospect") {
-        //     return redirect('followupshow/' . $id . '');
-        // } elseif ($req->Lead_Status == "Qualified")
-        //     return redirect('requirementsmapshow' . $id . '');
     }
+
 
 
     function Edit_Lead(Request $request)
     {
-
-
         $industries = Industry::get();
         $leadsource = LeadSource::get();
         $lead = Lead::get();
-
         $editlead = Lead::where('id', $request->id)->first();
-
-
-
         return view('site.leads.editlead', ['editlead' => $editlead, 'industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
     }
 
 
+
+
     function Update_Lead(Request $request)
     {
-
         $editlead = Lead::where('id', $request->id)->first();
-
-
         $editlead->Customer_Name = $request->Customer_Name;
         $editlead->Contact_Number = $request->Contact_Number;
         $editlead->POC_Name = $request->POC_Name;
@@ -139,12 +116,12 @@ class leadsController extends Controller
         }
     }
 
+
+
     function Delete_Lead($id)
     {
         $deletelead = Lead::where('id', $id)->first();
-
         $deletelead->delete();
-
         if (auth()->user()->role_id == 6) {
             return redirect('admin/leadsshow')->with('success', 'record deleted');
         } elseif (auth()->user()->role_id == 7) {
@@ -152,33 +129,26 @@ class leadsController extends Controller
         }
     }
 
-    function getView_Lead(Request $request)
 
 
+
+    function GetView_Lead(Request $request)
     {
-
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->first();
-
-        // dd($viewlead);
-
         return view('site.leads.viewlead', ['viewlead' => $viewlead]);
     }
 
 
+
+
+
     function Update_stage_status(Request $request)
     {
-
-
         $lead = Lead::where('id', $request->id)->first();
-
-
         $lead->lost_reason = $request->lost_reason;
         $lead->dorment_reason = $request->dorment_reason;
-
         $lead->stage = $request->stage;
-
         $lead->save();
-
         return  redirect('admin/dashboard')->with("success", "Successfuly changed State");
     }
 }

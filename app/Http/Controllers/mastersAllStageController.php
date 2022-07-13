@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Stages;
 use Illuminate\Http\Request;
 
-class mastersAllStageController extends Controller
+class MastersAllStageController extends Controller
 {
     //
-    function allStageShow()
+    function AllStageShow()
     {
         $stages = Stages::get();
         return view('site.masters.allstage', ['stages' => $stages]);
