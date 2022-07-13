@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Industry;
 use App\Models\Lead;
+use App\Models\LeadSource;
+use App\Models\Stages;
 use Illuminate\Http\Request;
 
 class leadsController extends Controller
@@ -11,6 +13,7 @@ class leadsController extends Controller
     function leadsShow()
     {
         $leads = Lead::with('created_by_user')->get();
+
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
@@ -94,5 +97,88 @@ class leadsController extends Controller
         //     return redirect('followupshow/' . $id . '');
         // } elseif ($req->Lead_Status == "Qualified")
         //     return redirect('requirementsmapshow' . $id . '');
+    }
+
+
+    function Edit_Lead(Request $request)
+    {
+
+
+        $industries = Industry::get();
+        $leadsource = LeadSource::get();
+        $lead = Lead::get();
+
+        $editlead = Lead::where('id', $request->id)->first();
+
+
+
+        return view('site.leads.editlead', ['editlead' => $editlead, 'industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
+    }
+
+
+    function Update_Lead(Request $request)
+    {
+
+        $editlead = Lead::where('id', $request->id)->first();
+
+
+        $editlead->Customer_Name = $request->Customer_Name;
+        $editlead->Contact_Number = $request->Contact_Number;
+        $editlead->POC_Name = $request->POC_Name;
+        $editlead->Industry = $request->Industry;
+        $editlead->Lead_Source = $request->Lead_Source;
+        $editlead->Email = $request->Email;
+        $editlead->First_Contact_Date = $request->First_Contact_Date;
+        $editlead->Lead_Status = $request->Lead_Status;
+        $editlead->save();
+
+        if (auth()->user()->role_id == 6) {
+            return redirect('admin/leadsshow')->with('success', 'record updated');
+        } elseif (auth()->user()->role_id == 7) {
+            return redirect('superuser/leadsshow')->with('success', 'record updated');
+        }
+    }
+
+    function Delete_Lead($id)
+    {
+        $deletelead = Lead::where('id', $id)->first();
+
+        $deletelead->delete();
+
+        if (auth()->user()->role_id == 6) {
+            return redirect('admin/leadsshow')->with('success', 'record deleted');
+        } elseif (auth()->user()->role_id == 7) {
+            return redirect('superuser/leadsshow')->with('success', 'record deleted');
+        }
+    }
+
+    function getView_Lead(Request $request)
+
+
+    {
+
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->first();
+
+        // dd($viewlead);
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead]);
+    }
+
+
+    function Update_stage_status(Request $request)
+    {
+
+
+        $lead = Lead::where('id', $request->id)->first();
+
+
+        $lead->lost_reason = $request->lost_reason;
+        $lead->dorment_reason = $request->dorment_reason;
+
+        $lead->stage = $request->stage;
+
+        $lead->save();
+
+        return  redirect('admin/dashboard')->with("success", "Successfuly changed State");
     }
 }

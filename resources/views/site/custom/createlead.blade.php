@@ -137,8 +137,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="number" name="Contact_Number" class="form-control" id="Contact_Number"
-                                        tabindex="5" required />
+                                    <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
+                                        id="Contact_Number" onchange="contactVal()" required />
                                     <span class="error" style="color: red;">
                                         <p id="contact_Number"> </p>
                                     </span>
@@ -188,8 +188,8 @@
                                 <div class="col-10">
                                     <select name="Industry" id="Industry" class="form-control  " tabindex="7"
                                         required>
-                                        <option disabled value="">
-                                            -select Industry-
+                                        <option selected disabled value="">
+                                            Select Industry
                                         </option>
                                         @foreach ($industries as $industry)
                                             <option value="{{ $industry->name }}">
@@ -207,14 +207,13 @@
                         <div class="form-group col-md-6">
                             <div class="row">
                                 <div class="col-2">
-                                    <label for="Lead_Source_name" class="col-sm-2 control-label">Lead Source<span
+                                    <label for="Lead_Source" class="col-sm-2 control-label">Lead Source<span
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="Lead_Source_name" id="Lead_Source_name" class="form-control  "
-                                        required>
-                                        <option disabled>
-                                            -Select Lead Source-
+                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required>
+                                        <option selected disabled>
+                                            Select Lead Source
                                         </option>
                                         @foreach ($leadsource as $lead)
                                             <option value="{{ $lead->lead_source }}">{{ $lead->lead_source }}</option>
@@ -258,7 +257,7 @@
                                 <div class="col-sm-10">
                                     <select name="Lead_Status" id="Lead_Status" class="form-control select2"
                                         tabindex="4" required>
-                                        <option disabled>
+                                        <option selected disabled>
                                             Select Lead Status
                                         </option>
                                         <option value="Prospect">
@@ -324,7 +323,7 @@
                     $('#Contact_Number').val(response.customers.Contact_Number);
                     $('#Email').val(response.customers.Email);
                     $('#Industry').val(response.customers.Industry);
-                    $('#Lead_Source_name').val(response.customers.Lead_Source);
+                    $('#Lead_Source').val(response.customers.Lead_Source);
                     $('#First_Contact_Date').val(response.customers.First_Contact_Date);
                     $('#id_update').val(response.customers.id);
 
@@ -338,6 +337,15 @@
 
 
     <script>
+        function contactVal() {
+            console.log('here iam ');
+            var cont = document.getElementById("Contact_Number").value;
+            if (cont > 9999999999 || cont < 1000000000) {
+                document.getElementById("Contact_Number").value = '';
+                alert('Enter valid 10 digit number');
+            }
+        }
+
         function show_form() {
 
             var a = document.getElementById("newcustomerform");
@@ -384,7 +392,7 @@
 
     <script>
         $('#select_customer').select2();
-        // $('#Lead_Source_name').select2();
+        // $('#Lead_Source').select2();
         // $('#Industry').select2();
     </script>
 @endsection

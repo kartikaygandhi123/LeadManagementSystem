@@ -33,7 +33,7 @@ class FollowupController extends Controller
 
 
 
-        // return redirect()->back()->with('success', 'followup mail scheduled');
+
 
         if (auth()->user()->role_id == 1) {
             return redirect()->route('retailbdhead.dashboard')->with('success', 'followup mail scheduled');
@@ -61,37 +61,5 @@ class FollowupController extends Controller
         } else {
             return view('site.errorinternal')->with('error', 'followup mail not scheduled');
         }
-
-
-
-
-
-        // return redirect('admin/dashboard')->with('success', 'followup mail scheduled');
     }
-
-
-
-
-
-    // public function email(Request $req)
-    // {
-
-    //     $data = array(
-
-    //         'remarks' => $req->remarks,
-    //         'followupdate' => $req->date,
-
-    //     );
-
-    //     Mail::send('site.custom.mail', $data, function ($message) use ($req) {
-
-    //         $message->from('reachkartikay@yahoo.com', 'kartikay');
-
-    //         $message->to('kartikaygandhi123@gmail.com')->subject('FollowUp');
-    //     });
-
-
-    //     // return "success";
-    //     return redirect('admin/dashboard')->with('success', 'email scheduled');
-    // }
 }

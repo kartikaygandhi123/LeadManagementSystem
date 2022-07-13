@@ -48,8 +48,9 @@
                         <i class="iconsmind-Bell"></i>
                     </a>
                     <ul class="dropdown-menu scale-up">
-                        <li class="header" style="color:red">Stage Changed To:-</li>
+                        <li class="header" style="display: flex;justify-content:center">Stage</li>
 
+                        {{-- through javascript --}}
 
                         <li id=stage class="header"></li>
 
