@@ -198,7 +198,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
     Route::get('edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
     // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
 
-    Route::get('view_lead', [LeadsController::class, 'getView_Lead'])->name('view_lead');
+    Route::get('view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
 
     Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
 
@@ -230,10 +230,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+    Route::post('view_lead/savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 
 
 });
+//Route::post('/admin/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+
+
 
 
 

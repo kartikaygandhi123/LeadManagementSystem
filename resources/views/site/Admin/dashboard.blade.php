@@ -2,31 +2,33 @@
 
 @section('content')
     <h3>Admin Dashboard</h3>
-    <div class="col-xl-3 col-md-6 col-6">
-        <!-- small box -->
-        <div class="small-box bg-primary">
-            <div class="inner">
-                {{-- <h4>Create Lead</h4> --}}
-                <p>
-                <div class="btn-group-vertical">
+    <!--
+            <div class="col-xl-3 col-md-6 col-6">
+                
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        {{-- <h4>Create Lead</h4> --}}
+                        <p>
+                        <div class="btn-group-vertical">
 
-                    <button type="button" class="btn btn-primary " onclick="window.location.href = 'createleadshow';">
-                        <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
-                    </button>
+                            <button type="button" class="btn btn-primary " onclick="window.location.href = 'createleadshow';">
+                                <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
+                            </button>
 
+                        </div>
+
+
+
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+                    <a href="createleadshow" class="small-box-footer"> <i class="fa fa-arrow-right"></i></a>
                 </div>
-
-
-
-                </p>
             </div>
-            <div class="icon">
-                <i class="fa fa-user-plus"></i>
-            </div>
-            <a href="createleadshow" class="small-box-footer"> <i class="fa fa-arrow-right"></i></a>
-        </div>
-    </div>
 
+               -->
 
     {{-- {{ dd($leads) }}; --}}
 

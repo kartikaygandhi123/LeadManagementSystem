@@ -7,6 +7,15 @@
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
             <h4 class="box-title">Leads</h4>
+            <p class="pull-right"><button type="button" class="btn btn-light "
+                    onclick="window.location.href = 'createleadshow';">
+                    <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
+                </button></p>
+
+
+
+
+
             <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
         </div>
         <!-- /.box-header -->
@@ -44,8 +53,10 @@
 
                                 @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
                                     <td>
-                                        <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
-                                            data-target="#modal-center"><span class="ti-eye"></span></a>
+                                        {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
+                                            data-target="#modal-center"><span class="ti-eye"></span></a> --}}
+
+                                        <a href="view_lead/{{ $item->id }}"><span class="ti-eye"></span></a>
 
                                         <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
                                             data-target="#modal-center1"><span class="ti-write"></span></a>
@@ -153,7 +164,7 @@
 
 
 
-    <script>
+    {{-- <script>
         function view_data(id) {
 
 
@@ -167,7 +178,9 @@
             });
 
         }
+    </script> --}}
 
+    <script>
         function Edit_Lead(id) {
 
 

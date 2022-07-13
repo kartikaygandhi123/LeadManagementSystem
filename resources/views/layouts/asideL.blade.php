@@ -12,7 +12,14 @@
 
             </li>
 
-
+            <li>
+                <a href="leadsshow">
+                    <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+            </li>
             @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
                 <li class="treeview">
                     <a href="#">
@@ -50,14 +57,7 @@
                     </ul>
                 </li>
             @endif
-            <li>
-                <a href="leadsshow">
-                    <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
+
             <li>
                 <a href="brandshow">
                     <i class="iconsmind-Edit"></i> <span>Brand Profile</span>
