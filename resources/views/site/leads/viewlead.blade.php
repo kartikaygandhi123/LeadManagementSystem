@@ -324,9 +324,8 @@
                                             <td>{{ $followup->Remarks }}</td>
                                             <td>{{ $followup->followed_up_date }}</td>
                                             @if ($followup->followed_up_date == null)
-                                                <td id="followupbtn"><Button class="btn btn-success btn-sm"
-                                                        onclick="showdate({{ $followup->id }})">Followed
-                                                        Up</Button>
+                                                <td id="followupbtn"><Button class="btn btn-info btn-sm"
+                                                        onclick="showdate({{ $followup->id }})">Followup Done?</Button>
                                                 </td>
                                             @else
                                                 <td id="followupbtn"><Button class="btn btn-success btn-sm">
@@ -488,7 +487,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ url('admin/followupdone') }}?id=" + id,
+                url: "{{ url('/followupdone') }}?id=" + id,
                 // data: "data",
                 // dataType: "dataType",
                 success: function(response) {

@@ -161,6 +161,7 @@ class LeadsController extends Controller
         $lead->dorment_reason = $request->dorment_reason;
         $lead->stage = $request->stage;
         $lead->save();
+               LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message"=>"Lead Lost"]);
         return  redirect('admin/dashboard')->with("success", "Successfuly changed State");
     }
 
@@ -173,7 +174,7 @@ class LeadsController extends Controller
         $followup->followed_up_date = date('y-m-d H:m:s');
         $followup->save();
         //$followup->update(['followed_up_date' => date('y-m-d H:m:s')]);
-        LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s')]);
+        LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s'),"message"=>"Followup Done Successfully"]);
         return response()->json(['data' => $followup]);
     }
 }

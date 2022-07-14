@@ -81,7 +81,7 @@
 
 
 
-            <form method="post" id="myLeadform" name="myform" action="followupshow" class="form-horizontal form-element">
+            <form method="post" id="myLeadform" name="myform" action="/followupshow" class="form-horizontal form-element">
                 @csrf
 
 

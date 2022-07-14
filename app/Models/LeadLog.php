@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LeadLog extends Model
 {
     use HasFactory;
-    protected $fillable = ['lead_id', "followed_up_date", "lead_status", "lead_created_at", "lead_updated_at", "follow_up_scheduled_date", "follow_up_date", "created_at", "updated_at"];
+    protected $fillable = ['lead_id', "user_id", "lead_owner_id", "lead_status", "lead_stage","message",
+        "created_at", "updated_at"];
 }

@@ -4,7 +4,7 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
             <li>
-                <a href="dashboard">
+                <a href="/admin/dashboard">
                     <i class="iconsmind-Dashboard"></i>
                     <span>Dashboard</span>
 
@@ -13,7 +13,7 @@
             </li>
 
             <li>
-                <a href="leadsshow">
+                <a href="/leadsshow">
                     <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -31,35 +31,35 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
+                            <a href="/admin/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
                         </li>
                         <li>
-                            <a href="allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
+                            <a href="/admin/allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
                         </li>
                         <li>
-                            <a href="alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All Departments</a>
+                            <a href="/admin/alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All Departments</a>
                         </li>
                         <li>
-                            <a href="allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
+                            <a href="/admin/allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
                         </li>
                         <li>
-                            <a href="allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All LeadSource</a>
+                            <a href="/admin/allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All LeadSource</a>
                         </li>
                         <li>
-                            <a href="allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB Service</a>
+                            <a href="/admin/allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB Service</a>
                         </li>
                         <li>
-                            <a href="allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All Business</a>
+                            <a href="/admin/allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All Business</a>
                         </li>
                         <li>
-                            <a href="allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
+                            <a href="/admin/allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
                         </li>
                     </ul>
                 </li>
             @endif
 
             <li>
-                <a href="brandshow">
+                <a href="/brandshow">
                     <i class="iconsmind-Edit"></i> <span>Brand Profile</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -67,7 +67,7 @@
                 </a>
             </li>
             <li>
-                <a href="contactsshow">
+                <a href="/contactsshow">
                     <i class="iconsmind-Envelope-2"></i> <span>Contacts</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -75,7 +75,7 @@
                 </a>
             </li>
             {{-- <li>
-                <a href="opportunitiesshow">
+                <a href="/opportunitiesshow">
                     <i class="iconsmind-Cloud-Email"></i> <span>Opportunities</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -83,7 +83,7 @@
                 </a>
             </li> --}}
             <li>
-                <a href="reportsshow">
+                <a href="/reportsshow">
                     <i class="iconsmind-Bar-Chart"></i> <span>Reports</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>

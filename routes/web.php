@@ -189,30 +189,14 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
 
 //6. Admin
 
-Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventBackHistory']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
-    Route::post('followupshow', [LeadsController::class, 'Store']);
-    Route::post('existingupdate', [LeadsController::class, 'Update']);
-
-    Route::get('edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
-    // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
-
-    Route::get('view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
-
-    Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
-
-    Route::get('followupdone', [LeadsController::class, 'Followup_Done']);
+    
 
 
 
-
-
-    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
-    Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
-    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
-    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
+   
     // Masters
     Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
     Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
@@ -224,15 +208,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
     Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
     Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
 
-    // Custom
-
-    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
-
-    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
-    Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
-    // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');   // Mail
+    
 
 
 });
@@ -316,4 +292,41 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
     Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+});
+
+
+
+
+
+
+Route::group([ 'middleware' => [ 'auth']], function () {
+    
+        Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
+         Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
+    Route::get('/contactsshow', [ContactsController::class, 'ContactsShow']);
+
+    Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
+    Route::get('/reportsshow', [ReportsController::class, 'ReportsShow']);
+    Route::post('/followupshow', [LeadsController::class, 'Store']);
+    Route::post('/existingupdate', [LeadsController::class, 'Update']);
+
+    Route::get('/edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
+    // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
+
+    Route::get('/view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
+
+    Route::get('/delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
+
+    Route::get('/followupdone', [LeadsController::class, 'Followup_Done']);
+
+
+    Route::get('/createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
+
+    Route::get('/followupshow/{id}', [FollowupController::class, 'FollowupShow']);
+    Route::get('/requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
+
+    // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
+    Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');   // Mail
+
+        
 });
