@@ -64,7 +64,7 @@ Route::group(['prefix' => 'retailbdhead', 'middleware' => ['IsRetailBdHead', 'au
     Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+    Route::post('/savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
 });
 
 
@@ -160,7 +160,7 @@ Route::group(['prefix' => 'retailbd', 'middleware' => ['IsRetailBd', 'auth', 'Pr
 
 Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'PreventBackHistory']], function () {
 
-    Route::get('dashboard', [DashboardController::class, 'TechBd'])->name('techbd.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'TechBd'])->name('dashboard');
     Route::post('followupshow', [LeadsController::class, 'Store']);
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
@@ -202,13 +202,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
 
     Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
 
+    Route::get('followupdone', [LeadsController::class, 'Followup_Done']);
+
 
 
 
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
     Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
-    Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leads_show');
+    Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
     // Masters
@@ -230,11 +232,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
     Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
 
     // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('view_lead/savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+    Route::post('view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');   // Mail
 
 
 });
-//Route::post('/admin/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
+
 
 
 

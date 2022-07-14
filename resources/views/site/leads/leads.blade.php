@@ -2,12 +2,19 @@
 
 @section('content')
 
+    <style>
+        #createleadbtn :hover {
+
+            background-color: white;
+
+        }
+    </style>
 
 
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
             <h4 class="box-title">Leads</h4>
-            <p class="pull-right"><button type="button" class="btn btn-light "
+            <p id="createleadbtn" class="pull-right"><button type="button" class="btn btn-light btn-sm"
                     onclick="window.location.href = 'createleadshow';">
                     <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
                 </button></p>

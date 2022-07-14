@@ -15,4 +15,12 @@ class Lead extends Model
         // return $this->belongsTo('App\Role');
         return $this->hasOne(User::class, 'id', 'created_by');
     }
+
+
+
+    public function followups()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasMany(Followup::class, 'lead_id');
+    }
 }

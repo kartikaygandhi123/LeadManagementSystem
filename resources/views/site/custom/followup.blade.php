@@ -77,6 +77,64 @@
     </div>
 
 
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h4 class="box-title">FollowUps</h4>
+            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                    <thead>
+                        <tr>
+                            <th>Followup Date</th>
+                            <th>Remarks</th>
+                            <th>Click If Followup Done</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($viewlead->followups as $item)
+                            @foreach ($item as $followup)
+                                <tr>
+                                    <td>{{ $followup['Follow_up_date'] }}</td>
+                                    <td>{{ $followup['Remarks'] }}</td>
+                                    <td><Button class="btn btn-success btn-sm">FollowUP Done</Button></td>
+
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Followup Date</th>
+                            <th>Remarks</th>
+                            <th>Click If Followup Done</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

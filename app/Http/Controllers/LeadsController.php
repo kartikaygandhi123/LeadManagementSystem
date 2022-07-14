@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Followup;
 use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\LeadSource;
@@ -51,9 +52,14 @@ class LeadsController extends Controller
             $data->update();
         }
 
+
+
+
+
         if ($req->Lead_Status == "Prospect") {
             // $data->showfollowform="YES";
-            return view('site.custom.followup', ['data' => $data]);
+            // return redirect('site.custom.followup', ['data' => $data]);
+            return redirect('view_lead/' . $data->id . "?followup=YES");
         } elseif ($req->Lead_Status == "Qualified")
             return view('site.custom.requirementsmapshow', ['data' => $data]);
     }
@@ -78,7 +84,8 @@ class LeadsController extends Controller
             $data->update();
         }
         if ($req->Lead_Status == "Prospect") {
-            return view('site.custom.followup', ['data' => $data, 'id' => $id]);
+            return redirect('view_lead/' . $data->id . "?followup=YES");
+            // return view('site.custom.followup', ['data' => $data, 'id' => $id]);
         } elseif ($req->Lead_Status == "Qualified")
             return view('site.custom.requirementsmapshow', ['data' => $data]);
     }
@@ -135,8 +142,12 @@ class LeadsController extends Controller
 
     function GetView_Lead(Request $request)
     {
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->first();
-        return view('site.leads.viewlead', ['viewlead' => $viewlead]);
+
+        $f = isset($request->followup) ? $request->followup : "NO";
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
+
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f]);
     }
 
 
@@ -151,5 +162,18 @@ class LeadsController extends Controller
         $lead->stage = $request->stage;
         $lead->save();
         return  redirect('admin/dashboard')->with("success", "Successfuly changed State");
+    }
+
+
+    function Followup_Done(Request $request)
+    {
+
+
+        $followup = Followup::where('id', $request->id)->first();
+        $followup->followed_up_date = date('y-m-d H:m:s');
+        $followup->save();
+        //$followup->update(['followed_up_date' => date('y-m-d H:m:s')]);
+        LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s')]);
+        return response()->json(['data' => $followup]);
     }
 }
