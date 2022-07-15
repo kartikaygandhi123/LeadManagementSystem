@@ -192,11 +192,11 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
 Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
-    
 
 
 
-   
+
+
     // Masters
     Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
     Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
@@ -207,10 +207,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], functio
     Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
     Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
     Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
-
-    
-
-
 });
 
 
@@ -299,10 +295,12 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
 
 
 
-Route::group([ 'middleware' => [ 'auth']], function () {
-    
-        Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
-         Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
+
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
+    Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
     Route::get('/contactsshow', [ContactsController::class, 'ContactsShow']);
 
     Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
@@ -323,10 +321,18 @@ Route::group([ 'middleware' => [ 'auth']], function () {
     Route::get('/createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
 
     Route::get('/followupshow/{id}', [FollowupController::class, 'FollowupShow']);
-    Route::get('/requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
+    Route::get('/requirementsmapshow', [LeadsController::class, 'RequirementsMapShow']);
 
-    // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');   // Mail
 
-        
+    Route::post('/saverequirementsmap', [LeadsController::class, 'SaveRequirementsMap']);
+
+
+
+    Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');
+
+
+
+
+    // helper
+    Route::get('leadlogdata', [LeadsController::class, 'AccessLeadLogger']);
 });

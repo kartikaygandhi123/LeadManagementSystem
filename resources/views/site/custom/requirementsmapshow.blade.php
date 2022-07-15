@@ -17,7 +17,7 @@
 
 
 
-            <form method="post" id="requirements" name="requirements" action="requirements_map"
+            <form method="post" id="requirements" name="requirements" action="saverequirementsmap"
                 class="form-horizontal form-element">
                 @csrf
 

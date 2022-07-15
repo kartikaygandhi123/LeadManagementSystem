@@ -6,6 +6,7 @@ use App\Models\Followup;
 use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\LeadSource;
+use App\Models\RequirementsMap;
 use App\Models\Stages;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,7 @@ class LeadsController extends Controller
             return redirect('view_lead/' . $data->id . "?followup=YES");
             // return view('site.custom.followup', ['data' => $data, 'id' => $id]);
         } elseif ($req->Lead_Status == "Qualified")
-            return view('site.custom.requirementsmapshow', ['data' => $data]);
+            return redirect('view_lead/' . $data->id . "?requirements=YES");
     }
 
 
@@ -144,10 +145,16 @@ class LeadsController extends Controller
     {
 
         $f = isset($request->followup) ? $request->followup : "NO";
+
+        $g = isset($request->requirements) ? $request->requirements : "NO";
+
+
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
 
+        $data = getLeadLogData();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f]);
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data]);
     }
 
 
@@ -161,7 +168,7 @@ class LeadsController extends Controller
         $lead->dorment_reason = $request->dorment_reason;
         $lead->stage = $request->stage;
         $lead->save();
-               LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message"=>"Lead Lost"]);
+        LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Lead Lost", "lead_stage" => $lead->stage]);
         return  redirect('admin/dashboard')->with("success", "Successfuly changed State");
     }
 
@@ -174,7 +181,55 @@ class LeadsController extends Controller
         $followup->followed_up_date = date('y-m-d H:m:s');
         $followup->save();
         //$followup->update(['followed_up_date' => date('y-m-d H:m:s')]);
-        LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s'),"message"=>"Followup Done Successfully"]);
+        LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Followup Done Successfully"]);
         return response()->json(['data' => $followup]);
+    }
+
+    function AccessLeadLogger()
+    {
+        $data = getLeadLogData();
+        return $data;
+    }
+
+
+    function RequirementsMapShow(Request $request)
+    {
+
+        dd($request);
+
+        return view('site.custom.requirementsmapshow');
+    }
+
+
+    function SaveRequirementsMap(Request $request)
+    {
+
+        $stageupdate = Lead::where('id', $request->id)->first();
+
+        $requirements = new RequirementsMap;
+
+        $requirements->lead_id = $request->id;
+        $requirements->business_requirement = $request->business_requirement;
+        $requirements->upload_requirement_documents = $request->upload_requirement_documents;
+        $requirements->lob = $request->lob;
+        $requirements->services = $request->services;
+        $requirements->area = $request->area;
+        $requirements->expected_closure_date = $request->expected_closure_date;
+        $requirements->location = $request->location;
+        $requirements->business_type = $request->business_type;
+        $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
+        $requirements->expected_capex = $request->expected_capex;
+        $requirements->ebdta_percentage = $request->ebdta_percentage;
+        $requirements->ebdta_amount = $request->ebdta_amount;
+
+
+        if ($requirements->save()) {
+            $stageupdate->stage = "Requirements Mapping";
+            $stageupdate->update();
+        }
+
+
+
+        return redirect('admin/dashboard')->with("success", "Requirements Mapped");
     }
 }
