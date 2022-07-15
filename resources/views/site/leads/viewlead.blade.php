@@ -19,7 +19,10 @@
                             class="hidden-xs-down">Followup</span></a> </li>
                 <li class="nav-item"> <a class="nav-link" id="requirementstab" data-toggle="tab" href="#requirements"
                         role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                            class="hidden-xs-down">Requirements Tab</span></a> </li>
+                            class="hidden-xs-down">Requirements Mapping</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" id="businessproposaltab" data-toggle="tab"
+                        href="#businessproposal" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                        <span class="hidden-xs-down">Proposal Form</span></a> </li>
 
             </ul>
             <!-- Tab panes -->
@@ -766,6 +769,32 @@
                                         </div>
                                     </div>
 
+                                    <br>
+                                    <br>
+
+                                    <div class="pull-left">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+
+
+                                                <label for="share_business_proposal">Share Business Proposal :</label>
+
+
+                                                <select id="share_business_proposal" name="share_business_proposal"
+                                                    class="form-control">
+                                                    <option disabled>Yes/No</option>
+                                                    <option id="yes" value="Yes">Yes</option>
+                                                    <option id="no" value="No" selected>No</option>
+
+                                                </select>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="text-right">
 
@@ -785,7 +814,85 @@
 
                 </div>
 
+                {{-- Proposal Form Tab --}}
+                <div class="tab-pane pad" id="businessproposal" role="tabpanel">
 
+                    <div id="businessproposalform" class="">
+                        <div class="box-header with-border">
+                            <h3 id="form_heading" class="box-title">Proposal Form</h3>
+                        </div>
+
+                        <div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+
+
+
+                            <form method="post" id="proposalform" name="proposalform" action="/savebusinessproposal"
+                                class="form-horizontal form-element">
+                                @csrf
+
+
+                                <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+                                <div class="box-body">
+
+                                    {{-- first two --}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="upload_proposal_documents">Upload Propsal Documents</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="upload_proposal_documents" type="file"
+                                                        class="form-control " name="upload_proposal_documents" autofocus
+                                                        required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="reason_for_changing_proposal">Reason For Changing
+                                                        Proposal<span class="danger">*</span></label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select id="reason_for_changing_proposal"
+                                                        name="reason_for_changing_proposal" class="form-control">
+                                                        <option selected disabled>Select Reason</option>
+                                                        <option value="Reason 1">Reason 1</option>
+                                                        <option value="Reason 2">Reason 2</option>
+                                                        <option value="Reason 3">Reason 3</option>
+                                                        <option value="Reason 4">Reason 4</option>
+
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- first two upto here --}}
+
+                                    <div class="text-right">
+
+                                        <button type="submit" class="btn btn-success btn-md " id="save_requirements"
+                                            tabindex="9">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 {{-- upto here --}}
             </div>
         </div>
@@ -951,6 +1058,7 @@
 
         });
     </script>
+
     {{-- open requirements map default --}}
     <script>
         $(document).ready(function() {
@@ -959,6 +1067,20 @@
 
             if ("{!! $openrequirements !!}" == "YES") {
                 $('.nav-tabs a[href="#requirements"]').tab('show');
+
+            }
+
+        });
+    </script>
+
+    {{-- open proposal default --}}
+    <script>
+        $(document).ready(function() {
+
+
+
+            if ("{!! $openproposal !!}" == "YES") {
+                $('.nav-tabs a[href="#businessproposal"]').tab('show');
 
             }
 

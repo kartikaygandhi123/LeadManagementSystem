@@ -327,6 +327,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/saverequirementsmap', [LeadsController::class, 'SaveRequirementsMap']);
 
+    Route::post('/savebusinessproposal', [LeadsController::class, 'Save_Business_Proposal']);
+
+
+
 
 
     Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Followup;
 use App\Models\Industry;
 use App\Models\Lead;
+use App\Models\Lead_Propsal;
 use App\Models\LeadSource;
 use App\Models\RequirementsMap;
 use App\Models\Stages;
@@ -148,13 +149,16 @@ class LeadsController extends Controller
 
         $g = isset($request->requirements) ? $request->requirements : "NO";
 
+        $h = isset($request->proposal) ? $request->proposal : "NO";
+
+
 
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
 
         $data = getLeadLogData();
 
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data]);
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h]);
     }
 
 
@@ -206,6 +210,7 @@ class LeadsController extends Controller
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
+
         $requirements = new RequirementsMap;
 
         $requirements->lead_id = $request->id;
@@ -221,6 +226,7 @@ class LeadsController extends Controller
         $requirements->expected_capex = $request->expected_capex;
         $requirements->ebdta_percentage = $request->ebdta_percentage;
         $requirements->ebdta_amount = $request->ebdta_amount;
+        $requirements->share_business_proposal = $request->share_business_proposal;
 
 
         if ($requirements->save()) {
@@ -228,20 +234,55 @@ class LeadsController extends Controller
             $stageupdate->update();
         }
 
+        if ($request->share_business_proposal == "Yes") {
+            return redirect('view_lead/' . $requirements->lead_id . "?proposal=YES");
+        } elseif ($request->share_business_proposal == "No")
+            return redirect('view_lead/' . $requirements->lead_id . "?followup=YES");
 
 
-        return redirect('admin/dashboard')->with("success", "Requirements Mapped");
+
+
+
+
+
+
+        // if ($request->share_business_proposal == "Yes") {
+        //     return view('site.custom.businessproposalform');
+        // } elseif ($request->share_business_proposal == "No") {
+        //     return "Followup Form";
+        // }
+
+
+
+
+
     }
 
     function Update_status(Request $request)
     {
 
         $status = Lead::where('id', $request->id)->first();
-
         $status->Lead_Status = $request->status;
         $status->Reason = $request->Reason;
         $status->save();
 
         return redirect()->back()->with("success", "Status Changed");
+    }
+
+    function Save_Business_Proposal(Request $request)
+    {
+        $stageupdate = Lead::where('id', $request->id)->first();
+
+        $proposal = new Lead_Propsal;
+        $proposal->lead_id = $request->id;
+        $proposal->reason_for_changing_proposal = $request->reason_for_changing_proposal;
+        $proposal->proposal_documents = $request->upload_proposal_documents;
+
+        if ($proposal->save()) {
+            $stageupdate->stage = "Proposal";
+            $stageupdate->update();
+        }
+
+        return redirect('admin/dashboard')->with("success", "Proposal Done");
     }
 }
