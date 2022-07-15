@@ -152,12 +152,12 @@
 
                                         {{ $viewlead->Lead_Status }}
                                         <span><a href="#" onclick="Edit_Lead('{{ $viewlead->id }}')"
-                                                data-toggle="modal" data-target=".bs-example-modal-lg"><span
+                                                data-toggle="modal" data-target=".editmodal"><span
                                                     class="ti-write"></span></a></span>
                                     </div>
 
                                     {{-- edit modal --}}
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                                    <div class="modal fade  editmodal" tabindex="-1" role="dialog"
                                         aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
@@ -170,7 +170,7 @@
                                                 <div class="modal-body">
 
                                                     <div style="display:flex; justify-content:center;">
-                                                        <form action="/stage_status" method="post">
+                                                        <form action="/change_status" method="post">
                                                             @csrf
 
                                                             <input type="hidden" name="id"
@@ -199,9 +199,9 @@
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <select class="form-control dropdown-item"
-                                                                                    id="change_stage"
-                                                                                    onchange="stage_change()"
-                                                                                    name="stage">
+                                                                                    id="change_status"
+                                                                                    onchange="status_change()"
+                                                                                    name="status">
 
                                                                                     <option selected disabled>
 
@@ -220,7 +220,7 @@
                                                                                         Qualified
                                                                                     </option>
                                                                                     <option id="Not_Qualified"
-                                                                                        value=" Not Qualified"
+                                                                                        value="Not Qualified"
                                                                                         name="Not Qualified">
 
                                                                                         Not Qualified
@@ -233,17 +233,37 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="form-group">
+                                                                <select class="form-control dropdown-item" id="Reason"
+                                                                    onchange="" name="Reason" style="display: none">
 
-                                                            <div class="form-group">
-                                                                <input id="input_lost" class="form-control"
-                                                                    name="lost_reason" placeholder="Reason for Lost"
-                                                                    style="display: none">
+                                                                    <option selected disabled>
+
+                                                                        Select Reason
+                                                                    </option>
+
+                                                                    <option id="EIEC" value="EIEC">
+
+                                                                        Existing Industry/Existing Customer
+                                                                    </option>
+                                                                    <option id="EINC" value="EINC">
+
+                                                                        Existing Industry/New Customer
+                                                                    </option>
+                                                                    <option id="NINC" value="NINC">
+
+                                                                        New Industry/New Customer
+                                                                    </option>
+                                                                </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <input id="input_dorment" class="form-control"
-                                                                    name="dorment_reason" placeholder="Reason for Dorment"
-                                                                    style="display: none">
-                                                            </div>
+
+
+
+
+
+
+
+
 
 
                                                             <div class=" modal-footer "
@@ -382,22 +402,6 @@
                         <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
                     </div>
 
-
-                    @if (session('success'))
-                        <div class="col-sm-12">
-                            <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    @endif
-
-
-
-
-
                     <!-- /.box-header -->
                     <!-- form start -->
                     <form action="{{ route('savefollow') }}" method="POST" enctype="multipart/form-data"
@@ -407,10 +411,7 @@
 
                             <div class="form-group">
 
-
-
                                 <!-- /.input group -->
-
 
                                 <div class="form-group row">
 
@@ -902,6 +903,18 @@
                 document.getElementById('input_dorment').style.display = "none";
 
             }
+        }
+    </script>
+
+    <script>
+        function status_change() {
+            if (document.getElementById("change_status").value == "Not Qualified") {
+
+                document.getElementById('Reason').style.display = "block";
+
+            } else
+                document.getElementById('Reason').style.display = "none";
+
         }
     </script>
 

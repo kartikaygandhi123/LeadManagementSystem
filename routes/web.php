@@ -33,6 +33,7 @@ Route::view('test', 'site.custom.mail');
 Route::get('fetchcustomer', [CreateLeadController::class, 'Fetchcustomer']);
 Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
 Route::post('/stage_status', [LeadsController::class, 'Update_stage_status'])->name('stage_status');
+Route::post('/change_status', [LeadsController::class, 'Update_status'])->name('change_status');
 
 
 

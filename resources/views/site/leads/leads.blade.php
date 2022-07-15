@@ -47,6 +47,7 @@
                             <th>Stage</th>
                             <th>Reason For Lost</th>
                             <th>Reason For Dorment</th>
+                            <th>Reason</th>
 
 
                         </tr>
@@ -91,6 +92,7 @@
 
                                 <td>{{ $item['lost_reason'] }}</td>
                                 <td>{{ $item['dorment_reason'] }}</td>
+                                <td>{{ $item['Reason'] }}</td>
 
                             </tr>
                         @endforeach
@@ -114,6 +116,7 @@
                             <th>Stage</th>
                             <th>Reason For Lost</th>
                             <th>Reason For Dorment</th>
+                            <th>Reason</th>
 
                         </tr>
                     </tfoot>

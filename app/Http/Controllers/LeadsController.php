@@ -232,4 +232,16 @@ class LeadsController extends Controller
 
         return redirect('admin/dashboard')->with("success", "Requirements Mapped");
     }
+
+    function Update_status(Request $request)
+    {
+
+        $status = Lead::where('id', $request->id)->first();
+
+        $status->Lead_Status = $request->status;
+        $status->Reason = $request->Reason;
+        $status->save();
+
+        return redirect()->back()->with("success", "Status Changed");
+    }
 }
