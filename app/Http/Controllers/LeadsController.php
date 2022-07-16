@@ -17,6 +17,8 @@ class LeadsController extends Controller
     //
 
 
+
+
     function LeadsShow()
     {
         $leads = Lead::with('created_by_user')->get();
@@ -24,6 +26,9 @@ class LeadsController extends Controller
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
+
+
+
 
 
 
@@ -68,6 +73,9 @@ class LeadsController extends Controller
 
 
 
+
+
+
     function Update(Request $req)
     {
         $id = $req->id;
@@ -94,6 +102,8 @@ class LeadsController extends Controller
 
 
 
+
+
     function Edit_Lead(Request $request)
     {
         $industries = Industry::get();
@@ -102,6 +112,8 @@ class LeadsController extends Controller
         $editlead = Lead::where('id', $request->id)->first();
         return view('site.leads.editlead', ['editlead' => $editlead, 'industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
     }
+
+
 
 
 
@@ -128,6 +140,8 @@ class LeadsController extends Controller
 
 
 
+
+
     function Delete_Lead($id)
     {
         $deletelead = Lead::where('id', $id)->first();
@@ -150,16 +164,20 @@ class LeadsController extends Controller
         $g = isset($request->requirements) ? $request->requirements : "NO";
 
         $h = isset($request->proposal) ? $request->proposal : "NO";
-
-
+        $data = getLeadLogData();
 
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
 
-        $data = getLeadLogData();
+
+        $requirements = RequirementsMap::where('lead_id', $request->id)->first();
+
+        $proposal = Lead_Propsal::where('lead_id', $request->id)->first();
 
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h]);
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal]);
     }
+
+
 
 
 
@@ -177,17 +195,20 @@ class LeadsController extends Controller
     }
 
 
+
+
     function Followup_Done(Request $request)
     {
-
 
         $followup = Followup::where('id', $request->id)->first();
         $followup->followed_up_date = date('y-m-d H:m:s');
         $followup->save();
-        //$followup->update(['followed_up_date' => date('y-m-d H:m:s')]);
         LeadLogger(['lead_id' => $followup->lead_id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Followup Done Successfully"]);
         return response()->json(['data' => $followup]);
     }
+
+
+
 
     function AccessLeadLogger()
     {
@@ -196,23 +217,13 @@ class LeadsController extends Controller
     }
 
 
-    function RequirementsMapShow(Request $request)
-    {
-
-        dd($request);
-
-        return view('site.custom.requirementsmapshow');
-    }
 
 
     function SaveRequirementsMap(Request $request)
     {
 
         $stageupdate = Lead::where('id', $request->id)->first();
-
-
         $requirements = new RequirementsMap;
-
         $requirements->lead_id = $request->id;
         $requirements->business_requirement = $request->business_requirement;
         $requirements->upload_requirement_documents = $request->upload_requirement_documents;
@@ -238,29 +249,10 @@ class LeadsController extends Controller
             return redirect('view_lead/' . $requirements->lead_id . "?proposal=YES");
         } elseif ($request->share_business_proposal == "No")
             return redirect('view_lead/' . $requirements->lead_id . "?followup=YES");
-
-
-
-
-
-
-
-
-        // if ($request->share_business_proposal == "Yes") {
-        //     return view('site.custom.businessproposalform');
-        // } elseif ($request->share_business_proposal == "No") {
-        //     return "Followup Form";
-        // }
-
-
-
-
-
     }
 
     function Update_status(Request $request)
     {
-
         $status = Lead::where('id', $request->id)->first();
         $status->Lead_Status = $request->status;
         $status->Reason = $request->Reason;

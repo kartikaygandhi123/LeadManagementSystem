@@ -303,41 +303,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
     Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
     Route::get('/contactsshow', [ContactsController::class, 'ContactsShow']);
-
     Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('/reportsshow', [ReportsController::class, 'ReportsShow']);
     Route::post('/followupshow', [LeadsController::class, 'Store']);
     Route::post('/existingupdate', [LeadsController::class, 'Update']);
-
     Route::get('/edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
     // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
-
     Route::get('/view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
-
     Route::get('/delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
-
     Route::get('/followupdone', [LeadsController::class, 'Followup_Done']);
-
-
     Route::get('/createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
-
     Route::get('/followupshow/{id}', [FollowupController::class, 'FollowupShow']);
-    Route::get('/requirementsmapshow', [LeadsController::class, 'RequirementsMapShow']);
-
-
     Route::post('/saverequirementsmap', [LeadsController::class, 'SaveRequirementsMap']);
-
     Route::post('/savebusinessproposal', [LeadsController::class, 'Save_Business_Proposal']);
-
-
-
-
-
     Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');
 
-
-
-
-    // helper
-    Route::get('leadlogdata', [LeadsController::class, 'AccessLeadLogger']);
+    Route::get('leadlogdata', [LeadsController::class, 'AccessLeadLogger']); // helper
 });
