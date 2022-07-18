@@ -333,7 +333,6 @@ class LeadsController extends Controller
 
     function Save_Legalremarks(Request $request)
     {
-
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $remarks = new LegalRemark;
@@ -343,26 +342,18 @@ class LeadsController extends Controller
         $remarks->customer_agreement = $request->customer_agreement;
         $remarks->commercial = $request->commercial;
         $remarks->agreement_finalized = $request->agreement_finalized;
-
+        $remarks->business_onboarded = $request->business_onboarded;
 
         if ($remarks->save()) {
             $stageupdate->stage = "Agreement";
             $stageupdate->update();
         }
-
-
-
-
-
         return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured");
     }
 
 
     function Agreement_Finalized(Request $request)
-
     {
-
-
         $agreement = LegalRemark::where('lead_id', $request->id)->first();
 
         $agreement->agreement_finalized = $request->agreement_finalized;

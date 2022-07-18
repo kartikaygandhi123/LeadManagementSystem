@@ -1427,6 +1427,7 @@
 
                                 <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
                                 <input type="hidden" name="agreement_finalized" value="Awaiting">
+                                <input type="hidden" name="business_onboarded" value="Awaiting">
 
                                 <div class="box-body">
 
