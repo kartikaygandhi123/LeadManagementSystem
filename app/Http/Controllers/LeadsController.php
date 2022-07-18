@@ -310,7 +310,7 @@ class LeadsController extends Controller
             $stageupdate->update();
         }
 
-        return redirect('admin/dashboard')->with("success", "Proposal Done");
+        return redirect('view_lead/' . $request->id)->with("success", "Proposal Done");
     }
 
     function Proposal_Accepted(Request $request)
@@ -365,6 +365,29 @@ class LeadsController extends Controller
         } elseif ($request->agreement_finalized == "No") {
 
             return redirect('view_lead/' . $agreement->lead_id . "?remarks=YES")->with("error", "Agreement Not Finalized");
+        }
+    }
+
+
+    function Business_Onboarded(Request $request)
+    {
+
+        $stageupdate = Lead::where('id', $request->id)->first();
+
+        $business = LegalRemark::where('lead_id', $request->id)->first();
+
+        $business->business_onboarded = $request->business_onboarded;
+
+        $business->save();
+
+        if ($request->business_onboarded == "Yes") {
+            $stageupdate->stage = "Business Onboarded";
+            $stageupdate->update();
+            return redirect('view_lead/' . $request->id)->with("success", "Business Onboarded");
+        } elseif ($request->business_onboarded == "No") {
+            $stageupdate->stage = "Business Not Onboarded";
+            $stageupdate->update();
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business is not Boarded");
         }
     }
 }

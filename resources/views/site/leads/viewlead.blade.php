@@ -809,8 +809,114 @@
                                             <b> Business Onboarded: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            No
+                                            {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
+                                            <span><a href="#"
+                                                    onclick="Business_Onboarded('{{ $remarks->lead_id }}')"
+                                                    data-toggle="modal" data-target=".businessonboarded"><span
+                                                        class="ti-write"></span></a></span>
                                         </div>
+
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  businessonboarded" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Onboarded
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/businessonboarded" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $remarks->lead_id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Business Onboarded:
+                                                                        {{ $remarks->business_onboarded }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Business Onboarded:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="business_onboarded"
+                                                                                        name="business_onboarded">
+
+                                                                                        <option selected disabled>
+
+                                                                                            Select
+                                                                                        </option>
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+                                                                                        <option id="No"
+                                                                                            value="No">
+
+                                                                                            No
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
+
+
+
+
 
                                     </div>
                                 </div>
