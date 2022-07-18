@@ -1,6 +1,7 @@
 @extends('layouts.mainLayout')
 
 @section('content')
+    {{-- {{ dd($requirements) }} --}}
     <div class="box box-default">
         <div class="box-body">
             <!-- Nav tabs -->
@@ -23,6 +24,9 @@
                 <li class="nav-item"> <a class="nav-link" id="businessproposaltab" data-toggle="tab"
                         href="#businessproposal" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
                         <span class="hidden-xs-down">Proposal Form</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
+                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                        <span class="hidden-xs-down">Legal Remarks</span></a> </li>
 
             </ul>
             <!-- Tab panes -->
@@ -340,6 +344,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             {{ isset($requirements->upload_requirement_documents) ? $requirements->upload_requirement_documents : 'Not Found' }}
+
                                         </div>
 
                                     </div>
@@ -526,6 +531,285 @@
                                         </div>
                                         <div class="col-md-6">
                                             {{ isset($proposal->reason_for_changing_proposal) ? $proposal->reason_for_changing_proposal : 'Not Found' }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Proposal Accepted: </b>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            {{ isset($proposal->proposal_accepted) ? $proposal->proposal_accepted : 'Not Found' }}
+
+                                            <span><a href="#"
+                                                    onclick="Proposal_Accepted('{{ $proposal->lead_id }}')"
+                                                    data-toggle="modal" data-target=".acceptproposal"><span
+                                                        class="ti-write"></span></a></span>
+                                        </div>
+
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  acceptproposal" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/proposal_accepted" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $proposal->lead_id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Proposal Status:
+                                                                        {{ $proposal->proposal_accepted }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Accept Proposal:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="accept_proposal"
+                                                                                        onchange="accept_proposal()"
+                                                                                        name="accept_proposal">
+
+                                                                                        <option selected disabled>
+
+                                                                                            Proposal Accepted
+                                                                                        </option>
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+                                                                                        <option id="No"
+                                                                                            value="No">
+
+                                                                                            No
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+
+                                                                    <select class="form-control dropdown-item"
+                                                                        id="counter_proposal" name="counter_proposal"
+                                                                        style="display: none">
+
+                                                                        <option selected disabled>
+
+                                                                            Receive Counter Proposal
+                                                                        </option>
+
+                                                                        <option id="Yes" value="Yes">
+
+                                                                            Yes
+                                                                        </option>
+                                                                        <option id="No" value="No">
+
+                                                                            No
+                                                                        </option>
+
+                                                                    </select>
+                                                                </div>
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+
+
+                        @if (isset($remarks->id))
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Agreement Finalized: </b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ isset($remarks->agreement_finalized) ? $remarks->agreement_finalized : 'Not Found' }}
+
+                                            <span><a href="#"
+                                                    onclick="Agreement_Finalized('{{ $remarks->lead_id }}')"
+                                                    data-toggle="modal" data-target=".agreementfinalized"><span
+                                                        class="ti-write"></span></a></span>
+                                        </div>
+
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  agreementfinalized" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Agreement Finalized
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/agreementfinalized" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $remarks->lead_id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Agreement Finalized:
+                                                                        {{ $remarks->agreement_finalized }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Finalize Agreement:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="agreement_finalized"
+                                                                                        name="agreement_finalized">
+
+                                                                                        <option selected disabled>
+
+                                                                                            Select
+                                                                                        </option>
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+                                                                                        <option id="No"
+                                                                                            value="No">
+
+                                                                                            No
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Business Onboarded: </b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            No
                                         </div>
 
                                     </div>
@@ -1005,9 +1289,9 @@
 
                                                 <select id="share_business_proposal" name="share_business_proposal"
                                                     class="form-control">
-                                                    <option disabled>Yes/No</option>
+                                                    <option disabled selected>Select Yes/No</option>
                                                     <option id="yes" value="Yes">Yes</option>
-                                                    <option id="no" value="No" selected>No</option>
+                                                    <option id="no" value="No">No</option>
 
                                                 </select>
 
@@ -1042,7 +1326,7 @@
 
                     <div id="businessproposalform" class="">
                         <div class="box-header with-border">
-                            <h3 id="form_heading" class="box-title">Proposal Form</h3>
+                            <h4 id="form_heading" class="box-title">Proposal Form</h4>
                         </div>
 
                         <div>
@@ -1057,6 +1341,7 @@
 
 
                                 <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+                                <input type="hidden" name="proposal_accepted" id="proposal_accepted" value="Awaiting">
                                 <div class="box-body">
 
                                     {{-- first two --}}
@@ -1100,6 +1385,9 @@
                                         </div>
                                     </div>
 
+
+
+
                                     {{-- first two upto here --}}
 
                                     <div class="text-right">
@@ -1115,6 +1403,131 @@
                             </form>
                         </div>
                     </div>
+                </div>
+
+                {{-- Legal Remarks Tab --}}
+                <div class="tab-pane pad" id="legalremarks" role="tabpanel">
+
+
+                    <div id="businessproposalform" class="">
+                        <div class="box-header with-border">
+                            <h4 id="form_heading" class="box-title">Legal Remarks Form</h4>
+                        </div>
+
+                        <div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+
+
+
+                            <form method="post" id="legalremarksform" name="legalremarksform"
+                                action="/savelegalremarks" class="form-horizontal form-element">
+                                @csrf
+
+
+                                <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+                                <input type="hidden" name="agreement_finalized" value="Awaiting">
+
+                                <div class="box-body">
+
+                                    {{-- first two --}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="remarks">Remarks For Legal Team</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="remarks" type="text" class="form-control "
+                                                        name="remarks" autofocus required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="customer_agreement">Upload Customer Agreement</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="customer_agreement" type="file" class="form-control "
+                                                        name="customer_agreement" autofocus required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {{-- first two upto here --}}
+
+                                    {{-- second two --}}
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="commercial">Commercial Go-Ahead</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="commercial" type="file" class="form-control "
+                                                        name="commercial" autofocus required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="nda">Upload NDA</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="nda" type="file" class="form-control "
+                                                        name="nda" autofocus required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                    {{-- second two upto here --}}
+
+                                    <div class="text-right">
+
+                                        <button type="submit" class="btn btn-success btn-md " id="save_requirements"
+                                            tabindex="9">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
                 {{-- upto here --}}
             </div>
@@ -1248,6 +1661,22 @@
         }
     </script>
 
+    <script>
+        function accept_proposal() {
+
+            if (document.getElementById("accept_proposal").value == "Yes") {
+                document.getElementById('counter_proposal').style.display = "none";
+
+            } else if (document.getElementById("accept_proposal").value == "No") {
+                document.getElementById('counter_proposal').style.display = "block";
+
+            }
+
+        }
+    </script>
+
+
+
 
     <script>
         function showdate(id) {
@@ -1304,6 +1733,20 @@
 
             if ("{!! $openproposal !!}" == "YES") {
                 $('.nav-tabs a[href="#businessproposal"]').tab('show');
+
+            }
+
+        });
+    </script>
+
+    {{-- open remarks default --}}
+    <script>
+        $(document).ready(function() {
+
+
+
+            if ("{!! $openremarks !!}" == "YES") {
+                $('.nav-tabs a[href="#legalremarks"]').tab('show');
 
             }
 

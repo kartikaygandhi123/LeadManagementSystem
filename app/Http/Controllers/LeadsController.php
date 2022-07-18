@@ -7,6 +7,7 @@ use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\Lead_Propsal;
 use App\Models\LeadSource;
+use App\Models\LegalRemark;
 use App\Models\RequirementsMap;
 use App\Models\Stages;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ class LeadsController extends Controller
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
         $data->Lead_Status = $req->Input(['Lead_Status']);
+        $data->map_requirements = $req->Input(['map_requirements']);
         $data->created_by = \auth()->user()->id;
 
         if ($data->save()) {
@@ -62,13 +64,16 @@ class LeadsController extends Controller
 
 
 
-
         if ($req->Lead_Status == "Prospect") {
             // $data->showfollowform="YES";
             // return redirect('site.custom.followup', ['data' => $data]);
             return redirect('view_lead/' . $data->id . "?followup=YES");
-        } elseif ($req->Lead_Status == "Qualified")
-            return view('site.custom.requirementsmapshow', ['data' => $data]);
+        } elseif ($req->Lead_Status == "Qualified") {
+            return redirect('view_lead/' . $data->id . "?requirements=YES")->with("success", "Lead Created Successfully");
+        }
+        // elseif ($req->Lead_Status == "Qualified" && $data->map_requirements == "No") {
+        //     dd('herr');
+        // }
     }
 
 
@@ -88,16 +93,17 @@ class LeadsController extends Controller
         $data->Email = $req->Email;
         $data->First_Contact_Date = $req->First_Contact_Date;
         $data->Lead_Status = $req->Lead_Status;
+        $data->map_requirements = $req->Input(['map_requirements']);
 
         if ($data->save()) {
             $data->stage = "Lead";
             $data->update();
         }
         if ($req->Lead_Status == "Prospect") {
-            return redirect('view_lead/' . $data->id . "?followup=YES");
+            return redirect('view_lead/' . $data->id . "?followup=YES")->with("success", "Lead Created Successfully");
             // return view('site.custom.followup', ['data' => $data, 'id' => $id]);
         } elseif ($req->Lead_Status == "Qualified")
-            return redirect('view_lead/' . $data->id . "?requirements=YES");
+            return redirect('view_lead/' . $data->id . "?requirements=YES")->with("success", "Lead Created Successfully");
     }
 
 
@@ -164,7 +170,13 @@ class LeadsController extends Controller
         $g = isset($request->requirements) ? $request->requirements : "NO";
 
         $h = isset($request->proposal) ? $request->proposal : "NO";
+
+        $i = isset($request->remarks) ? $request->remarks : "NO";
+
+
         $data = getLeadLogData();
+
+
 
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
 
@@ -173,8 +185,9 @@ class LeadsController extends Controller
 
         $proposal = Lead_Propsal::where('lead_id', $request->id)->first();
 
+        $remarks = LegalRemark::where('lead_id', $request->id)->first();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal]);
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
 
@@ -226,7 +239,20 @@ class LeadsController extends Controller
         $requirements = new RequirementsMap;
         $requirements->lead_id = $request->id;
         $requirements->business_requirement = $request->business_requirement;
+
         $requirements->upload_requirement_documents = $request->upload_requirement_documents;
+
+        // $d = "";
+        // if (isset($request->upload_requirement_documents)) {
+
+        //     $d = getName($request->upload_requirement_documents);
+        // }
+        // $requirements->upload_requirement_documents = $d;
+
+        // $store = RequirementsMap::create($requirements);
+
+
+
         $requirements->lob = $request->lob;
         $requirements->services = $request->services;
         $requirements->area = $request->area;
@@ -256,9 +282,17 @@ class LeadsController extends Controller
         $status = Lead::where('id', $request->id)->first();
         $status->Lead_Status = $request->status;
         $status->Reason = $request->Reason;
+
         $status->save();
 
-        return redirect()->back()->with("success", "Status Changed");
+        if ($request->status == "Not Qualified") {
+            return redirect('view_lead/' . $request->id)->with("success", "Status Changed To Not Qualified");
+        } elseif ($request->status == "Qualified") {
+
+            return redirect('view_lead/' . $request->id . "?requirements=YES")->with("success", "Status Changed To Qualified");
+        } elseif ($request->status == "Prospect") {
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("success", "Status Changed To Lead");
+        }
     }
 
     function Save_Business_Proposal(Request $request)
@@ -269,6 +303,7 @@ class LeadsController extends Controller
         $proposal->lead_id = $request->id;
         $proposal->reason_for_changing_proposal = $request->reason_for_changing_proposal;
         $proposal->proposal_documents = $request->upload_proposal_documents;
+        $proposal->proposal_accepted = $request->proposal_accepted;
 
         if ($proposal->save()) {
             $stageupdate->stage = "Proposal";
@@ -276,5 +311,69 @@ class LeadsController extends Controller
         }
 
         return redirect('admin/dashboard')->with("success", "Proposal Done");
+    }
+
+    function Proposal_Accepted(Request $request)
+    {
+
+
+
+        $accept = Lead_Propsal::where('lead_id', $request->id)->first();
+
+        $accept->proposal_accepted = $request->accept_proposal;
+
+        $accept->save();
+
+        if ($request->accept_proposal == "Yes") {
+
+            return redirect('view_lead/' . $accept->lead_id . "?remarks=YES")->with("success", "Proposal Accepted");
+        }
+    }
+
+
+    function Save_Legalremarks(Request $request)
+    {
+
+        $stageupdate = Lead::where('id', $request->id)->first();
+
+        $remarks = new LegalRemark;
+
+        $remarks->lead_id = $request->id;
+        $remarks->nda = $request->nda;
+        $remarks->customer_agreement = $request->customer_agreement;
+        $remarks->commercial = $request->commercial;
+        $remarks->agreement_finalized = $request->agreement_finalized;
+
+
+        if ($remarks->save()) {
+            $stageupdate->stage = "Agreement";
+            $stageupdate->update();
+        }
+
+
+
+
+
+        return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured");
+    }
+
+
+    function Agreement_Finalized(Request $request)
+
+    {
+
+
+        $agreement = LegalRemark::where('lead_id', $request->id)->first();
+
+        $agreement->agreement_finalized = $request->agreement_finalized;
+
+        $agreement->save();
+
+        if ($request->agreement_finalized == "Yes") {
+            return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized");
+        } elseif ($request->agreement_finalized == "No") {
+
+            return redirect('view_lead/' . $agreement->lead_id . "?remarks=YES")->with("error", "Agreement Not Finalized");
+        }
     }
 }

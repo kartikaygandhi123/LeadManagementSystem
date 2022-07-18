@@ -35,6 +35,10 @@ Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('u
 Route::post('/stage_status', [LeadsController::class, 'Update_stage_status'])->name('stage_status');
 Route::post('/change_status', [LeadsController::class, 'Update_status'])->name('change_status');
 
+Route::post('/proposal_accepted', [LeadsController::class, 'Proposal_Accepted'])->name('proposal_accepted');
+Route::post('/savelegalremarks', [LeadsController::class, 'Save_Legalremarks'])->name('savelegalremarks');
+Route::post('/agreementfinalized', [LeadsController::class, 'Agreement_Finalized'])->name('Agreement_Finalized');
+
 
 
 

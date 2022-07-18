@@ -62,7 +62,7 @@
 
 
     {{-- Appending through Javascript --}}
-    <div id="append_form" class="box box-solid box-primary"></div>
+    <div id="append_form" class="box box-solid "></div>
     {{-- Appending through Javascript --}}
 
 
@@ -70,7 +70,7 @@
 
 
     {{-- first page form --}}
-    <div style="display: none" id="newcustomerform" class="box box-solid box-primary">
+    <div style="display: none" id="newcustomerform" class="box box-solid ">
         <div class="box-header with-border">
             <h2 id="form_heading" class="box-title">New Customer</h2>
         </div>
@@ -116,7 +116,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name" tabindex="3"
+                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name" tabindex="2"
                                         pattern="[a-zA-Z\s]+" required /><span class="error" style="color: red;">
                                         <p id="poc_Name"> </p>
                                     </span>
@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="col-10">
                                     <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        id="Contact_Number" onchange="contactVal()" required />
+                                        id="Contact_Number" onchange="contactVal()" required tabindex="3" />
                                     <span class="error" style="color: red;">
                                         <p id="contact_Number"> </p>
                                     </span>
@@ -162,8 +162,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="email" name="Email" class="form-control" id="Email" tabindex="7"
-                                        required /><span class="error" style="color: red;">
+                                    <input type="email" name="Email" class="form-control" id="Email"
+                                        tabindex="4" required /><span class="error" style="color: red;">
                                         <p id="email"></p>
                                     </span>
                                     @if ($errors->first('email'))
@@ -186,7 +186,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="Industry" id="Industry" class="form-control  " tabindex="7"
+                                    <select name="Industry" id="Industry" class="form-control  " tabindex="5"
                                         required>
                                         <option selected disabled value="">
                                             Select Industry
@@ -211,7 +211,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required>
+                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required
+                                        tabindex="6">
                                         <option selected disabled>
                                             Select Lead Source
                                         </option>
@@ -238,7 +239,7 @@
                                 </div>
                                 <div class="col-10">
                                     <input name="First_Contact_Date" type="date" class="form-control"
-                                        id="First_Contact_Date" tabindex="3" required value="<?php echo date('Y-m-d'); ?>" />
+                                        id="First_Contact_Date" tabindex="7" required value="<?php echo date('Y-m-d'); ?>" />
                                     <span class="error" style="color: red;">
                                         <p id="first_Contact_Date"></p>
                                     </span>
@@ -255,8 +256,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <select name="Lead_Status" id="Lead_Status" class="form-control select2"
-                                        tabindex="4" required>
+                                    <select name="Lead_Status" id="Lead_Status" onchange="maprequirements()"
+                                        class="form-control select2" tabindex="8" required>
                                         <option selected disabled>
                                             Select Lead Status
                                         </option>
@@ -273,6 +274,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <br>
+                    <br>
+
+                    <div class="pull-left">
+                        <div class="row" id="hide_map_requirements" style="display:none">
+                            <div class="form-group col-md-12">
+                                <label for="map_requirements">Map Business Requirements:</label>
+                                <select id="map_requirements" name="map_requirements" class="form-control style">
+                                    {{-- <option disabled>Yes/No</option> --}}
+                                    <option value="No" selected>No</option>
+                                    <option value="Yes">Yes</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- 4th row upto here --}}
 
                     <div class="text-right" id="hidelead">
@@ -394,5 +413,21 @@
         $('#select_customer').select2();
         // $('#Lead_Source').select2();
         // $('#Industry').select2();
+    </script>
+
+
+
+    <script>
+        function maprequirements() {
+            if (document.getElementById("Lead_Status").value == "Prospect") {
+
+                document.getElementById("hide_map_requirements").style.display = "none";
+
+            } else if (document.getElementById("Lead_Status").value == "Qualified") {
+
+                document.getElementById("hide_map_requirements").style.display = "block";
+
+            }
+        }
     </script>
 @endsection
