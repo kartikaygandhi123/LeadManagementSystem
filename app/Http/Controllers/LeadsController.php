@@ -49,7 +49,7 @@ class LeadsController extends Controller
         $data->Contact_Number = $req->Input(['Contact_Number']);
         $data->POC_Name = $req->Input(['POC_Name']);
         $data->Industry = $req->Input(['Industry']);
-        $data->Lead_Source = $req->Input(['Lead_Source_name']);
+        $data->Lead_Source = $req->Input(['Lead_Source']);
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
         $data->Lead_Status = $req->Input(['Lead_Status']);
@@ -68,12 +68,15 @@ class LeadsController extends Controller
             // $data->showfollowform="YES";
             // return redirect('site.custom.followup', ['data' => $data]);
             return redirect('view_lead/' . $data->id . "?followup=YES");
-        } elseif ($req->Lead_Status == "Qualified") {
+        } elseif ($req->Lead_Status == "Qualified" && $req->map_requirements == "Yes") {
             return redirect('view_lead/' . $data->id . "?requirements=YES")->with("success", "Lead Created Successfully");
+        } elseif ($req->Lead_Status == "Qualified" && $req->map_requirements == "No") {
+
+            $data->Lead_Status = "Not Qualified";
+            $data->update();
+
+            return redirect('view_lead/' . $data->id)->with("error", "Lead Not Qualified, Update Reason Below ");
         }
-        // elseif ($req->Lead_Status == "Qualified" && $data->map_requirements == "No") {
-        //     dd('herr');
-        // }
     }
 
 
@@ -83,8 +86,9 @@ class LeadsController extends Controller
 
     function Update(Request $req)
     {
-        $id = $req->id;
-        $data = Lead::find($req->id);
+        // $id = $req->id;
+        // $data = Lead::find($req->id);
+        $data = Lead::where('id', $req->id);
         $data->Customer_Name = $req->Customer_Name;
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;
@@ -102,8 +106,15 @@ class LeadsController extends Controller
         if ($req->Lead_Status == "Prospect") {
             return redirect('view_lead/' . $data->id . "?followup=YES")->with("success", "Lead Created Successfully");
             // return view('site.custom.followup', ['data' => $data, 'id' => $id]);
-        } elseif ($req->Lead_Status == "Qualified")
+        } elseif ($req->Lead_Status == "Qualified" && $req->map_requirements == "Yes") {
             return redirect('view_lead/' . $data->id . "?requirements=YES")->with("success", "Lead Created Successfully");
+        } elseif ($req->Lead_Status == "Qualified" && $req->map_requirements == "No") {
+
+            $data->Lead_Status = "Lead Not Qualified";
+            $data->update();
+
+            return redirect('view_lead/' . $data->id)->with("error", "Lead Not Qualified, Update Reason Below ");
+        }
     }
 
 
@@ -123,7 +134,7 @@ class LeadsController extends Controller
 
 
 
-
+    // view button not using
     function Update_Lead(Request $request)
     {
         $editlead = Lead::where('id', $request->id)->first();
