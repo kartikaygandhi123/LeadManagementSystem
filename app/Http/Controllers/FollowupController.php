@@ -30,36 +30,11 @@ class FollowupController extends Controller
 
         $followup->Remarks = $req->remarks;
         $followup->save();
+  LeadLogger(['lead_id' => $req->id,  "message" => "Followup Scheduled Successfully"]);
+              
+return redirect()->back()->with('success', 'Followup mail scheduled');
+   
 
 
-
-
-
-        if (auth()->user()->role_id == 1) {
-            return redirect()->route('retailbdhead.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 2) {
-
-            return redirect()->route('iplbdhead.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 3) {
-
-            return redirect()->route('techbdhead.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 4) {
-
-            return redirect()->route('retailbd.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 5) {
-
-            return redirect()->route('techbd.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 6) {
-
-            return redirect()->route('admin.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 7) {
-
-            return redirect()->route('superuser.dashboard')->with('success', 'followup mail scheduled');
-        } elseif (auth()->user()->role_id == 8) {
-
-            return redirect()->route('iplbd.dashboard')->with('success', 'followup mail scheduled');
-        } else {
-            return view('site.errorinternal')->with('error', 'followup mail not scheduled');
-        }
     }
 }

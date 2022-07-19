@@ -1,7 +1,7 @@
 @extends('layouts.mainLayout')
 
 @section('content')
-    {{-- {{ dd($requirements) }} --}}
+   
     <div class="box box-default">
         <div class="box-body">
             <!-- Nav tabs -->
@@ -516,7 +516,7 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Proposal Shared
                                                         </h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-hidden="true">×</button>
@@ -532,7 +532,7 @@
                                                                     value="{{ $requirements->lead_id }}">
                                                                 <div
                                                                     style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Proposal Accepted:
+                                                                    <h5>Business Proposal Shared:
                                                                         {{ $requirements->share_business_proposal }}
                                                                     </h5>
                                                                 </div>
@@ -549,7 +549,7 @@
                                                                                 style="display: flex; align-items:baseline;">
                                                                                 <div class="col-md-6">
                                                                                     <h6>
-                                                                                        Accept Proposal:
+                                                                                        Change Status:
                                                                                     </h6>
 
 
@@ -903,6 +903,7 @@
                                     </div>
                                 </div>
                             </div>
+@if($remarks->agreement_finalized == "Yes")
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -1023,6 +1024,12 @@
                                     </div>
                                 </div>
                             </div>
+
+    
+    
+    
+    
+@endif
                         @endif
 
                     </div>
@@ -1030,11 +1037,7 @@
 
 
 
-
-
-
-
-                {{-- Timeline Tab --}}
+     {{-- Timeline Tab --}}
                 <div class="tab-pane pad" id="timeline" role="tabpanel">
 
 
@@ -1105,6 +1108,9 @@
                         </div>
                     </div>
                 </div>
+                
+
+
 
                 {{-- Followup tab --}}
                 <div class="tab-pane pad" id="followups" role="tabpanel">
@@ -1350,7 +1356,7 @@
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <label for="Area">Area<span class="danger">*</span></label>
+                                                    <label for="Area">Area (Sq Ft.)<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
                                                     <input class="form-control" type="number" value=""
@@ -1455,7 +1461,7 @@
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <label for="EBDTA%">EBDTA%<span class="danger">*</span></label>
+                                                    <label for="EBDTA%">EBITDA%<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
                                                     <input class="form-control" type="number" value=""
@@ -1468,7 +1474,7 @@
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <label for="EBDTA_Amount">EBDTA Amount<span
+                                                    <label for="EBDTA_Amount">EBITDA Amount<span
                                                             class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
@@ -1482,27 +1488,7 @@
                                     <br>
                                     <br>
 
-                                    <div class="pull-left">
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-
-
-                                                <label for="share_business_proposal">Share Business Proposal :</label>
-
-
-                                                <select id="share_business_proposal" name="share_business_proposal"
-                                                    class="form-control">
-                                                    <option disabled selected>Select Yes/No</option>
-                                                    <option id="yes" value="Yes">Yes</option>
-                                                    <option id="no" value="No">No</option>
-
-                                                </select>
-
-
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                   
 
 
 
@@ -1659,7 +1645,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="customer_agreement" type="file" class="form-control "
-                                                        name="customer_agreement" autofocus required>
+                                                        name="customer_agreement" autofocus >
 
                                                 </div>
                                             </div>
@@ -1697,7 +1683,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="nda" type="file" class="form-control "
-                                                        name="nda" autofocus required>
+                                                        name="nda" autofocus >
 
                                                 </div>
                                             </div>
@@ -1892,7 +1878,8 @@
                 // dataType: "dataType",
                 success: function(response) {
 
-                    console.log(response)
+                    console.log(response);
+                    window.location.reload();
                 },
                 error: function(error) {
                     console.log(error);
@@ -1912,6 +1899,16 @@
 
             }
 
+if ("{!! isset($remarks->business_onboarded) && $remarks->business_onboarded=='Yes'? 'YES':'' !!}" == "YES") {
+                $('.ti-write').hide();
+
+            }
+
+
+
+
+
+ti-write
         });
     </script>
 
