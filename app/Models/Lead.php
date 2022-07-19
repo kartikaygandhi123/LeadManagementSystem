@@ -23,4 +23,11 @@ class Lead extends Model
         // return $this->belongsTo('App\Role');
         return $this->hasMany(Followup::class, 'lead_id');
     }
+
+
+    public function assigned_to_user()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

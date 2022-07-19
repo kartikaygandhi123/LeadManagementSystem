@@ -40,6 +40,7 @@ Route::post('/savelegalremarks', [LeadsController::class, 'Save_Legalremarks'])-
 Route::post('/agreementfinalized', [LeadsController::class, 'Agreement_Finalized'])->name('Agreement_Finalized');
 Route::post('/businessonboarded', [LeadsController::class, 'Business_Onboarded'])->name('Business_Onboarded');
 Route::post('/updateproposalaccepted', [LeadsController::class, 'Update_Proposal_Accepted'])->name('Update_Proposal_Accepted');
+Route::post('/updateuser', [LeadsController::class, 'Update_User'])->name('Update_User');
 
 
 

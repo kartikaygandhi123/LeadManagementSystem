@@ -311,14 +311,118 @@
                                         {{ $viewlead->created_by_user->name }}
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <b> Assigned to User: </b>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ $viewlead->assigned_to_user->name }}
+
+                                        <span><a href="#" onclick="Update_User('{{ $viewlead->id }}')"
+                                                data-toggle="modal" data-target=".updateuser"><span
+                                                    class="ti-write"></span></a></span>
+
+                                    </div>
+
+                                    {{-- edit modal --}}
+                                    <div class="modal fade  updateuser" tabindex="-1" role="dialog"
+                                        aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myLargeModalLabel">Assigned To
+                                                    </h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">×</button>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div style="display:flex; justify-content:center;">
+                                                        <form action="/updateuser" method="post">
+                                                            @csrf
+
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $viewlead->id }}">
+                                                            <div
+                                                                style="display: flex; justify-content:center;align-items:center">
+                                                                <h5>Assigned To:
+                                                                    {{ $viewlead->assigned_to_user->name }}
+                                                                </h5>
+                                                            </div>
+                                                            <br>
+
+
+                                                            <div class="form-group"
+                                                                style="display: flex; justify-content:center;align-items:center">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="row"
+                                                                            style="display: flex; align-items:baseline;">
+                                                                            <div class="col-md-6">
+                                                                                <h6>
+                                                                                    Change Assigned User:
+                                                                                </h6>
+
+
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <select class="form-control dropdown-item"
+                                                                                    id="assigned_user"
+                                                                                    name="assigned_user">
+
+                                                                                    @foreach ($users as $k => $v)
+                                                                                        <option
+                                                                                            value="{{ $k }}">
+                                                                                            {{ $v }}</option>
+                                                                                    @endforeach
+
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
 
 
 
+                                                            <div class=" modal-footer "
+                                                                style="display: flex; justify-content:center">
+                                                                <button id="" type="submit"
+                                                                    class="btn btn-success">
+                                                                    Save</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    {{-- edit modal --}}
 
                                 </div>
                             </div>
                         </div>
+
+
 
                         @if (isset($requirements->business_requirement))
                             <hr>

@@ -10,6 +10,7 @@ use App\Models\LeadSource;
 use App\Models\LegalRemark;
 use App\Models\RequirementsMap;
 use App\Models\Stages;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LeadsController extends Controller
@@ -187,6 +188,8 @@ class LeadsController extends Controller
 
         $data = getLeadLogData();
 
+        $users = User::pluck('name', 'id');
+
 
 
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('followups')->first();
@@ -198,7 +201,8 @@ class LeadsController extends Controller
 
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
 
@@ -418,5 +422,16 @@ class LeadsController extends Controller
         } elseif ($request->proposal_accepted == "No") {
             return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared");
         }
+    }
+
+
+    function Update_User(Request $r)
+    {
+
+
+        $stageupdate = Lead::where('id', $r->id)->first();
+        $stageupdate->user_id = $r->assigned_user;
+        $stageupdate->update();
+        return redirect()->back()->with("success", "User Assigned successfuly");
     }
 }
