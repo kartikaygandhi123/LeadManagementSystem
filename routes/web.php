@@ -39,6 +39,7 @@ Route::post('/proposal_accepted', [LeadsController::class, 'Proposal_Accepted'])
 Route::post('/savelegalremarks', [LeadsController::class, 'Save_Legalremarks'])->name('savelegalremarks');
 Route::post('/agreementfinalized', [LeadsController::class, 'Agreement_Finalized'])->name('Agreement_Finalized');
 Route::post('/businessonboarded', [LeadsController::class, 'Business_Onboarded'])->name('Business_Onboarded');
+Route::post('/updateproposalaccepted', [LeadsController::class, 'Update_Proposal_Accepted'])->name('Update_Proposal_Accepted');
 
 
 

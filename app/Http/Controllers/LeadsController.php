@@ -401,4 +401,22 @@ class LeadsController extends Controller
             return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business is not Boarded");
         }
     }
+
+    function Update_Proposal_Accepted(Request $request)
+    {
+
+
+        $updateproposal = RequirementsMap::where('lead_id', $request->id)->first();
+
+
+        $updateproposal->share_business_proposal = $request->proposal_accepted;
+
+        $updateproposal->save();
+
+        if ($request->proposal_accepted == "Yes") {
+            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Business Proposal Shared");
+        } elseif ($request->proposal_accepted == "No") {
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared");
+        }
+    }
 }

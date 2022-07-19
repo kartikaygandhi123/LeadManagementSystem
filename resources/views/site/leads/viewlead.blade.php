@@ -500,8 +500,110 @@
                                         </div>
                                         <div class="col-md-6">
                                             {{ isset($requirements->share_business_proposal) ? $requirements->share_business_proposal : 'Not Found' }}
+
+                                            <span><a href="#"
+                                                    onclick="Update_Proposal_Accepted('{{ $requirements->lead_id }}')"
+                                                    data-toggle="modal" data-target=".updateproposalaccepted"><span
+                                                        class="ti-write"></span></a></span>
+
+
                                         </div>
 
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  updateproposalaccepted" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/updateproposalaccepted" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $requirements->lead_id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Proposal Accepted:
+                                                                        {{ $requirements->share_business_proposal }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Accept Proposal:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="proposal_accepted"
+                                                                                        name="proposal_accepted">
+
+                                                                                        <option id="No"
+                                                                                            value="No" selected>
+
+                                                                                            No
+                                                                                        </option>
+
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
                                     </div>
                                 </div>
                             </div>
@@ -922,11 +1024,6 @@
                                 </div>
                             </div>
                         @endif
-
-
-
-
-
 
                     </div>
                 </div>
