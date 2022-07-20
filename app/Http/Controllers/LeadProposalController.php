@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lead_Propsal;
+use App\Models\LeadProposal;
 use Illuminate\Http\Request;
 
-class LeadPropsalController extends Controller
+class LeadProposalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class LeadPropsalController extends Controller
      * @param  \App\Models\Lead_Propsal  $lead_Propsal
      * @return \Illuminate\Http\Response
      */
-    public function show(Lead_Propsal $lead_Propsal)
+    public function show(LeadProposal $lead_Propsal)
     {
         //
     }
@@ -55,7 +55,7 @@ class LeadPropsalController extends Controller
      * @param  \App\Models\Lead_Propsal  $lead_Propsal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lead_Propsal $lead_Propsal)
+    public function edit(LeadProposal $lead_Propsal)
     {
         //
     }
@@ -67,7 +67,7 @@ class LeadPropsalController extends Controller
      * @param  \App\Models\Lead_Propsal  $lead_Propsal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lead_Propsal $lead_Propsal)
+    public function update(Request $request, LeadProposal $lead_Propsal)
     {
         //
     }
@@ -78,7 +78,7 @@ class LeadPropsalController extends Controller
      * @param  \App\Models\Lead_Propsal  $lead_Propsal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lead_Propsal $lead_Propsal)
+    public function destroy(LeadProposal $lead_Propsal)
     {
         //
     }

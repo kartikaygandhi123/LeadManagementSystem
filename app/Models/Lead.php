@@ -25,6 +25,15 @@ class Lead extends Model
     }
 
 
+    
+    
+
+    public function proposals()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasMany(LeadProposal::class, 'lead_id');
+    }
+
     public function assigned_to_user()
     {
         // return $this->belongsTo('App\Role');

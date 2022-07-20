@@ -4,7 +4,7 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
             <li>
-                <a href="/admin/dashboard">
+                <a href="/dashboard">
                     <i class="iconsmind-Dashboard"></i>
                     <span>Dashboard</span>
 
@@ -20,7 +20,7 @@
                     </span>
                 </a>
             </li>
-            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+            @if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 2)
                 <li class="treeview">
                     <a href="#">
                         <i class="iconsmind-Air-Balloon"></i>
@@ -91,7 +91,14 @@
                 </a>
             </li>
 
-
+ <li>
+                <a href="/leadsshowlegal">
+                    <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+            </li>
 
             @yield('stage')
 

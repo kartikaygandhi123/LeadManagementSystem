@@ -107,30 +107,7 @@ Route::group(['prefix' => 'iplbdhead', 'middleware' => ['IsIplBdHead', 'auth', '
 
 
 
-//3. techbdhead
 
-Route::group(['prefix' => 'techbdhead', 'middleware' => ['IsTechBdHead', 'auth', 'PreventBackHistory']], function () {
-    Route::get('dashboard', [DashboardController::class, 'TechBdHead'])->name('techbdhead.dashboard');
-    Route::post('followupshow', [LeadsController::class, 'Store']);
-    Route::post('existingupdate', [LeadsController::class, 'Update']);
-
-    Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
-    Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
-    Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
-    Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
-    // Masters
-    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
-
-
-    // Custom
-    Route::get('createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
-    Route::get('followupshow/{id}', [FollowupController::class, 'FollowupShow']);
-    Route::get('requirementsmapshow', [RequirementsMapController::class, 'RequirementsMapShow']);
-
-    // Route::post('sendhtmlemail', [FollowupController::class, 'email']);   // Mail
-    Route::post('savefollowup', [FollowupController::class, 'SaveFollowup']);   // Mail
-});
 
 
 
@@ -199,9 +176,7 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
 
 Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], function () {
 
-    Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
-
-
+   
 
 
 
@@ -306,8 +281,11 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
 
 
 Route::group(['middleware' => ['auth']], function () {
+ Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
+
 
     Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
+    Route::get('/leadsshowlegal', [LeadsController::class, 'LeadsShowLegal'])->name('leadsshowlegal');
     Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
     Route::get('/contactsshow', [ContactsController::class, 'ContactsShow']);
     Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);

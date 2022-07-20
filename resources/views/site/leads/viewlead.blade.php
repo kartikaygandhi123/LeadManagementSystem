@@ -680,7 +680,7 @@
 
                                                                                     </select>
                                                                                 </div>
-                                                                                <br>
+ 
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -809,7 +809,7 @@
                                                                                     <select
                                                                                         class="form-control dropdown-item"
                                                                                         id="accept_proposal"
-                                                                                        onchange="accept_proposal()"
+                                                                                        onchange="select_accept_proposal()"
                                                                                         name="accept_proposal">
 
                                                                                         <option selected disabled>
@@ -832,32 +832,31 @@
                                                                                 </div>
                                                                                 <br>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group">
-
+                                                                            
+                                                                             <div class="form-group" id="counter_proposal" style="display:none;">
+                                                                                 <label> Receive Counter Proposal?</label>
                                                                     <select class="form-control dropdown-item"
-                                                                        id="counter_proposal" name="counter_proposal"
-                                                                        style="display: none">
+                                                                        id="counter_proposal_select" name="counter_proposal"
+                                                                        >
 
-                                                                        <option selected disabled>
+                                                                        
+ <option id="No" value="No" selected>
 
-                                                                            Receive Counter Proposal
+                                                                            No
                                                                         </option>
-
                                                                         <option id="Yes" value="Yes">
 
                                                                             Yes
                                                                         </option>
-                                                                        <option id="No" value="No">
-
-                                                                            No
-                                                                        </option>
+                                                                       
 
                                                                     </select>
                                                                 </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                               
 
 
                                                                 <div class=" modal-footer "
@@ -1274,8 +1273,7 @@
                     {{-- Followup Data Table --}}
                     <div class="box-header with-border">
                         <h5 class="box-title">Scheduled Followups</h5>
-                        <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                    </div>
+                            </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
@@ -1622,7 +1620,7 @@
                             <h4 id="form_heading" class="box-title">Proposal Form</h4>
                         </div>
 
-                        <div>
+                        
                             <!-- /.card-header -->
                             <!-- form start -->
 
@@ -1694,6 +1692,41 @@
 
 
                             </form>
+                    
+                    </div>
+                    
+                       <div class="box-header with-border">
+                        <h5 class="box-title">Sent Proposals</h5>
+                            </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+
+
+                            <table id="example"
+                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                <thead>
+                                    <tr>
+                                        <th>Proposal Doc</th>
+                                        <th>Remarks</th>
+                                        
+                                        
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($viewlead->proposals as $p)
+                                        <tr>
+                                            <td>{{ $p->proposal_documents }}</td>
+                                            <td>{{ $p->reason_for_changing_proposal }}</td>
+                                            
+                                        </tr>
+                           
+                                    @endforeach
+                                </tbody>
+                               
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1953,11 +1986,19 @@
                 document.getElementById('Reason').style.display = "none";
 
         }
+        
+        
+        
+        
+        
+        
+        
+        
     </script>
 
     <script>
-        function accept_proposal() {
-
+        function select_accept_proposal() {
+//alert("FDafas");
             if (document.getElementById("accept_proposal").value == "Yes") {
                 document.getElementById('counter_proposal').style.display = "none";
 

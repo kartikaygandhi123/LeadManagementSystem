@@ -31,9 +31,8 @@
                 <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                     <thead>
                         <tr>
-                            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
-                                <th>Action</th>
-                            @endif
+                            <th>Action</th>
+                            
                             <th>Customer_Name</th>
                             <th>Contact_Number</th>
                             <th>POC_Name</th>
@@ -59,22 +58,21 @@
 
 
 
-                                @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
-                                    <td>
+                                  <td>
                                         {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
                                             data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
-                                        <a href="view_lead/{{ $item->id }}"><span class="ti-eye"></span></a>
+                                        <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"></span></a>
 
-                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                            data-target="#modal-center1"><span class="ti-write"></span></a>
+<!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
+                                            data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 
                                         <a onclick="return confirm('Are you sure you want to Delete?')"
                                             href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
                                     </td>
-                                @endif
+                             
 
 
                                 <td>{{ $item['Customer_Name'] }}</td>
@@ -99,27 +97,7 @@
 
 
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
-                                <th>Action</th>
-                            @endif
-                            <th>Customer Name</th>
-                            <th>Contact Number</th>
-                            <th>POC Name</th>
-                            <th>Industry</th>
-                            <th>Lead Source</th>
-                            <th>Email</th>
-                            <th>First Contact Date</th>
-                            <th>LeadStatus</th>
-                            <th>Created By</th>
-                            <th>Stage</th>
-                            <th>Reason For Lost</th>
-                            <th>Reason For Dorment</th>
-                            <th>Reason</th>
-
-                        </tr>
-                    </tfoot>
+                  
                 </table>
             </div>
         </div>
