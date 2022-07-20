@@ -1858,25 +1858,25 @@
             </div>
         </div>
     </div>
-    {{-- Lost/Dorment Button --}}
+    {{-- Lost/Dormant Button --}}
 
     <div class="pull-right" style="top: 116px; position:absolute ;right:54px;font-size:4px">
 
         <button class="btn btn-danger btn-block btn-shadow margin-bottom" type="button" alt="default"
-            data-toggle="modal" data-target=".bs-example-modal-lg">Lost/Dorment</button>
+            data-toggle="modal" data-target=".bs-example-modal-lg">Lost/Dormant</button>
 
     </div>
     {{-- Stage Button --}}
 
 
 
-    {{-- Lost/Dorment Modal --}}
+    {{-- Lost/Dormant Modal --}}
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Lost/Dorment</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Lost/Dormant</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
 
@@ -1915,9 +1915,9 @@
                                                         Change State
                                                     </option>
 
-                                                    <option id="dorment" value="Dorment" name="Dorment">
+                                                    <option id="dormant" value="Dormant" name="Dormant">
 
-                                                        Dorment
+                                                        Dormant
                                                     </option>
                                                     <option id="lost" value="Lost" name="Lost">
 
@@ -1937,8 +1937,8 @@
                                     placeholder="Reason for Lost" style="display: none">
                             </div>
                             <div class="form-group">
-                                <input id="input_dorment" class="form-control" name="dorment_reason"
-                                    placeholder="Reason for Dorment" style="display: none">
+                                <input id="input_dormant" class="form-control" name="dormant_reason"
+                                    placeholder="Reason for Dormant" style="display: none">
                             </div>
 
 
@@ -1962,13 +1962,13 @@
 
     <script>
         function stage_change() {
-            if (document.getElementById("change_stage").value == "Dorment") {
+            if (document.getElementById("change_stage").value == "Dormant") {
 
                 document.getElementById('input_lost').style.display = "none";
-                document.getElementById('input_dorment').style.display = "block";
+                document.getElementById('input_dormant').style.display = "block";
             } else if (document.getElementById("change_stage").value == "Lost") {
                 document.getElementById('input_lost').style.display = "block";
-                document.getElementById('input_dorment').style.display = "none";
+                document.getElementById('input_dormant').style.display = "none";
 
             }
         }

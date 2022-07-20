@@ -7,7 +7,7 @@ use App\Models\Lead;
 use App\Models\Stages;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
 
@@ -21,9 +21,15 @@ class DashboardController extends Controller
         $stages = Stages::count();
         $usercount = User::count();
         $users = User::with('roles')->get();
-
-        return view('dashboard', ['leads' => $leads, 'stages' => $stages, 'industry' => $industry, 'leadsname' => $leadsname, 'users' => $users, 'usercount' => $usercount]);
-    }
+        
+        $leadsCount = DB::table('leads')
+    ->select('stage', DB::raw('count(*) as total'))
+    ->groupBy('stage')
+    ->pluck('total','stage')->all();
+       // dd($leadsCount);
+        
+        return view('dashboard', ['stage' => $leadsCount]);
+   }
 
 
     function RetailBdHead(Request $req)

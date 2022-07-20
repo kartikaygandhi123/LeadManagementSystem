@@ -45,7 +45,7 @@
 
                             <th>Stage</th>
                             <th>Reason For Lost</th>
-                            <th>Reason For Dorment</th>
+                            <th>Reason For Dormant</th>
                             <th>Reason</th>
 
 
@@ -89,7 +89,7 @@
                                 <td style="color: rgb(87, 209, 87)">{{ $item['stage'] }}</td>
 
                                 <td>{{ $item['lost_reason'] }}</td>
-                                <td>{{ $item['dorment_reason'] }}</td>
+                                <td>{{ $item['dormant_reason'] }}</td>
                                 <td>{{ $item['Reason'] }}</td>
 
                             </tr>

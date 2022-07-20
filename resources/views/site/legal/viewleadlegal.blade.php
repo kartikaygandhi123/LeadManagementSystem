@@ -1139,7 +1139,7 @@
 
 
 
-    {{-- Lost/Dorment Modal --}}
+    {{-- Lost/Dormant Modal --}}
 
 
 

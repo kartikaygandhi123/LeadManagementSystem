@@ -25,23 +25,23 @@ class RedirectIfAuthenticated
 
 
             if (Auth::guard($guard)->check() && Auth::user()->role_id == 1) {
- return redirect()->route('admin.dashboard');
+ return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 2) {
               //  dd("here");
-               return redirect()->route('admin.dashboard');
+               return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 3) {
-                          return redirect()->route('admin.dashboard');        
+                          return redirect()->route('dashboard');        
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 4) {
-                          return redirect()->route('admin.dashboard');
+                          return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 5) {
-                          return redirect()->route('admin.dashboard');
+                          return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 6) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 7) {
-                          return redirect()->route('admin.dashboard');
+                          return redirect()->route('dashboard');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 8) {
               // dd("here");
-                         return redirect()->route('admin.dashboard');
+                         return redirect()->route('dashboard');
             } else {
                 return $next($request);
             }

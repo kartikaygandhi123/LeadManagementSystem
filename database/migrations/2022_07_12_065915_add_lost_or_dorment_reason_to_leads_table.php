@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('leads', function (Blueprint $table) {
 
             $table->string('lost_reason')->nullable();
-            $table->string('dorment_reason')->nullable();
+            $table->string('dormant_reason')->nullable();
         });
     }
 

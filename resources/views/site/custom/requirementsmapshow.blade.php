@@ -311,9 +311,9 @@
                                                         Change State
                                                     </option>
 
-                                                    <option id="dorment" value="Dorment" name="Dorment">
+                                                    <option id="dormant" value="Dorment" name="Dormant">
 
-                                                        Dorment
+                                                        Dormant
                                                     </option>
                                                     <option id="lost" value="Lost" name="Lost">
 
@@ -333,8 +333,8 @@
                                     placeholder="Reason for Lost" style="display: none">
                             </div>
                             <div class="form-group">
-                                <input id="input_dorment" class="form-control" name="dorment_reason"
-                                    placeholder="Reason for Dorment" style="display: none">
+                                <input id="input_dormant" class="form-control" name="dormant_reason"
+                                    placeholder="Reason for Dormant" style="display: none">
                             </div>
 
 
@@ -395,13 +395,13 @@
 
     <script>
         function stage_change() {
-            if (document.getElementById("change_stage").value == "Dorment") {
+            if (document.getElementById("change_stage").value == "Dormant") {
 
                 document.getElementById('input_lost').style.display = "none";
-                document.getElementById('input_dorment').style.display = "block";
+                document.getElementById('input_dormant').style.display = "block";
             } else if (document.getElementById("change_stage").value == "Lost") {
                 document.getElementById('input_lost').style.display = "block";
-                document.getElementById('input_dorment').style.display = "none";
+                document.getElementById('input_dormant').style.display = "none";
 
             }
         }

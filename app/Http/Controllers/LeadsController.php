@@ -258,7 +258,7 @@ class LeadsController extends Controller
     {
         $lead = Lead::where('id', $request->id)->first();
         $lead->lost_reason = $request->lost_reason;
-        $lead->dorment_reason = $request->dorment_reason;
+        $lead->dormant_reason = $request->dormant_reason;
         $lead->stage = $request->stage;
         $lead->save();
         LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Lead Lost", "lead_stage" => $lead->stage]);
