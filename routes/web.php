@@ -299,8 +299,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
 
 
-    Route::get('/view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
-    Route::get('/view_lead_legal/{id}', [LeadsController::class, 'getView_Lead_Legal'])->name('view_lead_legal');
+    Route::get('/view_lead/{id}', [LeadsController::class, 'GetView_Lead'])->name('view_lead');
+    Route::get('/view_lead_legal/{id}', [LeadsController::class, 'GetView_Lead_Legal'])->name('view_lead_legal');
 
 
 
