@@ -40,6 +40,11 @@ class LeadsController extends Controller
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
+
+
+
+    // Legal Leads Show
+
     function LeadsShowLegal()
     {
         $leads = Lead::with('created_by_user')
@@ -48,8 +53,12 @@ class LeadsController extends Controller
             ->get();
 
         //   dd(\auth()->user()->id);
-        return view('site.leads.leads', ['leads' => $leads]);
+        return view('site.legal.leadslegal', ['leads' => $leads]);
     }
+
+
+
+
 
     function Store(Request $req)
     {
@@ -211,30 +220,37 @@ class LeadsController extends Controller
 
     function GetView_Lead(Request $request)
     {
-
         $f = isset($request->followup) ? $request->followup : "NO";
-
         $g = isset($request->requirements) ? $request->requirements : "NO";
-
         $h = isset($request->proposal) ? $request->proposal : "NO";
-
         $i = isset($request->remarks) ? $request->remarks : "NO";
-
         $data = getLeadLogData($request->id);
-
         $users = User::when(isset(\auth()->user()->lob_id), function ($q1) {
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
-
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
-
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
+    }
 
+    function GetView_Lead_Legal(Request $request)
+    {
+        $f = isset($request->followup) ? $request->followup : "NO";
+        $g = isset($request->requirements) ? $request->requirements : "NO";
+        $h = isset($request->proposal) ? $request->proposal : "NO";
+        $i = isset($request->remarks) ? $request->remarks : "NO";
+        $data = getLeadLogData($request->id);
+        $users = User::when(isset(\auth()->user()->lob_id), function ($q1) {
+            $q1->where('lob_id', \auth()->user()->lob_id);
+        })
+            ->pluck('name', 'id');
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
+        $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
+        $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
+        $remarks = LegalRemark::where('lead_id', $request->id)->first();
         return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 

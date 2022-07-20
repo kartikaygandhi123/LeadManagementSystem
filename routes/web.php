@@ -281,11 +281,14 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'DashboardShow'])->name('dashboard');
 
 
     Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
+
     Route::get('/leadsshowlegal', [LeadsController::class, 'LeadsShowLegal'])->name('leadsshowlegal');
+
+
     Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
     Route::get('/contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
@@ -294,7 +297,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/existingupdate', [LeadsController::class, 'Update']);
     Route::get('/edit_lead', [LeadsController::class, 'Edit_Lead'])->name('edit_lead');
     // Route::put('update-lead/{id}', [LeadsController::class, 'Update_Lead'])->name('update_lead');
+
+
     Route::get('/view_lead/{id}', [LeadsController::class, 'getView_Lead'])->name('view_lead');
+    Route::get('/view_lead_legal/{id}', [LeadsController::class, 'getView_Lead_Legal'])->name('view_lead_legal');
+
+
+
     Route::get('/delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
     Route::get('/followupdone', [LeadsController::class, 'Followup_Done']);
     Route::get('/createleadshow', [CreateLeadController::class, 'CreateLeadShow']);
