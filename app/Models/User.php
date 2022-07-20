@@ -48,8 +48,8 @@ class User extends Authenticatable
         // return $this->belongsTo('App\Role');
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
-    
-       public function lobs()
+
+    public function lobs()
     {
         // return $this->belongsTo('App\Role');
         return $this->hasOne(AllBusiness::class, 'id', 'lob_id');

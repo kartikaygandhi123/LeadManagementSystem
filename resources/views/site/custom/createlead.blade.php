@@ -137,8 +137,14 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        id="Contact_Number" onchange="contactVal()" required tabindex="3" />
+                                    {{-- <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
+                                        id="Contact_Number" onchange="contactVal()" required tabindex="3" /> --}}
+                                    <input type="text" class="form-control" name="Contact_Number" maxlength="10"
+                                        minlength="9"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required="">
+
+
                                     <span class="error" style="color: red;">
                                         <p id="contact_Number"> </p>
                                     </span>
@@ -283,7 +289,7 @@
                             <div class="form-group col-md-12">
                                 <label for="map_requirements">Map Business Requirements:</label>
                                 <select id="map_requirements" name="map_requirements" class="form-control style">
-                                    {{-- <option disabled>Yes/No</option> --}}
+
                                     <option value="No" selected>No</option>
                                     <option value="Yes">Yes</option>
 

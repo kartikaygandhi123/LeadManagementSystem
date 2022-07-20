@@ -13,47 +13,51 @@ use App\Models\Stages;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class LeadsController extends Controller {
+class LeadsController extends Controller
+{
 
     //
 
 
 
 
-    function LeadsShow() {
+    function LeadsShow()
+    {
         $leads = Lead::with('created_by_user')
-                ->when(isset(\auth()->user()->lob_id), function ($q1) {
-                    $q1->where('lob_id', \auth()->user()->lob_id);
-                })
-                ->when(!in_array(\auth()->user()->role_id, [1, 2, 3, 5]), function ($q) {
-                    $q->where(function ($query) {
-                        $query->where('created_by', '=', \auth()->user()->id)
+            ->when(isset(\auth()->user()->lob_id), function ($q1) {
+                $q1->where('lob_id', \auth()->user()->lob_id);
+            })
+            ->when(!in_array(\auth()->user()->role_id, [1, 2, 3, 5]), function ($q) {
+                $q->where(function ($query) {
+                    $query->where('created_by', '=', \auth()->user()->id)
                         ->orWhere('user_id', '=', \auth()->user()->id);
-                    });
-                })
-                ->get();
+                });
+            })
+            ->get();
 
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
-    function LeadsShowLegal() {
+    function LeadsShowLegal()
+    {
         $leads = Lead::with('created_by_user')
-              
-                ->where('stage', "Agreement")
-                ->get();
+
+            ->where('stage', "Agreement")
+            ->get();
 
         //   dd(\auth()->user()->id);
         return view('site.leads.leads', ['leads' => $leads]);
     }
 
-    function Store(Request $req) {
+    function Store(Request $req)
+    {
         $this->validate(
-                $req,
-                [
-                    'Customer_Name' => ['required', 'string', 'max:255'],
-                    'Email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'Contact_Number' => ['required', 'min:10', 'numeric'],
-                ]
+            $req,
+            [
+                'Customer_Name' => ['required', 'string', 'max:255'],
+                'Email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'Contact_Number' => ['required', 'min:10', 'numeric'],
+            ]
         );
         $data = new Lead;
         $data->Customer_Name = $req->Input(['Customer_Name']);
@@ -71,7 +75,6 @@ class LeadsController extends Controller {
         $data->stage = "Lead";
 
         if ($data->save()) {
-            
         }
 
         LeadLogger(['lead_id' => $data->id, "message" => "Lead Created Successfully"]);
@@ -94,7 +97,8 @@ class LeadsController extends Controller {
         return redirect('view_lead/' . $data->id)->with("error", "Lead Not Qualified, Update Reason Below ");
     }
 
-    function Update(Request $req) {
+    function Update(Request $req)
+    {
         // $id = $req->id;
         // $data = Lead::find($req->id);
         //$data = Lead::where('id', $req->id);
@@ -133,7 +137,8 @@ class LeadsController extends Controller {
         }
     }
 
-    function Edit_Lead(Request $request) {
+    function Edit_Lead(Request $request)
+    {
         $industries = Industry::get();
         $leadsource = LeadSource::get();
         $lead = Lead::get();
@@ -142,7 +147,8 @@ class LeadsController extends Controller {
     }
 
     // view button not using
-    function Update_Lead(Request $request) {
+    function Update_Lead(Request $request)
+    {
         $editlead = Lead::where('id', $request->id)->first();
         $editlead->Customer_Name = $request->Customer_Name;
         $editlead->Contact_Number = $request->Contact_Number;
@@ -161,17 +167,21 @@ class LeadsController extends Controller {
         }
     }
 
-    function Delete_Lead($id) {
+    function Delete_Lead($id)
+    {
         $deletelead = Lead::where('id', $id)->first();
         $deletelead->delete();
-        if (auth()->user()->role_id == 6) {
-            return redirect('admin/leadsshow')->with('success', 'record deleted');
-        } elseif (auth()->user()->role_id == 7) {
-            return redirect('superuser/leadsshow')->with('success', 'record deleted');
-        }
+        // if (auth()->user()->role_id == 6) {
+        //     return redirect('admin/leadsshow')->with('success', 'record deleted');
+        // } elseif (auth()->user()->role_id == 7) {
+        //     return redirect('superuser/leadsshow')->with('success', 'record deleted');
+        // }
+
+        return redirect('/leadsshow')->with('success', 'record deleted');
     }
 
-    function GetView_Lead(Request $request) {
+    function GetView_Lead(Request $request)
+    {
 
         $f = isset($request->followup) ? $request->followup : "NO";
 
@@ -183,11 +193,10 @@ class LeadsController extends Controller {
 
         $data = getLeadLogData($request->id);
 
-        $users = User::
-                 when(isset(\auth()->user()->lob_id), function ($q1) {
-                    $q1->where('lob_id', \auth()->user()->lob_id);
-                })
-                ->pluck('name', 'id');
+        $users = User::when(isset(\auth()->user()->lob_id), function ($q1) {
+            $q1->where('lob_id', \auth()->user()->lob_id);
+        })
+            ->pluck('name', 'id');
 
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
 
@@ -200,17 +209,20 @@ class LeadsController extends Controller {
         return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
-    function Update_stage_status(Request $request) {
+    function Update_stage_status(Request $request)
+    {
         $lead = Lead::where('id', $request->id)->first();
         $lead->lost_reason = $request->lost_reason;
         $lead->dorment_reason = $request->dorment_reason;
         $lead->stage = $request->stage;
         $lead->save();
         LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Lead Lost", "lead_stage" => $lead->stage]);
-        return redirect('admin/dashboard')->with("success", "Successfuly changed State");
+        // return redirect('/dashboard')->with("success", "Successfuly changed State");
+        return redirect('view_lead/' . $request->id)->with("success", "Successfuly changed State");
     }
 
-    function Followup_Done(Request $request) {
+    function Followup_Done(Request $request)
+    {
 
         $followup = Followup::where('id', $request->id)->first();
         $followup->followed_up_date = date('y-m-d H:m:s');
@@ -219,12 +231,14 @@ class LeadsController extends Controller {
         return response()->json(['data' => $followup]);
     }
 
-    function AccessLeadLogger() {
+    function AccessLeadLogger()
+    {
         $data = getLeadLogData(3);
         return $data;
     }
 
-    function SaveRequirementsMap(Request $request) {
+    function SaveRequirementsMap(Request $request)
+    {
 
         $stageupdate = Lead::where('id', $request->id)->first();
         $requirements = new RequirementsMap;
@@ -264,7 +278,8 @@ class LeadsController extends Controller {
         return redirect('view_lead/' . $requirements->lead_id . "?followup=YES");
     }
 
-    function Update_status(Request $request) {
+    function Update_status(Request $request)
+    {
         $status = Lead::where('id', $request->id)->first();
         $status->Lead_Status = $request->status;
         $status->Reason = $request->Reason;
@@ -283,7 +298,8 @@ class LeadsController extends Controller {
         }
     }
 
-    function Save_Business_Proposal(Request $request) {
+    function Save_Business_Proposal(Request $request)
+    {
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $proposal = new LeadProposal;
@@ -302,10 +318,11 @@ class LeadsController extends Controller {
         return redirect('view_lead/' . $request->id)->with("success", "Proposal Done");
     }
 
-    function Proposal_Accepted(Request $request) {
+    function Proposal_Accepted(Request $request)
+    {
 
 
-$stageupdate = Lead::where('id', $request->id)->first();
+        $stageupdate = Lead::where('id', $request->id)->first();
 
         $accept = LeadProposal::where('lead_id', $request->id)->first();
 
@@ -317,35 +334,28 @@ $stageupdate = Lead::where('id', $request->id)->first();
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Acccepted "]);
 
             return redirect('view_lead/' . $accept->lead_id . "?remarks=YES")->with("success", "Proposal Accepted");
-    } else if($request->accept_proposal == "No"){
-           if($request->counter_proposal == "Yes"){
-               
-                $stageupdate->stage = "Negotiation";
-            $stageupdate->update();
-               
-        LeadLogger(['lead_id' => $request->id, "message" => "Counter Proposal received "]);
+        } else if ($request->accept_proposal == "No") {
+            if ($request->counter_proposal == "Yes") {
 
-            return redirect('view_lead/' . $accept->lead_id . "?proposal=YES")->with("success", "Status updated");
-            
-            
-           }else{
+                $stageupdate->stage = "Negotiation";
+                $stageupdate->update();
+
+                LeadLogger(['lead_id' => $request->id, "message" => "Counter Proposal received "]);
+
+                return redirect('view_lead/' . $accept->lead_id . "?proposal=YES")->with("success", "Status updated");
+            } else {
                 LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not Yet Acccepted "]);
 
-            return redirect('view_lead/' . $accept->lead_id . "?followup=YES")->with("success", "Proposal Accepted");
-            
-            
-               
-           }
-    }
-        
-        
-        else {
+                return redirect('view_lead/' . $accept->lead_id . "?followup=YES")->with("success", "Proposal Accepted");
+            }
+        } else {
 
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not Acccepted "]);
         }
     }
 
-    function Save_Legalremarks(Request $request) {
+    function Save_Legalremarks(Request $request)
+    {
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $remarks = new LegalRemark;
@@ -367,7 +377,8 @@ $stageupdate = Lead::where('id', $request->id)->first();
         return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured");
     }
 
-    function Agreement_Finalized(Request $request) {
+    function Agreement_Finalized(Request $request)
+    {
         $agreement = LegalRemark::where('lead_id', $request->id)->first();
 
         $agreement->agreement_finalized = $request->agreement_finalized;
@@ -386,7 +397,8 @@ $stageupdate = Lead::where('id', $request->id)->first();
         }
     }
 
-    function Business_Onboarded(Request $request) {
+    function Business_Onboarded(Request $request)
+    {
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
@@ -413,7 +425,9 @@ $stageupdate = Lead::where('id', $request->id)->first();
         }
     }
 
-    function Update_Proposal_Accepted(Request $request) {
+    function Update_Proposal_Accepted(Request $request)
+    {
+
 
 
         $updateproposal = RequirementsMap::where('lead_id', $request->id)->first();
@@ -433,7 +447,8 @@ $stageupdate = Lead::where('id', $request->id)->first();
         }
     }
 
-    function Update_User(Request $r) {
+    function Update_User(Request $r)
+    {
 
 
         $stageupdate = Lead::where('id', $r->id)->first();
@@ -441,5 +456,4 @@ $stageupdate = Lead::where('id', $request->id)->first();
         $stageupdate->update();
         return redirect()->back()->with("success", "User Assigned successfuly");
     }
-
 }

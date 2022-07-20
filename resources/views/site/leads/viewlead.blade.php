@@ -1,7 +1,7 @@
 @extends('layouts.mainLayout')
 
 @section('content')
-   
+
     <div class="box box-default">
         <div class="box-body">
             <!-- Nav tabs -->
@@ -620,7 +620,8 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Proposal Shared
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Proposal
+                                                            Shared
                                                         </h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-hidden="true">×</button>
@@ -680,7 +681,7 @@
 
                                                                                     </select>
                                                                                 </div>
- 
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -832,31 +833,33 @@
                                                                                 </div>
                                                                                 <br>
                                                                             </div>
-                                                                            
-                                                                             <div class="form-group" id="counter_proposal" style="display:none;">
-                                                                                 <label> Receive Counter Proposal?</label>
-                                                                    <select class="form-control dropdown-item"
-                                                                        id="counter_proposal_select" name="counter_proposal"
-                                                                        >
 
-                                                                        
- <option id="No" value="No" selected>
+                                                                            <div class="form-group" id="counter_proposal"
+                                                                                style="display:none;">
+                                                                                <label> Receive Counter Proposal?</label>
+                                                                                <select class="form-control dropdown-item"
+                                                                                    id="counter_proposal_select"
+                                                                                    name="counter_proposal">
 
-                                                                            No
-                                                                        </option>
-                                                                        <option id="Yes" value="Yes">
 
-                                                                            Yes
-                                                                        </option>
-                                                                       
+                                                                                    <option id="No" value="No"
+                                                                                        selected>
 
-                                                                    </select>
-                                                                </div>
+                                                                                        No
+                                                                                    </option>
+                                                                                    <option id="Yes" value="Yes">
+
+                                                                                        Yes
+                                                                                    </option>
+
+
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                               
+
 
 
                                                                 <div class=" modal-footer "
@@ -1006,133 +1009,128 @@
                                     </div>
                                 </div>
                             </div>
-@if($remarks->agreement_finalized == "Yes")
+                            @if ($remarks->agreement_finalized == 'Yes')
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <b> Business Onboarded: </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
+                                                <span><a href="#"
+                                                        onclick="Business_Onboarded('{{ $remarks->lead_id }}')"
+                                                        data-toggle="modal" data-target=".businessonboarded"><span
+                                                            class="ti-write"></span></a></span>
+                                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Business Onboarded: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
-                                            <span><a href="#"
-                                                    onclick="Business_Onboarded('{{ $remarks->lead_id }}')"
-                                                    data-toggle="modal" data-target=".businessonboarded"><span
-                                                        class="ti-write"></span></a></span>
-                                        </div>
+                                            {{-- edit modal --}}
+                                            <div class="modal fade  businessonboarded" tabindex="-1" role="dialog"
+                                                aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                                style="display: none;">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="myLargeModalLabel">Business
+                                                                Onboarded
+                                                            </h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-hidden="true">×</button>
+                                                        </div>
 
-                                        {{-- edit modal --}}
-                                        <div class="modal fade  businessonboarded" tabindex="-1" role="dialog"
-                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                            style="display: none;">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Onboarded
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
-                                                    </div>
+                                                        <div class="modal-body">
 
-                                                    <div class="modal-body">
+                                                            <div style="display:flex; justify-content:center;">
+                                                                <form action="/businessonboarded" method="post">
+                                                                    @csrf
 
-                                                        <div style="display:flex; justify-content:center;">
-                                                            <form action="/businessonboarded" method="post">
-                                                                @csrf
-
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $remarks->lead_id }}">
-                                                                <div
-                                                                    style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Business Onboarded:
-                                                                        {{ $remarks->business_onboarded }}
-                                                                    </h5>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="form-group"
-                                                                    style="display: flex; justify-content:center;align-items:center">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-                                                                            <div class="row"
-                                                                                style="display: flex; align-items:baseline;">
-                                                                                <div class="col-md-6">
-                                                                                    <h6>
-                                                                                        Business Onboarded:
-                                                                                    </h6>
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $remarks->lead_id }}">
+                                                                    <div
+                                                                        style="display: flex; justify-content:center;align-items:center">
+                                                                        <h5>Business Onboarded:
+                                                                            {{ $remarks->business_onboarded }}
+                                                                        </h5>
+                                                                    </div>
+                                                                    <br>
 
 
+                                                                    <div class="form-group"
+                                                                        style="display: flex; justify-content:center;align-items:center">
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+
+                                                                                <div class="row"
+                                                                                    style="display: flex; align-items:baseline;">
+                                                                                    <div class="col-md-6">
+                                                                                        <h6>
+                                                                                            Business Onboarded:
+                                                                                        </h6>
+
+
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <select
+                                                                                            class="form-control dropdown-item"
+                                                                                            id="business_onboarded"
+                                                                                            name="business_onboarded">
+
+                                                                                            <option selected disabled>
+
+                                                                                                Select
+                                                                                            </option>
+
+                                                                                            <option id="Yes"
+                                                                                                value="Yes">
+
+                                                                                                Yes
+                                                                                            </option>
+                                                                                            <option id="No"
+                                                                                                value="No">
+
+                                                                                                No
+                                                                                            </option>
+
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <br>
                                                                                 </div>
-                                                                                <div class="col-md-6">
-                                                                                    <select
-                                                                                        class="form-control dropdown-item"
-                                                                                        id="business_onboarded"
-                                                                                        name="business_onboarded">
-
-                                                                                        <option selected disabled>
-
-                                                                                            Select
-                                                                                        </option>
-
-                                                                                        <option id="Yes"
-                                                                                            value="Yes">
-
-                                                                                            Yes
-                                                                                        </option>
-                                                                                        <option id="No"
-                                                                                            value="No">
-
-                                                                                            No
-                                                                                        </option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                                <br>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
 
 
 
-                                                                <div class=" modal-footer "
-                                                                    style="display: flex; justify-content:center">
-                                                                    <button id="" type="submit"
-                                                                        class="btn btn-success">
-                                                                        Save</button>
-                                                                </div>
+                                                                    <div class=" modal-footer "
+                                                                        style="display: flex; justify-content:center">
+                                                                        <button id="" type="submit"
+                                                                            class="btn btn-success">
+                                                                            Save</button>
+                                                                    </div>
 
-                                                            </form>
+                                                                </form>
+                                                            </div>
+
+
                                                         </div>
 
-
                                                     </div>
-
+                                                    <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                             </div>
-                                            <!-- /.modal-dialog -->
+                                            {{-- edit modal --}}
+
+
+
+
+
                                         </div>
-                                        {{-- edit modal --}}
-
-
-
-
-
                                     </div>
                                 </div>
-                            </div>
-
-    
-    
-    
-    
-@endif
+                            @endif
                         @endif
 
                     </div>
@@ -1140,7 +1138,7 @@
 
 
 
-     {{-- Timeline Tab --}}
+                {{-- Timeline Tab --}}
                 <div class="tab-pane pad" id="timeline" role="tabpanel">
 
 
@@ -1211,7 +1209,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
 
 
@@ -1273,7 +1271,7 @@
                     {{-- Followup Data Table --}}
                     <div class="box-header with-border">
                         <h5 class="box-title">Scheduled Followups</h5>
-                            </div>
+                    </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
@@ -1458,7 +1456,8 @@
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <label for="Area">Area (Sq Ft.)<span class="danger">*</span></label>
+                                                    <label for="Area">Area (Sq Ft.)<span
+                                                            class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
                                                     <input class="form-control" type="number" value=""
@@ -1590,7 +1589,7 @@
                                     <br>
                                     <br>
 
-                                   
+
 
 
 
@@ -1620,84 +1619,84 @@
                             <h4 id="form_heading" class="box-title">Proposal Form</h4>
                         </div>
 
-                        
-                            <!-- /.card-header -->
-                            <!-- form start -->
+
+                        <!-- /.card-header -->
+                        <!-- form start -->
 
 
 
-                            <form method="post" id="proposalform" name="proposalform" action="/savebusinessproposal"
-                                class="form-horizontal form-element">
-                                @csrf
+                        <form method="post" id="proposalform" name="proposalform" action="/savebusinessproposal"
+                            class="form-horizontal form-element">
+                            @csrf
 
 
-                                <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
-                                <input type="hidden" name="proposal_accepted" id="proposal_accepted" value="Awaiting">
-                                <div class="box-body">
+                            <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+                            <input type="hidden" name="proposal_accepted" id="proposal_accepted" value="Awaiting">
+                            <div class="box-body">
 
-                                    {{-- first two --}}
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
+                                {{-- first two --}}
+                                <div class="row">
+                                    <div class="form-group col-md-6">
 
-                                            <div class="row">
-                                                <div class="col-2">
+                                        <div class="row">
+                                            <div class="col-2">
 
-                                                    <label for="upload_proposal_documents">Upload Propsal Documents</label>
-                                                </div>
-                                                <div class="col-10">
-                                                    <input id="upload_proposal_documents" type="file"
-                                                        class="form-control " name="upload_proposal_documents" autofocus
-                                                        required>
-
-                                                </div>
+                                                <label for="upload_proposal_documents">Upload Propsal Documents</label>
                                             </div>
-                                        </div>
+                                            <div class="col-10">
+                                                <input id="upload_proposal_documents" type="file"
+                                                    class="form-control " name="upload_proposal_documents" autofocus
+                                                    required>
 
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-2">
-
-                                                    <label for="reason_for_changing_proposal">Reason For Changing
-                                                        Proposal<span class="danger">*</span></label>
-                                                </div>
-                                                <div class="col-10">
-                                                    <select id="reason_for_changing_proposal"
-                                                        name="reason_for_changing_proposal" class="form-control">
-                                                        <option selected disabled>Select Reason</option>
-                                                        <option value="Reason 1">Reason 1</option>
-                                                        <option value="Reason 2">Reason 2</option>
-                                                        <option value="Reason 3">Reason 3</option>
-                                                        <option value="Reason 4">Reason 4</option>
-
-                                                    </select>
-
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <div class="form-group col-md-6">
+                                        <div class="row">
+                                            <div class="col-2">
 
+                                                <label for="reason_for_changing_proposal">Reason For Changing
+                                                    Proposal<span class="danger">*</span></label>
+                                            </div>
+                                            <div class="col-10">
+                                                <select id="reason_for_changing_proposal"
+                                                    name="reason_for_changing_proposal" class="form-control">
+                                                    <option selected disabled>Select Reason</option>
+                                                    <option value="Reason 1">Reason 1</option>
+                                                    <option value="Reason 2">Reason 2</option>
+                                                    <option value="Reason 3">Reason 3</option>
+                                                    <option value="Reason 4">Reason 4</option>
 
+                                                </select>
 
-                                    {{-- first two upto here --}}
-
-                                    <div class="text-right">
-
-                                        <button type="submit" class="btn btn-success btn-md " id="save_requirements"
-                                            tabindex="9">
-                                            Save
-                                        </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
 
-                            </form>
-                    
-                    </div>
-                    
-                       <div class="box-header with-border">
-                        <h5 class="box-title">Sent Proposals</h5>
+
+
+                                {{-- first two upto here --}}
+
+                                <div class="text-right">
+
+                                    <button type="submit" class="btn btn-success btn-md " id="save_requirements"
+                                        tabindex="9">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
+
+
+                        </form>
+
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h5 class="box-title">Sent Proposals</h5>
+                    </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
@@ -1709,8 +1708,8 @@
                                     <tr>
                                         <th>Proposal Doc</th>
                                         <th>Remarks</th>
-                                        
-                                        
+
+
 
 
                                     </tr>
@@ -1720,12 +1719,11 @@
                                         <tr>
                                             <td>{{ $p->proposal_documents }}</td>
                                             <td>{{ $p->reason_for_changing_proposal }}</td>
-                                            
+
                                         </tr>
-                           
                                     @endforeach
                                 </tbody>
-                               
+
                             </table>
                         </div>
                     </div>
@@ -1782,7 +1780,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="customer_agreement" type="file" class="form-control "
-                                                        name="customer_agreement" autofocus >
+                                                        name="customer_agreement" autofocus>
 
                                                 </div>
                                             </div>
@@ -1820,7 +1818,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="nda" type="file" class="form-control "
-                                                        name="nda" autofocus >
+                                                        name="nda" autofocus>
 
                                                 </div>
                                             </div>
@@ -1986,19 +1984,11 @@
                 document.getElementById('Reason').style.display = "none";
 
         }
-        
-        
-        
-        
-        
-        
-        
-        
     </script>
 
     <script>
         function select_accept_proposal() {
-//alert("FDafas");
+            //alert("FDafas");
             if (document.getElementById("accept_proposal").value == "Yes") {
                 document.getElementById('counter_proposal').style.display = "none";
 
@@ -2044,7 +2034,7 @@
 
             }
 
-if ("{!! isset($remarks->business_onboarded) && $remarks->business_onboarded=='Yes'? 'YES':'' !!}" == "YES") {
+            if ("{!! isset($remarks->business_onboarded) && $remarks->business_onboarded == 'Yes' ? 'YES' : '' !!}" == "YES") {
                 $('.ti-write').hide();
 
             }
@@ -2053,7 +2043,7 @@ if ("{!! isset($remarks->business_onboarded) && $remarks->business_onboarded=='Y
 
 
 
-ti-write
+            ti - write
         });
     </script>
 

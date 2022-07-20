@@ -118,10 +118,9 @@
                                     <label for="role">Role<span class="danger">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="role" id="role" class="form-control  " tabindex="7" required   value="{{ old('role') }}">
-                                        <option disabled value="">
-                                            -Select Role-
-                                        </option>
+                                    <select name="role" id="role" class="form-control  " tabindex="7" required
+                                        value="{{ old('role') }}">
+
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}">
                                                 {{ $role->role_name }}
@@ -186,52 +185,53 @@
                             Add User
                         </button>
                     </div>
-                    
-                    
-                    
-                    
-                      {{-- Leads --}}
-    <div class="box box-solid box-primary">
-        <div class="box-header with-border">
-            <h4 class="box-title">Users</h4>
-            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <div class="table-responsive">
-                <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                    <thead>
-                        <tr>
-                            <th>Role_Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role Name</th>
-<th>LOB</th>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
- <?php //dd($users[3]->lobs->all_businesses ); ?>
-                        @foreach ($users as $user)
-                       
-                            <tr>
-                                <td>{{ $user['role_id'] }}</td>
-                                <td>{{ $user['name'] }}</td>
-                                <td>{{ $user['email'] }}</td>
-                                <td>{{ $user->roles->role_name ?? '' }}</td>
-                                <td>{{ $user->lobs->all_businesses ?? '' }}</td>
-                            </tr>
-                        @endforeach
 
 
-                    </tbody>
-                  
-                </table>
-            </div>
-        </div>
-        <!-- /.box-body -->
-    </div>
+                    {{-- Leads --}}
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">Users</h4>
+                            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example"
+                                    class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                        <tr>
+                                            <th>Role_Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role Name</th>
+                                            <th>LOB</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php //dd($users[3]->lobs->all_businesses );
+                                        ?>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user['role_id'] }}</td>
+                                                <td>{{ $user['name'] }}</td>
+                                                <td>{{ $user['email'] }}</td>
+                                                <td>{{ $user->roles->role_name ?? '' }}</td>
+                                                <td>{{ $user->lobs->all_businesses ?? '' }}</td>
+                                            </tr>
+                                        @endforeach
+
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
 
                 </div>
 

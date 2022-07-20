@@ -16,15 +16,15 @@ class MastersAddUsersController extends Controller
         $roles = Role::get();
         $lobs = AllBusiness::get();
         $cities = City::get();
-        
+
         $users = User::with('roles')->with('lobs')->get();
 
-        return view('site.masters.addusers', ['roles' => $roles,'users' => $users, 'lobs' => $lobs, 'cities' => $cities]);
+        return view('site.masters.addusers', ['roles' => $roles, 'users' => $users, 'lobs' => $lobs, 'cities' => $cities]);
     }
 
     function SaveUser(Request $request)
     {
-        
+
         $request->validate(
             [
                 'name' => ['required', 'string', 'max:255'],
@@ -32,7 +32,7 @@ class MastersAddUsersController extends Controller
                 'password' => ['required', 'string', 'min:8'],
             ]
         );
-        //dd($request->all());
+        // dd($request->all());
 
         try {
 
