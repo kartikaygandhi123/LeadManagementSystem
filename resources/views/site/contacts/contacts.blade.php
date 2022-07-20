@@ -37,14 +37,7 @@
 
 
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Customer_Name</th>
-                            <th>Contact_Number</th>
 
-                            <th>Email</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

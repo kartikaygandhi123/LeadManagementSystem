@@ -150,147 +150,13 @@
                                     <div class="col-md-6">
 
                                         {{ $viewlead->Lead_Status }}
-                                        <span><a href="#" onclick="Edit_Lead('{{ $viewlead->id }}')"
-                                                data-toggle="modal" data-target=".editmodal"><span
-                                                    class="ti-write"></span></a></span>
+
                                     </div>
-
-                                    {{-- edit modal --}}
-                                    <div class="modal fade  editmodal" tabindex="-1" role="dialog"
-                                        aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myLargeModalLabel">Status</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×</button>
-                                                </div>
-
-                                                <div class="modal-body">
-
-                                                    <div style="display:flex; justify-content:center;">
-                                                        <form action="/change_status" method="post">
-                                                            @csrf
-
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $viewlead->id }}">
-                                                            <div
-                                                                style="display: flex; justify-content:center;align-items:center">
-                                                                <h5>Current Status: {{ $viewlead->Lead_Status }}</h5>
-                                                            </div>
-                                                            <br>
-
-
-                                                            <div class="form-group"
-                                                                style="display: flex; justify-content:center;align-items:center">
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-
-                                                                        <div class="row"
-                                                                            style="display: flex; align-items:baseline;">
-                                                                            <div class="col-md-6">
-                                                                                <h6>
-                                                                                    Change Status:
-                                                                                </h6>
-
-
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <select class="form-control dropdown-item"
-                                                                                    id="change_status"
-                                                                                    onchange="status_change()"
-                                                                                    name="status">
-
-                                                                                    <option selected disabled>
-
-                                                                                        Change Status
-                                                                                    </option>
-
-                                                                                    <option id="prospect"
-                                                                                        value="Prospect" name="Prospect">
-
-                                                                                        Prospect
-                                                                                    </option>
-                                                                                    <option id="Qualified"
-                                                                                        value="Qualified"
-                                                                                        name="Qualified">
-
-                                                                                        Qualified
-                                                                                    </option>
-                                                                                    <option id="Not_Qualified"
-                                                                                        value="Not Qualified"
-                                                                                        name="Not Qualified">
-
-                                                                                        Not Qualified
-                                                                                    </option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <br>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <select class="form-control dropdown-item" id="Reason"
-                                                                    onchange="" name="Reason" style="display: none">
-
-                                                                    <option selected disabled>
-
-                                                                        Select Reason
-                                                                    </option>
-
-                                                                    <option id="EIEC" value="EIEC">
-
-                                                                        Existing Industry/Existing Customer
-                                                                    </option>
-                                                                    <option id="EINC" value="EINC">
-
-                                                                        Existing Industry/New Customer
-                                                                    </option>
-                                                                    <option id="NINC" value="NINC">
-
-                                                                        New Industry/New Customer
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-
-
-
-
-
-
-
-
-
-
-                                                            <div class=" modal-footer "
-                                                                style="display: flex; justify-content:center">
-                                                                <button id="" type="submit"
-                                                                    class="btn btn-success">
-                                                                    Save</button>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    {{-- edit modal --}}
-
 
 
                                 </div>
                             </div>
                         </div>
-
 
 
                         <div class="row">
@@ -317,98 +183,7 @@
                                     <div class="col-md-6">
                                         {{ $viewlead->assigned_to_user->name }}
 
-                                        <span><a href="#" onclick="Update_User('{{ $viewlead->id }}')"
-                                                data-toggle="modal" data-target=".updateuser"><span
-                                                    class="ti-write"></span></a></span>
-
                                     </div>
-
-                                    {{-- edit modal --}}
-                                    <div class="modal fade  updateuser" tabindex="-1" role="dialog"
-                                        aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myLargeModalLabel">Assigned To
-                                                    </h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×</button>
-                                                </div>
-
-                                                <div class="modal-body">
-
-                                                    <div style="display:flex; justify-content:center;">
-                                                        <form action="/updateuser" method="post">
-                                                            @csrf
-
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $viewlead->id }}">
-                                                            <div
-                                                                style="display: flex; justify-content:center;align-items:center">
-                                                                <h5>Assigned To:
-                                                                    {{ $viewlead->assigned_to_user->name }}
-                                                                </h5>
-                                                            </div>
-                                                            <br>
-
-
-                                                            <div class="form-group"
-                                                                style="display: flex; justify-content:center;align-items:center">
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-
-                                                                        <div class="row"
-                                                                            style="display: flex; align-items:baseline;">
-                                                                            <div class="col-md-6">
-                                                                                <h6>
-                                                                                    Change Assigned User:
-                                                                                </h6>
-
-
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <select class="form-control dropdown-item"
-                                                                                    id="assigned_user"
-                                                                                    name="assigned_user">
-
-                                                                                    @foreach ($users as $k => $v)
-                                                                                        <option
-                                                                                            value="{{ $k }}">
-                                                                                            {{ $v }}</option>
-                                                                                    @endforeach
-
-
-                                                                                </select>
-                                                                            </div>
-                                                                            <br>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-
-
-                                                            <div class=" modal-footer "
-                                                                style="display: flex; justify-content:center">
-                                                                <button id="" type="submit"
-                                                                    class="btn btn-success">
-                                                                    Save</button>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    {{-- edit modal --}}
 
                                 </div>
                             </div>
@@ -597,111 +372,8 @@
                                         <div class="col-md-6">
                                             {{ isset($requirements->share_business_proposal) ? $requirements->share_business_proposal : 'Not Found' }}
 
-                                            <span><a href="#"
-                                                    onclick="Update_Proposal_Accepted('{{ $requirements->lead_id }}')"
-                                                    data-toggle="modal" data-target=".updateproposalaccepted"><span
-                                                        class="ti-write"></span></a></span>
-
-
                                         </div>
 
-                                        {{-- edit modal --}}
-                                        <div class="modal fade  updateproposalaccepted" tabindex="-1" role="dialog"
-                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                            style="display: none;">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Business Proposal
-                                                            Shared
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-
-                                                        <div style="display:flex; justify-content:center;">
-                                                            <form action="/updateproposalshared" method="post">
-                                                                @csrf
-
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $requirements->lead_id }}">
-                                                                <div
-                                                                    style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Business Proposal Shared:
-                                                                        {{ $requirements->share_business_proposal }}
-                                                                    </h5>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="form-group"
-                                                                    style="display: flex; justify-content:center;align-items:center">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-                                                                            <div class="row"
-                                                                                style="display: flex; align-items:baseline;">
-                                                                                <div class="col-md-6">
-                                                                                    <h6>
-                                                                                        Change Status:
-                                                                                    </h6>
-
-
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <select
-                                                                                        class="form-control dropdown-item"
-                                                                                        id="proposal_shared"
-                                                                                        name="proposal_shared"
-                                                                                        required="">
-
-                                                                                        <option id="No"
-                                                                                            value="No">
-
-                                                                                            No
-                                                                                        </option>
-
-
-                                                                                        <option id="Yes"
-                                                                                            value="Yes">
-
-                                                                                            Yes
-                                                                                        </option>
-
-
-                                                                                    </select>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                                <div class=" modal-footer "
-                                                                    style="display: flex; justify-content:center">
-                                                                    <button id="" type="submit"
-                                                                        class="btn btn-success">
-                                                                        Save</button>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        {{-- edit modal --}}
                                     </div>
                                 </div>
                             </div>
@@ -743,145 +415,16 @@
                                         <div class="col-md-6">
                                             <b> Proposal Accepted: </b>
                                         </div>
-
                                         <div class="col-md-6">
 
                                             {{ isset($proposal->proposal_accepted) ? $proposal->proposal_accepted : 'Not Found' }}
 
-                                            <span><a href="#"
-                                                    onclick="Proposal_Accepted('{{ $proposal->lead_id }}')"
-                                                    data-toggle="modal" data-target=".acceptproposal"><span
-                                                        class="ti-write"></span></a></span>
                                         </div>
-
-                                        {{-- edit modal --}}
-                                        <div class="modal fade  acceptproposal" tabindex="-1" role="dialog"
-                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                            style="display: none;">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-
-                                                        <div style="display:flex; justify-content:center;">
-                                                            <form action="/proposal_accepted" method="post">
-                                                                @csrf
-
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $proposal->lead_id }}">
-                                                                <div
-                                                                    style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Proposal Status:
-                                                                        {{ $proposal->proposal_accepted }}
-                                                                    </h5>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="form-group"
-                                                                    style="display: flex; justify-content:center;align-items:center">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-                                                                            <div class="row"
-                                                                                style="display: flex; align-items:baseline;">
-                                                                                <div class="col-md-6">
-                                                                                    <h6>
-                                                                                        Accept Proposal:
-                                                                                    </h6>
-
-
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <select
-                                                                                        class="form-control dropdown-item"
-                                                                                        id="accept_proposal"
-                                                                                        onchange="select_accept_proposal()"
-                                                                                        name="accept_proposal">
-
-                                                                                        <option selected disabled>
-
-                                                                                            Proposal Accepted
-                                                                                        </option>
-
-                                                                                        <option id="Yes"
-                                                                                            value="Yes">
-
-                                                                                            Yes
-                                                                                        </option>
-                                                                                        <option id="No"
-                                                                                            value="No">
-
-                                                                                            No
-                                                                                        </option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                                <br>
-                                                                            </div>
-
-                                                                            <div class="form-group" id="counter_proposal"
-                                                                                style="display:none;">
-                                                                                <label> Receive Counter Proposal?</label>
-                                                                                <select class="form-control dropdown-item"
-                                                                                    id="counter_proposal_select"
-                                                                                    name="counter_proposal">
-
-
-                                                                                    <option id="No" value="No"
-                                                                                        selected>
-
-                                                                                        No
-                                                                                    </option>
-                                                                                    <option id="Yes" value="Yes">
-
-                                                                                        Yes
-                                                                                    </option>
-
-
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                                <div class=" modal-footer "
-                                                                    style="display: flex; justify-content:center">
-                                                                    <button id="" type="submit"
-                                                                        class="btn btn-success">
-                                                                        Save</button>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        {{-- edit modal --}}
-
-
 
                                     </div>
                                 </div>
                             </div>
                         @endif
-
 
 
                         @if (isset($remarks->id))
@@ -895,109 +438,7 @@
                                         <div class="col-md-6">
                                             {{ isset($remarks->agreement_finalized) ? $remarks->agreement_finalized : 'Not Found' }}
 
-                                            <span><a href="#"
-                                                    onclick="Agreement_Finalized('{{ $remarks->lead_id }}')"
-                                                    data-toggle="modal" data-target=".agreementfinalized"><span
-                                                        class="ti-write"></span></a></span>
                                         </div>
-
-                                        {{-- edit modal --}}
-                                        <div class="modal fade  agreementfinalized" tabindex="-1" role="dialog"
-                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                            style="display: none;">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Agreement Finalized
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-
-                                                        <div style="display:flex; justify-content:center;">
-                                                            <form action="/agreementfinalized" method="post">
-                                                                @csrf
-
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $remarks->lead_id }}">
-                                                                <div
-                                                                    style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Agreement Finalized:
-                                                                        {{ $remarks->agreement_finalized }}
-                                                                    </h5>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="form-group"
-                                                                    style="display: flex; justify-content:center;align-items:center">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-                                                                            <div class="row"
-                                                                                style="display: flex; align-items:baseline;">
-                                                                                <div class="col-md-6">
-                                                                                    <h6>
-                                                                                        Finalize Agreement:
-                                                                                    </h6>
-
-
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <select
-                                                                                        class="form-control dropdown-item"
-                                                                                        id="agreement_finalized"
-                                                                                        name="agreement_finalized">
-
-                                                                                        <option selected disabled>
-
-                                                                                            Select
-                                                                                        </option>
-
-                                                                                        <option id="Yes"
-                                                                                            value="Yes">
-
-                                                                                            Yes
-                                                                                        </option>
-                                                                                        <option id="No"
-                                                                                            value="No">
-
-                                                                                            No
-                                                                                        </option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                                <br>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                                <div class=" modal-footer "
-                                                                    style="display: flex; justify-content:center">
-                                                                    <button id="" type="submit"
-                                                                        class="btn btn-success">
-                                                                        Save</button>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        {{-- edit modal --}}
 
                                     </div>
                                 </div>
@@ -1011,114 +452,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
-                                                <span><a href="#"
-                                                        onclick="Business_Onboarded('{{ $remarks->lead_id }}')"
-                                                        data-toggle="modal" data-target=".businessonboarded"><span
-                                                            class="ti-write"></span></a></span>
+
                                             </div>
-
-                                            {{-- edit modal --}}
-                                            <div class="modal fade  businessonboarded" tabindex="-1" role="dialog"
-                                                aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                                style="display: none;">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myLargeModalLabel">Business
-                                                                Onboarded
-                                                            </h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-hidden="true">×</button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-
-                                                            <div style="display:flex; justify-content:center;">
-                                                                <form action="/businessonboarded" method="post">
-                                                                    @csrf
-
-                                                                    <input type="hidden" name="id"
-                                                                        value="{{ $remarks->lead_id }}">
-                                                                    <div
-                                                                        style="display: flex; justify-content:center;align-items:center">
-                                                                        <h5>Business Onboarded:
-                                                                            {{ $remarks->business_onboarded }}
-                                                                        </h5>
-                                                                    </div>
-                                                                    <br>
-
-
-                                                                    <div class="form-group"
-                                                                        style="display: flex; justify-content:center;align-items:center">
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-
-                                                                                <div class="row"
-                                                                                    style="display: flex; align-items:baseline;">
-                                                                                    <div class="col-md-6">
-                                                                                        <h6>
-                                                                                            Business Onboarded:
-                                                                                        </h6>
-
-
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <select
-                                                                                            class="form-control dropdown-item"
-                                                                                            id="business_onboarded"
-                                                                                            name="business_onboarded">
-
-                                                                                            <option selected disabled>
-
-                                                                                                Select
-                                                                                            </option>
-
-                                                                                            <option id="Yes"
-                                                                                                value="Yes">
-
-                                                                                                Yes
-                                                                                            </option>
-                                                                                            <option id="No"
-                                                                                                value="No">
-
-                                                                                                No
-                                                                                            </option>
-
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <br>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-
-
-
-                                                                    <div class=" modal-footer "
-                                                                        style="display: flex; justify-content:center">
-                                                                        <button id="" type="submit"
-                                                                            class="btn btn-success">
-                                                                            Save</button>
-                                                                    </div>
-
-                                                                </form>
-                                                            </div>
-
-
-                                                        </div>
-
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            {{-- edit modal --}}
-
-
-
-
 
                                         </div>
                                     </div>
@@ -1129,30 +464,9 @@
                     </div>
                 </div>
 
-
-                {{-- upto here --}}
             </div>
         </div>
     </div>
-
-
-
-
-
-    {{-- Lost/Dormant Modal --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1183,14 +497,6 @@
 
         });
     </script> --}}
-
-
-
-
-
-
-
-
 
 
 

@@ -14,10 +14,10 @@
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
             <h4 class="box-title">Leads</h4>
-            <p id="createleadbtn" class="pull-right"><button type="button" class="btn btn-light btn-sm"
+            {{-- <p id="createleadbtn" class="pull-right"><button type="button" class="btn btn-light btn-sm"
                     onclick="window.location.href = 'createleadshow';">
                     <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
-                </button></p>
+                </button></p> --}}
 
 
 
@@ -66,7 +66,7 @@
                                             class="ti-eye lg\:absolute"></span></a>
 
                                     <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                                                                    data-target="#modal-center1"><span class="ti-write"></span></a>-->
+                                                                                                                    data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 
