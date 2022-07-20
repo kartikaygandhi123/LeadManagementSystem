@@ -320,15 +320,15 @@ class LeadsController extends Controller
 
     function Proposal_Accepted(Request $request)
     {
-
+//dd($request->all());
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
-        $accept = LeadProposal::where('lead_id', $request->id)->first();
+        $accept = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
         $accept->proposal_accepted = $request->accept_proposal;
 
-        $accept->save();
+        $accept->update();
 
         if ($request->accept_proposal == "Yes") {
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Acccepted "]);
@@ -425,22 +425,22 @@ class LeadsController extends Controller
         }
     }
 
-    function Update_Proposal_Accepted(Request $request)
+    function Update_Proposal_Shared(Request $request)
     {
 
 
 
         $updateproposal = RequirementsMap::where('lead_id', $request->id)->first();
 
-        $updateproposal->share_business_proposal = $request->proposal_accepted;
+        $updateproposal->share_business_proposal = $request->proposal_shared;
 
         $updateproposal->save();
 
-        if ($request->proposal_accepted == "Yes") {
+        if ($request->proposal_shared == "Yes") {
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
 
             return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Business Proposal Shared");
-        } elseif ($request->proposal_accepted == "No") {
+        } elseif ($request->proposal_shared == "No") {
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
 
             return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared");

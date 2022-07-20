@@ -630,7 +630,7 @@
                                                     <div class="modal-body">
 
                                                         <div style="display:flex; justify-content:center;">
-                                                            <form action="/updateproposalaccepted" method="post">
+                                                            <form action="/updateproposalshared" method="post">
                                                                 @csrf
 
                                                                 <input type="hidden" name="id"
@@ -662,11 +662,11 @@
                                                                                 <div class="col-md-6">
                                                                                     <select
                                                                                         class="form-control dropdown-item"
-                                                                                        id="proposal_accepted"
-                                                                                        name="proposal_accepted">
+                                                                                        id="proposal_shared"
+                                                                                        name="proposal_shared" required="">
 
                                                                                         <option id="No"
-                                                                                            value="No" selected>
+                                                                                            value="No" >
 
                                                                                             No
                                                                                         </option>
