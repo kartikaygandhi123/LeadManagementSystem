@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandProfileController;
-use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CreateLeadController;
 
 use App\Http\Controllers\DashboardController;
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'retailbdhead', 'middleware' => ['IsRetailBdHead', 'au
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -87,7 +87,7 @@ Route::group(['prefix' => 'iplbdhead', 'middleware' => ['IsIplBdHead', 'auth', '
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -120,7 +120,7 @@ Route::group(['prefix' => 'retailbd', 'middleware' => ['IsRetailBd', 'auth', 'Pr
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -150,7 +150,7 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -176,7 +176,7 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
 
 Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], function () {
 
-   
+
 
 
 
@@ -214,7 +214,7 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['IsSuperAdmin', 'auth', 
     Route::get('delete-lead/{id}', [LeadsController::class, 'Delete_Lead']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow'])->name('leads_show');
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -254,7 +254,7 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
     Route::post('existingupdate', [LeadsController::class, 'Update']);
 
     Route::get('brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('leadsshow', [LeadsController::class, 'LeadsShow']);
     Route::get('opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('reportsshow', [ReportsController::class, 'ReportsShow']);
@@ -281,13 +281,13 @@ Route::group(['prefix' => 'iplbd', 'middleware' => ['IsIplBd', 'auth', 'PreventB
 
 
 Route::group(['middleware' => ['auth']], function () {
- Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'Admin'])->name('admin.dashboard');
 
 
     Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
     Route::get('/leadsshowlegal', [LeadsController::class, 'LeadsShowLegal'])->name('leadsshowlegal');
     Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
-    Route::get('/contactsshow', [ContactsController::class, 'ContactsShow']);
+    Route::get('/contactsshow', [ContactController::class, 'ContactsShow']);
     Route::get('/opportunitiesshow', [OpportunitiesController::class, 'OpportunitiesShow']);
     Route::get('/reportsshow', [ReportsController::class, 'ReportsShow']);
     Route::post('/followupshow', [LeadsController::class, 'Store']);

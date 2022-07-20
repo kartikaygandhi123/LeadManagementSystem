@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BrandProfile;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
-class BrandProfileController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BrandProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BrandProfile  $brandProfile
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function show(BrandProfile $brandProfile)
+    public function show(Contact $contact)
     {
         //
     }
@@ -52,10 +52,10 @@ class BrandProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BrandProfile  $brandProfile
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(BrandProfile $brandProfile)
+    public function edit(Contact $contact)
     {
         //
     }
@@ -64,10 +64,10 @@ class BrandProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BrandProfile  $brandProfile
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BrandProfile $brandProfile)
+    public function update(Request $request, Contact $contact)
     {
         //
     }
@@ -75,18 +75,16 @@ class BrandProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BrandProfile  $brandProfile
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BrandProfile $brandProfile)
+    public function destroy(Contact $contact)
     {
         //
     }
-
-
-    function BrandShow()
+    function ContactsShow()
     {
-        $brand = BrandProfile::get();
-        return view('site.brand profile.brandprofile', ['brand' => $brand]);
+        $contacts = Contact::get();
+        return view('site.contacts.contacts', ['contacts' => $contacts]);
     }
 }

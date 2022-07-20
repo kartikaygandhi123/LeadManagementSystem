@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BrandProfile;
 use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\LeadSource;
@@ -17,8 +18,10 @@ class CreateLeadController extends Controller
         $leadsource = LeadSource::get();
         $lead = Lead::get();
 
+        $brand = BrandProfile::get();
+
         // return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
-        return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead]);
+        return view('site.custom.createlead', ['industries' => $industries, 'leadsource' =>  $leadsource, 'lead' => $lead, 'brand' => $brand]);
     }
 
     function Fetchcustomer(Request $req)
@@ -26,7 +29,7 @@ class CreateLeadController extends Controller
         $find = $req->get('find');
 
 
-        $customer = Lead::where('id', $find)->first();
+        $customer = BrandProfile::where('id', $find)->first();
         return response()->json(['customers' => $customer]);
     }
 }

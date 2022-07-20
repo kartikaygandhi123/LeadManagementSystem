@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BrandProfile;
+use App\Models\Contact;
 use App\Models\Followup;
 use App\Models\Industry;
 use App\Models\Lead;
@@ -75,6 +77,25 @@ class LeadsController extends Controller
         $data->stage = "Lead";
 
         if ($data->save()) {
+
+
+            $brand = new BrandProfile;
+
+            $brand->Customer_Name = $req->Input(['Customer_Name']);
+            $brand->Contact_Number = $req->Input(['Contact_Number']);
+            $brand->POC_Name = $req->Input(['POC_Name']);
+            $brand->Industry = $req->Input(['Industry']);
+            $brand->Email = $req->Input(['Email']);
+            $brand->save();
+
+            $contact = new Contact;
+
+            $contact->Customer_Name = $req->Input(['Customer_Name']);
+            $contact->Contact_Number = $req->Input(['Contact_Number']);
+            $contact->POC_Name = $req->Input(['POC_Name']);
+
+            $contact->Email = $req->Input(['Email']);
+            $contact->save();
         }
 
         LeadLogger(['lead_id' => $data->id, "message" => "Lead Created Successfully"]);
@@ -118,7 +139,15 @@ class LeadsController extends Controller
         $data->stage = "Lead";
 
         if ($data->save()) {
-            //$data->update();
+
+            $contact = new Contact;
+
+            $contact->Customer_Name = $req->Input(['Customer_Name']);
+            $contact->Contact_Number = $req->Input(['Contact_Number']);
+            $contact->POC_Name = $req->Input(['POC_Name']);
+
+            $contact->Email = $req->Input(['Email']);
+            $contact->save();
         }
 
 
@@ -320,7 +349,7 @@ class LeadsController extends Controller
 
     function Proposal_Accepted(Request $request)
     {
-//dd($request->all());
+        //dd($request->all());
 
         $stageupdate = Lead::where('id', $request->id)->first();
 

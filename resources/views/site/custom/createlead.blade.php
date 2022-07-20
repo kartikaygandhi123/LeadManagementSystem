@@ -44,7 +44,7 @@
                         <optgroup>
                             <option selected disabled>Choose Existing</option>
 
-                            @foreach ($lead as $item)
+                            @foreach ($brand as $item)
                                 <option value="{{ $item['id'] }}">{{ $item['Customer_Name'] }}</option>
                             @endforeach
 
@@ -348,8 +348,8 @@
                     $('#Contact_Number').val(response.customers.Contact_Number);
                     $('#Email').val(response.customers.Email);
                     $('#Industry').val(response.customers.Industry);
-                    $('#Lead_Source').val(response.customers.Lead_Source);
-                    $('#First_Contact_Date').val(response.customers.First_Contact_Date);
+
+
                     $('#id_update').val(response.customers.id);
 
 
