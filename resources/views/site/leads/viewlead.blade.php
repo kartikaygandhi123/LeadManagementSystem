@@ -663,10 +663,11 @@
                                                                                     <select
                                                                                         class="form-control dropdown-item"
                                                                                         id="proposal_shared"
-                                                                                        name="proposal_shared" required="">
+                                                                                        name="proposal_shared"
+                                                                                        required="">
 
                                                                                         <option id="No"
-                                                                                            value="No" >
+                                                                                            value="No">
 
                                                                                             No
                                                                                         </option>
@@ -1216,118 +1217,129 @@
                 {{-- Followup tab --}}
                 <div class="tab-pane pad" id="followups" role="tabpanel">
 
-                    <div class="box-header with-border">
-                        <h4 class="box-title">Follow Up</h4>
-
-                        <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                    </div>
-
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                    <form action="{{ route('savefollow') }}" method="POST" enctype="multipart/form-data"
-                        class="form-horizontal form-element">
-                        @csrf
-                        <div class="box-body">
-
-                            <div class="form-group">
-
-                                <!-- /.input group -->
-
-                                <div class="form-group row">
 
 
-                                    <input type="hidden" value="{{ $viewlead->id }}" name="id">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">Follow Up</h4>
 
-                                    <label for="example-text-input" class="col-sm-5 col-form-label">Remarks:</label>
-                                    <div class="col-sm-10">
-
-                                        <textarea class="form-control" type="text" value="" name="remarks" id="Remarks"></textarea>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group row">
-                                    <label for="example-date-input" class="col-sm-5 col-form-label">Follow-Up
-                                        Date</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="date" value="<?php echo date('Y-m-d'); ?>"
-                                            name="date" id="Follow_Up_Date">
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary btn-sm pull-right">Schedule Mail</button>
-
-
-                            </div>
+                            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
                         </div>
-                    </form>
+
+                        <div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form action="{{ route('savefollow') }}" method="POST" enctype="multipart/form-data"
+                                class="form-horizontal form-element">
+                                @csrf
+                                <div class="box-body">
+
+                                    <div class="form-group">
+
+                                        <!-- /.input group -->
+
+                                        <div class="form-group row">
+
+
+                                            <input type="hidden" value="{{ $viewlead->id }}" name="id">
+
+                                            <label for="example-text-input"
+                                                class="col-sm-5 col-form-label">Remarks:</label>
+                                            <div class="col-sm-10">
+
+                                                <textarea class="form-control" type="text" value="" name="remarks" id="Remarks"></textarea>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                            <label for="example-date-input" class="col-sm-5 col-form-label">Follow-Up
+                                                Date</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="date" value="<?php echo date('Y-m-d'); ?>"
+                                                    name="date" id="Follow_Up_Date">
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-primary btn-sm pull-right">Schedule
+                                            Mail</button>
+
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                     {{-- <hr> --}}
+                    <br>
+                    <br>
 
                     {{-- Followup Data Table --}}
-                    <div class="box-header with-border">
-                        <h5 class="box-title">Scheduled Followups</h5>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
+
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Scheduled Followups</h5>
+                            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                        </div>
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example"
+                                    class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
 
 
-                            <table id="example"
-                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr>
-                                        <th>Followup Date</th>
-                                        <th>Remarks</th>
-                                        <th>Followup Done Date</th>
 
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($viewlead->followups as $followup)
+                                    <thead>
                                         <tr>
-                                            <td>{{ $followup->Follow_up_date }}</td>
-                                            <td>{{ $followup->Remarks }}</td>
-                                            {{-- <td>{{ $followup->followed_up_date }}</td> --}}
-                                            @if ($followup->followed_up_date === null)
-                                                <td id="followupbtn"><Button class="btn btn-info btn-sm"
-                                                        onclick="showdate({{ $followup->id }})">Followup Done?</Button>
-                                                </td>
-                                            @else
-                                                <td>{{ $followup->followed_up_date }}</td>
+                                            <th>Followup Date</th>
+                                            <th>Remarks</th>
+                                            <th>Followup Done Date</th>
 
-                                                {{-- <td id="followupbtn"><Button class="btn btn-success btn-sm">
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($viewlead->followups as $followup)
+                                            <tr>
+                                                <td>{{ $followup->Follow_up_date }}</td>
+                                                <td>{{ $followup->Remarks }}</td>
+                                                {{-- <td>{{ $followup->followed_up_date }}</td> --}}
+                                                @if ($followup->followed_up_date === null)
+                                                    <td id="followupbtn"><Button class="btn btn-info btn-sm"
+                                                            onclick="showdate({{ $followup->id }})">Followup
+                                                            Done?</Button>
+                                                    </td>
+                                                @else
+                                                    <td>{{ $followup->followed_up_date }}</td>
+
+                                                    {{-- <td id="followupbtn"><Button class="btn btn-success btn-sm">
                                                         {{ $followup->followed_up_date }}
                                                     </Button>
                                                 </td> --}}
+                                            </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Followup Date</th>
+                                            <th>Remarks</th>
+                                            <th>Followup Done Date </th>
                                         </tr>
-                                    @endif
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Followup Date</th>
-                                        <th>Remarks</th>
-                                        <th>Followup Done Date </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
                     <!-- /.box-body -->
-
-
-
-
-
-
-
 
                 </div>
 
