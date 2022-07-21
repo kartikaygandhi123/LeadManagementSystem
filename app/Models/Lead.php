@@ -28,6 +28,13 @@ class Lead extends Model
     
     
 
+    public function legalRemarks()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasMany(LegalRemark::class, 'lead_id');
+    }
+    
+
     public function proposals()
     {
         // return $this->belongsTo('App\Role');

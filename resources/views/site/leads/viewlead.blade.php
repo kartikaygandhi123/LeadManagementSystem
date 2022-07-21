@@ -892,7 +892,7 @@
 
 
 
-                        @if (isset($remarks->id))
+                        @if (in_array($viewlead->stage, ['Agreement', 'Business Onboarded', 'Business Not Onboarded']))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -901,10 +901,10 @@
                                             <b> Agreement Finalized: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($remarks->agreement_finalized) ? $remarks->agreement_finalized : 'Not Found' }}
+                                            {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
 
                                             <span><a href="#"
-                                                    onclick="Agreement_Finalized('{{ $remarks->lead_id }}')"
+                                                    onclick="Agreement_Finalized('{{ $viewlead->id }}')"
                                                     data-toggle="modal" data-target=".agreementfinalized"><span
                                                         class="ti-write"></span></a></span>
                                         </div>
@@ -929,11 +929,11 @@
                                                                 @csrf
 
                                                                 <input type="hidden" name="id"
-                                                                    value="{{ $remarks->lead_id }}">
+                                                                    value="{{ $viewlead->id }}">
                                                                 <div
                                                                     style="display: flex; justify-content:center;align-items:center">
                                                                     <h5>Agreement Finalized:
-                                                                        {{ $remarks->agreement_finalized }}
+                                                                        {{ $viewlead->agreement_finalized }}
                                                                     </h5>
                                                                 </div>
                                                                 <br>
@@ -1010,7 +1010,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($remarks->agreement_finalized == 'Yes')
+                            @if ($viewlead->agreement_finalized == 'Yes')
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -1018,9 +1018,9 @@
                                                 <b> Business Onboarded: </b>
                                             </div>
                                             <div class="col-md-6">
-                                                {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
+                                                {{ isset($viewlead->business_onboarded) ? $viewlead->business_onboarded : 'Not Found' }}
                                                 <span><a href="#"
-                                                        onclick="Business_Onboarded('{{ $remarks->lead_id }}')"
+                                                        onclick="Business_Onboarded('{{ $viewlead->id }}')"
                                                         data-toggle="modal" data-target=".businessonboarded"><span
                                                             class="ti-write"></span></a></span>
                                             </div>
@@ -1046,11 +1046,11 @@
                                                                     @csrf
 
                                                                     <input type="hidden" name="id"
-                                                                        value="{{ $remarks->lead_id }}">
+                                                                        value="{{ $viewlead->id }}">
                                                                     <div
                                                                         style="display: flex; justify-content:center;align-items:center">
                                                                         <h5>Business Onboarded:
-                                                                            {{ $remarks->business_onboarded }}
+                                                                            {{ $viewlead->business_onboarded }}
                                                                         </h5>
                                                                     </div>
                                                                     <br>
@@ -1637,7 +1637,7 @@
 
 
 
-                        <form method="post" id="proposalform" name="proposalform" action="/savebusinessproposal"
+                        <form method="post" id="proposalform" name="proposalform" enctype="multipart/form-data" action="/savebusinessproposal"
                             class="form-horizontal form-element">
                             @csrf
 
@@ -1657,7 +1657,7 @@
                                             </div>
                                             <div class="col-10">
                                                 <input id="upload_proposal_documents" type="file"
-                                                    class="form-control " name="upload_proposal_documents" autofocus
+                                                    class="form-control " name="upload_proposal_documents" 
                                                     required>
 
                                             </div>
@@ -1729,7 +1729,37 @@
                                 <tbody>
                                     @foreach ($viewlead->proposals as $p)
                                         <tr>
-                                            <td>{{ $p->proposal_documents }}</td>
+                                            <td>
+                                                
+                                                 <?php
+                                    //$data->sla_document_link
+                                    $ar = explode(".", $p->proposal_documents);
+                                    
+                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                    if (in_array($ar[1], $extensions)) {
+                                        ?>
+                                        <img style="width:100px;height:90px" src="/uploads/{{$p->proposal_documents}}" alt='SLA Document'>
+
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="/uploads/{{$p->proposal_documents}}" target="_blank">
+
+                                            <img style="width:2100px;height:90px" src="/assets/doc.svg" alt='SLA Document'>
+
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            </td>
                                             <td>{{ $p->reason_for_changing_proposal }}</td>
 
                                         </tr>
@@ -1757,7 +1787,7 @@
 
 
                             <form method="post" id="legalremarksform" name="legalremarksform"
-                                action="/savelegalremarks" class="form-horizontal form-element">
+                                action="/savelegalremarks"  enctype="multipart/form-data" class="form-horizontal form-element">
                                 @csrf
 
 
@@ -1792,7 +1822,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="customer_agreement" type="file" class="form-control "
-                                                        name="customer_agreement" autofocus>
+                                                        name="customer_agreement" required>
 
                                                 </div>
                                             </div>
@@ -1816,7 +1846,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="commercial" type="file" class="form-control "
-                                                        name="commercial" autofocus required>
+                                                        name="commercial"  >
 
                                                 </div>
                                             </div>
@@ -1830,7 +1860,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <input id="nda" type="file" class="form-control "
-                                                        name="nda" autofocus>
+                                                        name="nda" >
 
                                                 </div>
                                             </div>
@@ -2046,7 +2076,7 @@
 
             }
 
-            if ("{!! isset($remarks->business_onboarded) && $remarks->business_onboarded == 'Yes' ? 'YES' : '' !!}" == "YES") {
+            if ("{!! isset($viewlead->business_onboarded) && $viewlead->business_onboarded == 'Yes' ? 'YES' : '' !!}" == "YES") {
                 $('.ti-write').hide();
 
             }

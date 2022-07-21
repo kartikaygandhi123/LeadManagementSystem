@@ -228,8 +228,8 @@ class LeadsController extends Controller
         $users = User::when(isset(\auth()->user()->lob_id), function ($q1) {
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
-            ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
+            ->pluck('name', 'id');  
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('proposals')->with('followups')->first();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
@@ -350,7 +350,16 @@ class LeadsController extends Controller
         $proposal = new LeadProposal;
         $proposal->lead_id = $request->id;
         $proposal->reason_for_changing_proposal = $request->reason_for_changing_proposal;
-        $proposal->proposal_documents = $request->upload_proposal_documents;
+        
+        $doclink="";
+         if(isset($request->upload_proposal_documents )){
+            
+                $doclink = getName($request->upload_proposal_documents);
+         }
+        
+        
+        
+        $proposal->proposal_documents = $doclink;
         $proposal->proposal_accepted = $request->proposal_accepted;
 
         if ($proposal->save()) {
@@ -403,19 +412,80 @@ class LeadsController extends Controller
     {
         $stageupdate = Lead::where('id', $request->id)->first();
 
-        $remarks = new LegalRemark;
+        
+      // dd( \auth()->user()->id);
 
-        $remarks->lead_id = $request->id;
-        $remarks->nda = $request->nda;
-        $remarks->customer_agreement = $request->customer_agreement;
-        $remarks->commercial = $request->commercial;
-        $remarks->agreement_finalized = $request->agreement_finalized;
-        $remarks->business_onboarded = $request->business_onboarded;
 
-        if ($remarks->save()) {
+
+
+        
+                
+     
+            if(isset($request->customer_agreement )){
+            
+                $doclink = getName($request->customer_agreement);
+                
+             $attributes[0]['document_link'] = $doclink;   
+             
+             $attributes[0]['lead_id'] = $request->id;
+             
+             
+             $attributes[0]['document_type'] = "Customer Agreement";
+             $attributes[0]['user_id'] = \auth()->user()->id ;
+             $attributes[0]['remarks_by_legal'] = "";
+            
+            }
+           
+            if(isset($request->commercial )){
+            
+                $doclink = getName($request->commercial);
+                
+             $attributes[1]['document_link'] = $doclink;   
+             
+             $attributes[1]['lead_id'] = $request->id;
+             
+             
+             $attributes[1]['document_type'] = "Commercial Agreement";
+             $attributes[1]['user_id'] = \auth()->user()->id ;
+             $attributes[1]['remarks_by_legal'] = "";
+       
+            }
+            
+             if(isset($request->nda )){
+            
+                $doclink = getName($request->nda);
+                
+             $attributes[2]['document_link'] = $doclink;   
+             
+             $attributes[2]['lead_id'] = $request->id;
+             
+             
+             $attributes[2]['document_type'] = "NDA Agreement";
+             $attributes[2]['user_id'] = \auth()->user()->id;
+             $attributes[2]['remarks_by_legal'] = "";
+              
+    
+            }
+            
+                LegalRemark::insert($attributes); 
+            
+
+  
+        
+        
+        
+        
+        
+//        $remarks->agreement_finalized = $request->agreement_finalized;
+//        $remarks->business_onboarded = $request->business_onboarded;
+
             $stageupdate->stage = "Agreement";
+             $stageupdate->agreement_finalized = $request->agreement_finalized;
+        $stageupdate->business_onboarded = $request->business_onboarded;
+
+        $stageupdate->remarks_for_legal = $request->remarks_for_legal;
             $stageupdate->update();
-        }
+        
 
         LeadLogger(['lead_id' => $request->id, "message" => "Lead data sent to Legal Team "]);
 
@@ -424,11 +494,20 @@ class LeadsController extends Controller
 
     function Agreement_Finalized(Request $request)
     {
-        $agreement = LegalRemark::where('lead_id', $request->id)->first();
-
-        $agreement->agreement_finalized = $request->agreement_finalized;
-
-        $agreement->save();
+//        $agreement = LegalRemark::where('lead_id', $request->id)->first();
+//
+//        $agreement->agreement_finalized = $request->agreement_finalized;
+//
+//        $agreement->save();
+        
+        
+        $stageupdate = Lead::where('id', $request->id)->first();
+ $stageupdate->agreement_finalized = $request->agreement_finalized;
+       
+            $stageupdate->update();
+        
+        
+        
 
         if ($request->agreement_finalized == "Yes") {
 
@@ -438,7 +517,7 @@ class LeadsController extends Controller
         } elseif ($request->agreement_finalized == "No") {
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Not Finalized"]);
 
-            return redirect('view_lead/' . $agreement->lead_id . "?remarks=YES")->with("error", "Agreement Not Finalized");
+            return redirect('view_lead/' . $request->id . "?remarks=YES")->with("error", "Agreement Not Finalized");
         }
     }
 
@@ -447,14 +526,16 @@ class LeadsController extends Controller
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
-        $business = LegalRemark::where('lead_id', $request->id)->first();
-
-        $business->business_onboarded = $request->business_onboarded;
-
-        $business->save();
+//        $business = LegalRemark::where('lead_id', $request->id)->first();
+//
+//        $business->business_onboarded = $request->business_onboarded;
+//
+//        $business->save();
 
         if ($request->business_onboarded == "Yes") {
             $stageupdate->stage = "Business Onboarded";
+            $stageupdate->business_onboarded = $request->business_onboarded;
+
             $stageupdate->update();
 
             LeadLogger(['lead_id' => $request->id, "message" => "Business Onboarded Successfully"]);
@@ -462,6 +543,8 @@ class LeadsController extends Controller
             return redirect('view_lead/' . $request->id)->with("success", "Business Onboarded");
         } elseif ($request->business_onboarded == "No") {
             $stageupdate->stage = "Business Not Onboarded";
+            $stageupdate->business_onboarded = $request->business_onboarded;
+
             $stageupdate->update();
 
             LeadLogger(['lead_id' => $request->id, "message" => "Business Not Onboarded"]);
