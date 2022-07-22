@@ -52,4 +52,10 @@ class Lead extends Model
         // return $this->belongsTo('App\Role');
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function requirements()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(RequirementsMap::class, 'lead_id');
+    }
 }

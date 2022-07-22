@@ -1,7 +1,6 @@
 @extends('layouts.mainLayout')
 
 @section('content')
-
     <div class="box box-default">
         <div class="box-body">
             <!-- Nav tabs -->
@@ -427,7 +426,7 @@
 
 
 
-                        @if (isset($requirements->business_requirement))
+                        @if (isset($viewlead->requirements->business_requirement))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -436,7 +435,7 @@
                                             <b> Business Requirements: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->business_requirement) ? $requirements->business_requirement : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->business_requirement) ? $viewlead->requirements->business_requirement : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -450,7 +449,7 @@
                                             <b> Requirement Documents: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->upload_requirement_documents) ? $requirements->upload_requirement_documents : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->upload_requirement_documents) ? $viewlead->requirements->upload_requirement_documents : 'Not Found' }}
 
                                         </div>
 
@@ -465,7 +464,7 @@
                                             <b> Services: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->services) ? $requirements->services : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->services : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -479,7 +478,7 @@
                                             <b> LOB: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->lob) ? $requirements->lob : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lob : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -493,7 +492,7 @@
                                             <b> Area: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->area) ? $requirements->area : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->area) ? $viewlead->requirements->area : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -507,7 +506,7 @@
                                             <b> Expected Closure Date </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_closure_date) ? $requirements->expected_closure_date : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_closure_date) ? $viewlead->requirements->expected_closure_date : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -522,7 +521,7 @@
                                             <b> Location: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->location) ? $requirements->location : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->location) ? $viewlead->requirements->location : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -536,7 +535,7 @@
                                             <b> Business Type: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->business_type) ? $requirements->business_type : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->business_type) ? $viewlead->requirements->business_type : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -550,7 +549,7 @@
                                             <b> Expected Monthly Revenue </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_monthly_revenue) ? $requirements->expected_monthly_revenue : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_monthly_revenue) ? $viewlead->requirements->expected_monthly_revenue : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -564,7 +563,7 @@
                                             <b> Expected Capex </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_capex) ? $requirements->expected_capex : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_capex) ? $viewlead->requirements->expected_capex : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -578,7 +577,7 @@
                                             <b> EBDTA% </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->ebdta_percentage) ? $requirements->ebdta_percentage : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->ebdta_percentage) ? $viewlead->requirements->ebdta_percentage : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -592,7 +591,7 @@
                                             <b> EBDTA Amount </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->ebdta_amount) ? $requirements->ebdta_amount : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->ebdta_amount) ? $viewlead->requirements->ebdta_amount : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -606,10 +605,10 @@
                                             <b>Business Proposal Shared</b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->share_business_proposal) ? $requirements->share_business_proposal : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->share_business_proposal) ? $viewlead->requirements->share_business_proposal : 'Not Found' }}
 
                                             <span><a href="#"
-                                                    onclick="Update_Proposal_Accepted('{{ $requirements->lead_id }}')"
+                                                    onclick="Update_Proposal_Accepted('{{ $viewlead->requirements->lead_id }}')"
                                                     data-toggle="modal" data-target=".updateproposalaccepted"><span
                                                         class="ti-write"></span></a></span>
 
@@ -637,11 +636,11 @@
                                                                 @csrf
 
                                                                 <input type="hidden" name="id"
-                                                                    value="{{ $requirements->lead_id }}">
+                                                                    value="{{ $viewlead->requirements->lead_id }}">
                                                                 <div
                                                                     style="display: flex; justify-content:center;align-items:center">
                                                                     <h5>Business Proposal Shared:
-                                                                        {{ $requirements->share_business_proposal }}
+                                                                        {{ $viewlead->requirements->share_business_proposal }}
                                                                     </h5>
                                                                 </div>
                                                                 <br>
@@ -1013,7 +1012,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($viewlead->agreement_finalized == 'Yes')
+                            @if ($viewlead->Lead_Status == 'Finance Verification Done')
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -1664,27 +1663,30 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <div class="row">
-                                            <div class="col-2">
 
-                                                <label for="reason_for_changing_proposal">Reason For Changing
-                                                    Proposal<span class="danger">*</span></label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select id="reason_for_changing_proposal"
-                                                    name="reason_for_changing_proposal" class="form-control">
-                                                    <option selected disabled>Select Reason</option>
-                                                    <option value="Reason 1">Reason 1</option>
-                                                    <option value="Reason 2">Reason 2</option>
-                                                    <option value="Reason 3">Reason 3</option>
-                                                    <option value="Reason 4">Reason 4</option>
+                                    @if (in_array($viewlead->Lead_Status, ['Proposal Negotiation', 'Waiting For Proposal Negotiation']))
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
 
-                                                </select>
+                                                    <label for="reason_for_changing_proposal">Reason For Changing
+                                                        Proposal<span class="danger">*</span></label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select id="reason_for_changing_proposal"
+                                                        name="reason_for_changing_proposal" class="form-control">
+                                                        <option selected disabled>Select Reason</option>
+                                                        <option value="Reason 1">Reason 1</option>
+                                                        <option value="Reason 2">Reason 2</option>
+                                                        <option value="Reason 3">Reason 3</option>
+                                                        <option value="Reason 4">Reason 4</option>
 
+                                                    </select>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
 
 
@@ -2293,6 +2295,10 @@
                             <input type="hidden" name="id" value="{{ $viewlead->id }}">
                             <div style="display: flex; justify-content:center;align-items:center">
                                 <h5>Current Stage: {{ $viewlead->stage }}</h5>
+
+
+
+
                             </div>
                             <br>
 
@@ -2341,7 +2347,7 @@
                                     placeholder="Reason for Lost" style="display: none">
                             </div>
                             <div class="form-group">
-                                <input id="input_dormant" class="form-control" name="dormant_reason"
+                                <input id="input_dormant" class="form-control" name="lost_reason"
                                     placeholder="Reason for Dormant" style="display: none">
                             </div>
 

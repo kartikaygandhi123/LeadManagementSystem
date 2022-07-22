@@ -127,7 +127,7 @@ class LeadsController extends Controller
         if ($req->Lead_Status == "Prospect") {
             // $data->showfollowform="YES";
             // return redirect('site.custom.followup', ['data' => $data]);
-            return redirect('view_lead/' . $data->id . "?followup=YES")->with("success", "Lead Created Successfully");
+            return redirect('view_lead/' . $data->id . "?followup=YES")->with("success", "Lead is a Prospect, Schedule a Followup");
         } elseif ($req->Lead_Status == "Qualified") {
 
             // $req->map_requirements == "No"
@@ -201,35 +201,31 @@ class LeadsController extends Controller
     }
 
     // view button not using
-    function Update_Lead(Request $request)
-    {
-        $editlead = Lead::where('id', $request->id)->first();
-        $editlead->Customer_Name = $request->Customer_Name;
-        $editlead->Contact_Number = $request->Contact_Number;
-        $editlead->POC_Name = $request->POC_Name;
-        $editlead->Industry = $request->Industry;
-        $editlead->Lead_Source = $request->Lead_Source;
-        $editlead->Email = $request->Email;
-        $editlead->First_Contact_Date = $request->First_Contact_Date;
-        $editlead->Lead_Status = $request->Lead_Status;
-        $editlead->save();
+    // function Update_Lead(Request $request)
+    // {
+    //     $editlead = Lead::where('id', $request->id)->first();
+    //     $editlead->Customer_Name = $request->Customer_Name;
+    //     $editlead->Contact_Number = $request->Contact_Number;
+    //     $editlead->POC_Name = $request->POC_Name;
+    //     $editlead->Industry = $request->Industry;
+    //     $editlead->Lead_Source = $request->Lead_Source;
+    //     $editlead->Email = $request->Email;
+    //     $editlead->First_Contact_Date = $request->First_Contact_Date;
+    //     $editlead->Lead_Status = $request->Lead_Status;
+    //     $editlead->save();
 
-        if (auth()->user()->role_id == 6) {
-            return redirect('admin/leadsshow')->with('success', 'record updated');
-        } elseif (auth()->user()->role_id == 7) {
-            return redirect('superuser/leadsshow')->with('success', 'record updated');
-        }
-    }
+    //     if (auth()->user()->role_id == 6) {
+    //         return redirect('admin/leadsshow')->with('success', 'record updated');
+    //     } elseif (auth()->user()->role_id == 7) {
+    //         return redirect('superuser/leadsshow')->with('success', 'record updated');
+    //     }
+    // }
 
     function Delete_Lead($id)
     {
         $deletelead = Lead::where('id', $id)->first();
         $deletelead->delete();
-        // if (auth()->user()->role_id == 6) {
-        //     return redirect('admin/leadsshow')->with('success', 'record deleted');
-        // } elseif (auth()->user()->role_id == 7) {
-        //     return redirect('superuser/leadsshow')->with('success', 'record deleted');
-        // }
+
 
         return redirect('/leadsshow')->with('success', 'record deleted');
     }
@@ -245,7 +241,7 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('proposals')->with('followups')->with('customer')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('customer')->first();
 
 
         // dd($viewlead->customer);
@@ -267,7 +263,7 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->with('requirements')->first();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
@@ -286,7 +282,7 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->with('requirements')->first();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
@@ -304,17 +300,16 @@ class LeadsController extends Controller
     {
         $lead = Lead::where('id', $request->id)->first();
         $lead->lost_reason = $request->lost_reason;
-        $lead->dormant_reason = $request->dormant_reason;
+        // $lead->dormant_reason = $request->dormant_reason;
         $lead->stage = $request->stage;
         $lead->save();
         LeadLogger(['lead_id' => $lead->id, 'followed_up_update' => date('y-m-d H:m:s'), "message" => "Lead Lost", "lead_stage" => $lead->stage]);
-        // return redirect('/dashboard')->with("success", "Successfuly changed State");
+
         return redirect('view_lead/' . $request->id)->with("success", "Successfuly changed State");
     }
 
     function Followup_Done(Request $request)
     {
-
         $followup = Followup::where('id', $request->id)->first();
         $followup->followed_up_date = date('y-m-d H:m:s');
         $followup->save();
@@ -322,31 +317,19 @@ class LeadsController extends Controller
         return response()->json(['data' => $followup]);
     }
 
-    function AccessLeadLogger()
-    {
-        $data = getLeadLogData(3);
-        return $data;
-    }
+    // function AccessLeadLogger()
+    // {
+    //     $data = getLeadLogData(3);
+    //     return $data;
+    // }
 
     function SaveRequirementsMap(Request $request)
     {
-
         $stageupdate = Lead::where('id', $request->id)->first();
         $requirements = new RequirementsMap;
         $requirements->lead_id = $request->id;
         $requirements->business_requirement = $request->business_requirement;
-
         $requirements->upload_requirement_documents = $request->upload_requirement_documents;
-
-        // $d = "";
-        // if (isset($request->upload_requirement_documents)) {
-        //     $d = getName($request->upload_requirement_documents);
-        // }
-        // $requirements->upload_requirement_documents = $d;
-        // $store = RequirementsMap::create($requirements);
-
-
-
         $requirements->lob = $request->lob;
         $requirements->services = $request->services;
         $requirements->area = $request->area;
@@ -361,12 +344,13 @@ class LeadsController extends Controller
 
         if ($requirements->save()) {
             $stageupdate->stage = "Requirements Mapping";
+            $stageupdate->Lead_Status = "Proposal To Be Shared";
             $stageupdate->update();
         }
 
         LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
 
-        return redirect('view_lead/' . $requirements->lead_id . "?followup=YES");
+        return redirect('view_lead/' . $requirements->lead_id . "?followup=YES")->with("success", "Requirements mapping done,Share Business Proposal through Details Tab for next step, else Followup");
     }
 
     function Update_status(Request $request)
@@ -380,12 +364,20 @@ class LeadsController extends Controller
         LeadLogger(['lead_id' => $request->id, "message" => "Lead Status Changed to  " . $request->status]);
 
         if ($request->status == "Not Qualified") {
-            return redirect('view_lead/' . $request->id)->with("success", "Status Changed To Not Qualified");
+
+            $status->stage = "Lost";
+            $status->lost_reason = $request->Reason;
+            $status->update();
+            return redirect('view_lead/' . $request->id)->with("error", "Lead Not Qualified, Status Changed To Lost ");
         } elseif ($request->status == "Qualified") {
 
-            return redirect('view_lead/' . $request->id . "?requirements=YES")->with("success", "Status Changed To Qualified");
+            $status->stage = "Lead";
+            $status->update();
+            return redirect('view_lead/' . $request->id . "?requirements=YES")->with("success", "Lead Qualified, Map Business Requirements");
         } elseif ($request->status == "Prospect") {
-            return redirect('view_lead/' . $request->id . "?followup=YES")->with("success", "Status Changed To Lead");
+            $status->stage = "Lead";
+            $status->update();
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("success", "Lead Is a Prospect, Schedule Followup");
         }
     }
 
@@ -410,12 +402,14 @@ class LeadsController extends Controller
 
         if ($proposal->save()) {
             $stageupdate->stage = "Proposal";
+            $stageupdate->Lead_Status = "Proposal Submitted";
+
             $stageupdate->update();
         }
 
         LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Submitted "]);
 
-        return redirect('view_lead/' . $request->id)->with("success", "Proposal Done");
+        return redirect('view_lead/' . $request->id)->with("success", "Proposal Submitted, Waiting For Proposal Acceptance");
     }
 
     function Proposal_Accepted(Request $request)
@@ -431,6 +425,9 @@ class LeadsController extends Controller
         $accept->update();
 
         if ($request->accept_proposal == "Yes") {
+
+            $stageupdate->Lead_Status = "Proposal Accepted";
+            $stageupdate->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Acccepted "]);
 
             return redirect('view_lead/' . $accept->lead_id . "?remarks=YES")->with("success", "Proposal Accepted");
@@ -438,15 +435,18 @@ class LeadsController extends Controller
             if ($request->counter_proposal == "Yes") {
 
                 $stageupdate->stage = "Negotiation";
+                $stageupdate->Lead_Status = "Proposal Negotiation";
                 $stageupdate->update();
 
                 LeadLogger(['lead_id' => $request->id, "message" => "Counter Proposal received "]);
 
-                return redirect('view_lead/' . $accept->lead_id . "?proposal=YES")->with("success", "Status updated");
+                return redirect('view_lead/' . $accept->lead_id . "?proposal=YES")->with("success", "Status : Proposal Negotiation");
             } else {
+
+
                 LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not Yet Acccepted "]);
 
-                return redirect('view_lead/' . $accept->lead_id . "?followup=YES")->with("success", "Proposal Accepted");
+                return redirect('view_lead/' . $accept->lead_id . "?followup=YES")->with("success", "Business Proposal Not Yet Acccepted Waiting For Acceptance, Go to Details Tab For more info");
             }
         } else {
 
@@ -516,6 +516,7 @@ class LeadsController extends Controller
         //        $remarks->business_onboarded = $request->business_onboarded;
 
         $stageupdate->stage = "Agreement";
+        $stageupdate->Lead_Status = "Document Revision";
         $stageupdate->agreement_finalized = $request->agreement_finalized;
         $stageupdate->business_onboarded = $request->business_onboarded;
 
@@ -547,10 +548,16 @@ class LeadsController extends Controller
 
         if ($request->agreement_finalized == "Yes") {
 
+            $stageupdate->Lead_Status = "Document Finalized";
+            $stageupdate->update();
+
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Finalized"]);
 
             return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized");
         } elseif ($request->agreement_finalized == "No") {
+
+            $stageupdate->Lead_Status = "Document Re-Revision";
+            $stageupdate->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Not Finalized"]);
 
             return redirect('view_lead/' . $request->id . "?remarks=YES")->with("error", "Agreement Not Finalized");
@@ -596,18 +603,27 @@ class LeadsController extends Controller
 
         $updateproposal = RequirementsMap::where('lead_id', $request->id)->first();
 
+
         $updateproposal->share_business_proposal = $request->proposal_shared;
 
-        $updateproposal->save();
+        $updateproposal->update();
+        // $stage = Lead::where('id', $request->id)->first();
 
         if ($request->proposal_shared == "Yes") {
+
+            // $stage->Lead_Status = "Proposal Shared";
+            // $stage->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
 
-            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Business Proposal Shared");
+            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
         } elseif ($request->proposal_shared == "No") {
+
+            // $stage->Lead_Status = "Proposal";
+            // $stage->update();
+
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
 
-            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared");
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
         }
     }
 
@@ -637,51 +653,26 @@ class LeadsController extends Controller
 
 
 
+        $doclink = getName($request->upload_document);
 
-        if ($request->document_type == "Customer Agreement") {
+        $attributes[0]['document_link'] = $doclink;
 
-            $doclink = getName($request->upload_document);
-
-            $attributes[0]['document_link'] = $doclink;
-
-            $attributes[0]['lead_id'] = $request->id;
+        $attributes[0]['lead_id'] = $request->id;
 
 
-            $attributes[0]['document_type'] = $request->document_type;
-            $attributes[0]['user_id'] = \auth()->user()->id;
-            $attributes[0]['remarks_by_legal'] = $request->remarks_by_legal;
-        }
-
-        if ($request->document_type == "Commercial Agreement") {
-
-            $doclink = getName($request->upload_document);
-
-            $attributes[1]['document_link'] = $doclink;
-
-            $attributes[1]['lead_id'] = $request->id;
+        $attributes[0]['document_type'] = $request->document_type;
+        $attributes[0]['user_id'] = \auth()->user()->id;
+        $attributes[0]['remarks_by_legal'] = $request->remarks_by_legal;
 
 
-            $attributes[1]['document_type'] = $request->document_type;
-            $attributes[1]['user_id'] = \auth()->user()->id;
-            $attributes[1]['remarks_by_legal'] = $request->remarks_by_legal;
-        }
-
-        if ($request->document_type == "NDA Agreement") {
-
-            $doclink = getName($request->upload_document);
-
-            $attributes[2]['document_link'] = $doclink;
-
-            $attributes[2]['lead_id'] = $request->id;
 
 
-            $attributes[2]['document_type'] = $request->document_type;
-            $attributes[2]['user_id'] = \auth()->user()->id;
-            $attributes[2]['remarks_by_legal'] = $request->remarks_by_legal;
-        }
 
         LegalRemark::insert($attributes);
 
+        $stage = Lead::where('id', $request->id)->first();
+
+        $stage->Lead_Status = "Document Revised";
         LeadLogger(['lead_id' => $request->id, "message" => "Legal Team Sent Executed Document and remarks "]);
 
         return redirect('view_lead_legal/' . $request->id)->with("success", "Remarks And Executed Documents sent");
@@ -705,7 +696,7 @@ class LeadsController extends Controller
         LeadExecutedAgreement::insert($attributes);
 
         $stageupdate = Lead::where('id', $request->id)->first();
-        $stageupdate->Lead_Status = "Agreement Executed";
+        $stageupdate->Lead_Status = "Agreement Finalized";
         $stageupdate->update();
 
 
@@ -726,6 +717,7 @@ class LeadsController extends Controller
         $stageupdate->Email =   $request->Email;
         $stageupdate->cost_center = $request->cost_center;
         $stageupdate->Industry =  $request->Industry;
+        $stageupdate->Lead_Status = "Pending Verification";
         $stageupdate->update();
 
 
@@ -769,6 +761,7 @@ class LeadsController extends Controller
         $stageupdate->Email =   $request->Email;
         $stageupdate->cost_center = $request->cost_center;
         $stageupdate->Industry =  $request->Industry;
+        $stageupdate->Lead_Status = "Finance Verified";
         $stageupdate->update();
 
 

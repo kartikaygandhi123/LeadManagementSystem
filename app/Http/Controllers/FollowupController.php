@@ -30,11 +30,8 @@ class FollowupController extends Controller
 
         $followup->Remarks = $req->remarks;
         $followup->save();
-  LeadLogger(['lead_id' => $req->id,  "message" => "Followup Scheduled Successfully"]);
-              
-return redirect()->back()->with('success', 'Followup mail scheduled');
-   
+        LeadLogger(['lead_id' => $req->id,  "message" => "Followup Scheduled Successfully"]);
 
-
+        return redirect()->back()->with('success', 'Followup mail scheduled, Open Details Tab For More Info');
     }
 }
