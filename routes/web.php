@@ -45,6 +45,8 @@ Route::post('/executedrelevant', [LeadsController::class, 'Update_Executed_Docum
 Route::post('/executedagreementdoc', [LeadsController::class, 'Executed_Agreement'])->name('executedagreementdoc');
 Route::post('/savefinanceverification', [LeadsController::class, 'Finance_Verification'])->name('savefinanceverification');
 
+Route::post('/update_customer_details', [LeadsController::class, 'update_customer_details'])->name('update_customer_details');
+
 
 
 

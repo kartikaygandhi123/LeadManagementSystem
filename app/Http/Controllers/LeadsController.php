@@ -235,9 +235,12 @@ class LeadsController extends Controller
         })
             ->pluck('name', 'id');
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('proposals')->with('followups')->with('customer')->first();
+        
+        
+       // dd($viewlead->customer);
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
-        $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-        $remarks = LegalRemark::where('lead_id', $request->id)->first();
+      $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
+       $remarks = LegalRemark::where('lead_id', $request->id)->first();
 
         return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
@@ -673,9 +676,58 @@ class LeadsController extends Controller
         return redirect('view_lead_legal/' . $request->id)->with("success", "Uploaded Legal Executed Agreement");
     }
 
-    function Finance_Verification(Request $request)
+    function update_customer_details(Request $request)
     {
 
-        dd($request);
+        //dd($request->all());
+        
+         $stageupdate = Lead::where('id', $request->id)->first();
+         
+          $stageupdate->Customer_Name = $request->Customer_Name;
+    $stageupdate->Contact_Number =  $request->Contact_Number;
+    $stageupdate->POC_Name =  $request->POC_Name;
+    $stageupdate->Email =   $request->Email;
+    $stageupdate->cost_center = $request->cost_center;
+    $stageupdate->Industry =  $request->Industry;
+        $stageupdate->update();
+         
+        
+         $brand = BrandProfile::where('id', $request->customer_id)->first();
+         
+          $brand->Customer_Name = $request->Customer_Name;
+    $brand->Contact_Number =  $request->Contact_Number;
+    $brand->POC_Name =  $request->POC_Name;
+    $brand->Email =  $request->Email;
+    
+    $brand->Industry =  $request->Industry;
+    $brand->gst_no =  $request->gst_no;
+    $brand->address =  $request->address;
+    
+    
+     if (isset($request->gst_file)) {
+
+    $brand->gst_file =  getName($request->gst_file);
+     }
+    
+    
+        $brand->update();
+        
+        
+
+        LeadLogger(['lead_id' => $request->id, "message" => "Customer details updated by ". \auth()->user()->name ]);
+        return redirect('view_lead/' . $request->id)->with("success", "Customer details updated");
+        
+        
+        
+        
+    }
+    
+    
+    
+       function Finance_Verification(Request $request)
+    {
+
+        dd($request->all());
+        
     }
 }

@@ -29,7 +29,7 @@
                         <span class="hidden-xs-down">Legal Remarks</span></a> </li>
                 <li class="nav-item"> <a class="nav-link" id="financetab" data-toggle="tab" href="#finance"
                         role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
-                        <span class="hidden-xs-down">Finance Verification</span></a> </li>
+                        <span class="hidden-xs-down">Customer Details</span></a> </li>
 
             </ul>
             <!-- Tab panes -->
@@ -1158,8 +1158,7 @@
                         <h6 class="pull-right">
                             Status : {{ $viewlead->Lead_Status }}
                         </h6>
-                        <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                    </div>
+                          </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
@@ -1226,8 +1225,7 @@
                         <div class="box-header with-border">
                             <h4 class="box-title">Follow Up</h4>
 
-                            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                        </div>
+                            </div>
 
                         <div>
                             <!-- /.box-header -->
@@ -1748,7 +1746,7 @@
                                         ?>
                                                 <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
 
-                                                    <img style="width:2100px;height:90px" src="/assets/doc.svg"
+                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
                                                         alt='SLA Document'>
 
                                                 </a>
@@ -1945,7 +1943,7 @@
                                         ?>
                                                 <a href="/uploads/{{ $p->document_link }}" target="_blank">
 
-                                                    <img style="width:2100px;height:90px" src="/assets/doc.svg"
+                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
                                                         alt='Legal Remarks Document'>
 
                                                 </a>
@@ -1983,7 +1981,7 @@
 
                         <div id="financeverification" class="">
                             <div class="box-header with-border">
-                                <h4 id="form_heading" class="box-title">Finance Verification Form</h4>
+                                <h4 id="form_heading" class="box-title">Update Customer Details</h4>
                             </div>
 
                             <div>
@@ -1991,13 +1989,14 @@
                                 <!-- form start -->
 
 
-
+<!--savefinanceverification-->
                                 <form method="post" id="financeverification" name="financeverification"
-                                    action="/savefinanceverification" class="form-horizontal form-element">
+                                      action="/update_customer_details" enctype="multipart/form-data" class="form-horizontal form-element">
                                     @csrf
 
 
                                     <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+<input type="hidden" name="customer_id" id="customer_id" value="{{ $viewlead->customer->id }}">
 
 
                                     <div class="box-body">
@@ -2013,7 +2012,7 @@
                                                     </div>
                                                     <div class="col-10">
                                                         <input id="Customer_Name" type="text" class="form-control "
-                                                            name="Customer_Name" required>
+                                                            name="Customer_Name" value='{{ $viewlead->customer->Customer_Name }}' required>
 
                                                     </div>
                                                 </div>
@@ -2029,7 +2028,7 @@
 
 
                                                         <input type="text" class="form-control" name="Contact_Number"
-                                                            maxlength="10" minlength="10"
+                                                            maxlength="10" minlength="10" value='{{ $viewlead->customer->Contact_Number }}'
                                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                             required="">
 
@@ -2055,7 +2054,7 @@
                                                     </div>
                                                     <div class="col-10">
                                                         <input id="POC_Name" type="text" class="form-control "
-                                                            name="POC_Name">
+                                                            name="POC_Name" value='{{ $viewlead->customer->POC_Name }}'>
 
                                                     </div>
                                                 </div>
@@ -2069,7 +2068,7 @@
                                                     </div>
                                                     <div class="col-10">
                                                         <input id="Email" type="email" class="form-control "
-                                                            name="Email">
+                                                               name="Email" value="{{ $viewlead->customer->Email }}">
 
                                                     </div>
                                                 </div>
@@ -2087,8 +2086,8 @@
                                                         <label for="GST_Number">Cost Center</label>
                                                     </div>
                                                     <div class="col-10">
-                                                        <select name="Cost_Center" id="Cost_Center"
-                                                            class="form-control  " required>
+                                                        <select name="cost_center" id="cost_center"
+                                                            class="form-control  " required  value = '{{ $viewlead->cost_center }}'>
                                                             <option selected disabled value="">
                                                                 Select Cost Center
                                                             </option>
@@ -2115,8 +2114,8 @@
                                                         <label for="GST_Number">GST Number</label>
                                                     </div>
                                                     <div class="col-10">
-                                                        <input id="GST_Number" type="text" class="form-control "
-                                                            name="GST_Number">
+                                                        <input id="GST_Number" type="text" class="form-control " 
+                                                            name="gst_no" value='{{ $viewlead->customer->gst_no }}' required>
 
                                                     </div>
                                                 </div>
@@ -2135,8 +2134,23 @@
                                                         <label for="start_date">Address</label>
                                                     </div>
                                                     <div class="col-10">
-                                                        <input id="Address" type="text" class="form-control "
-                                                            name="Address">
+                                                        <input id="address" type="text" class="form-control "
+                                                            name="address" value = '{{ $viewlead->customer->address }}'>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                             <div class="form-group col-md-6">
+
+                                                <div class="row">
+                                                    <div class="col-2">
+
+                                                        <label for="start_date">GST Upload</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input id="gst_file" type="file" class="form-control "
+                                                               name="gst_file" >
 
                                                     </div>
                                                 </div>
@@ -2146,6 +2160,68 @@
                                         </div>
                                         {{-- fourth row upto here --}}
 
+                                        
+                                          <div class="row">
+                                            <div class="form-group col-md-6">
+
+                                                <div class="row">
+                                                    <div class="col-2">
+
+                                                        <label for="start_date">Industry</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input id="Industry" type="text" class="form-control "
+                                                            name="Industry" value = "{{ $viewlead->customer->Industry }}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                           
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                                <div class="form-group col-md-6">
+
+                                                <div class="row">
+                                                  <?php
+                                                  
+                                                 if(!empty($viewlead->customer->gst_file)){
+                                              
+                                    //$data->sla_document_link
+                                    $ar = explode(".", $viewlead->customer->gst_file);
+                                    
+                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                    if (in_array($ar[1], $extensions)) {
+                                        ?>
+                                                <img style="width:100px;height:90px"
+                                                    src="/uploads/{{ $viewlead->customer->gst_file }}" alt='SLA Document'>
+
+                                                <?php
+                                    } else {
+                                        ?>
+                                                <a href="/uploads/{{ $viewlead->customer->gst_file }}" target="_blank">
+
+                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                        alt='SLA Document'>
+
+                                                </a>
+                                                <?php
+                                    }
+                                    
+                                    }
+                                    ?>
+
+
+                                                </div><!-- comment -->
+
+                                        </div>
+                                        </div>
+                                        
+                                        
 
                                         <div class="text-right">
 
