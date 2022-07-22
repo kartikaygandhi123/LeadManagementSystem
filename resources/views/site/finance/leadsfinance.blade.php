@@ -19,11 +19,6 @@
                     <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
                 </button></p> --}}
 
-
-
-
-
-
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -62,11 +57,11 @@
                                     {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
                                             data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
-                                    <a href="view_lead_legal/{{ $item->id }}"><span
+                                    <a href="view_lead_finance/{{ $item->id }}"><span
                                             class="ti-eye lg\:absolute"></span></a>
 
                                     <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                                                                                                            data-target="#modal-center1"><span class="ti-write"></span></a>-->
+                                                                                                                                            data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 

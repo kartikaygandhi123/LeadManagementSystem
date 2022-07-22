@@ -37,7 +37,8 @@
                             <a href="/admin/allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
                         </li>
                         <li>
-                            <a href="/admin/alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All Departments</a>
+                            <a href="/admin/alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All
+                                Departments</a>
                         </li>
                         <li>
                             <a href="/admin/allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
@@ -91,9 +92,17 @@
                 </a>
             </li>
 
- <li>
+            <li>
                 <a href="/leadsshowlegal">
-                    <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
+                    <i class="iconsmind-Cloud-Email"></i> <span>Legal Leads</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/leadsshowfinance">
+                    <i class="iconsmind-Cloud-Email"></i> <span>Finance Leads</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>

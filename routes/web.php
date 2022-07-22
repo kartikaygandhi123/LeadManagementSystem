@@ -292,6 +292,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/leadsshow', [LeadsController::class, 'LeadsShow'])->name('leadsshow');
 
     Route::get('/leadsshowlegal', [LeadsController::class, 'LeadsShowLegal'])->name('leadsshowlegal');
+    Route::get('/leadsshowfinance', [LeadsController::class, 'LeadsShowFinance'])->name('leadsshowfinance');
 
 
     Route::get('/brandshow', [BrandProfileController::class, 'BrandShow']);
@@ -306,6 +307,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/view_lead/{id}', [LeadsController::class, 'GetView_Lead'])->name('view_lead');
     Route::get('/view_lead_legal/{id}', [LeadsController::class, 'GetView_Lead_Legal'])->name('view_lead_legal');
+    Route::get('/view_lead_finance/{id}', [LeadsController::class, 'GetView_Lead_Finance'])->name('view_lead_finance');
 
 
 
