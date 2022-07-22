@@ -16,6 +16,12 @@ class Lead extends Model
         return $this->hasOne(User::class, 'id', 'created_by');
     }
 
+    public function customer()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(BrandProfile::class, 'id', 'customer_id');
+    }
+
 
 
     public function followups()
@@ -25,15 +31,15 @@ class Lead extends Model
     }
 
 
-    
-    
+
+
 
     public function legalRemarks()
     {
         // return $this->belongsTo('App\Role');
         return $this->hasMany(LegalRemark::class, 'lead_id');
     }
-    
+
 
     public function proposals()
     {

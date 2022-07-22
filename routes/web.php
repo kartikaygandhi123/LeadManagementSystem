@@ -41,6 +41,9 @@ Route::post('/agreementfinalized', [LeadsController::class, 'Agreement_Finalized
 Route::post('/businessonboarded', [LeadsController::class, 'Business_Onboarded'])->name('Business_Onboarded');
 Route::post('/updateproposalshared', [LeadsController::class, 'Update_Proposal_Shared'])->name('Update_Proposal_Shared');
 Route::post('/updateuser', [LeadsController::class, 'Update_User'])->name('Update_User');
+Route::post('/executedrelevant', [LeadsController::class, 'Update_Executed_Document'])->name('executedrelevant');
+Route::post('/executedagreementdoc', [LeadsController::class, 'Executed_Agreement'])->name('executedagreementdoc');
+Route::post('/savefinanceverification', [LeadsController::class, 'Finance_Verification'])->name('savefinanceverification');
 
 
 

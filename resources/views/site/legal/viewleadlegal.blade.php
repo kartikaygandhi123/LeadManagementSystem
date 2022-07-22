@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
     <div class="box box-default">
         <div class="box-body">
             <!-- Nav tabs -->
@@ -11,21 +13,26 @@
                         role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
                             class="hidden-xs-down">Details</span></a>
                 </li>
-                {{-- <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
+                <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
                         role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
                             class="hidden-xs-down">
-                            Timeline</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="followuptab" data-toggle="tab" href="#followups"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                            class="hidden-xs-down">Followup</span></a> </li> --}}
+                            Legal Remarks</span></a> </li>
+
+                <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
+                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                        <span class="hidden-xs-down">Agreement Documents</span></a> </li>
+
+
 
 
             </ul>
             <!-- Tab panes -->
+
+            {{-- Details Tab --}}
             <div class="tab-content tabcontent-border">
                 <div class="tab-pane active" id="home" role="tabpanel">
                     <div class="pad">
-                        <div class="box-header with-border">
+                        <div class=" box-header with-border">
                             <h4 id="form_heading" class="box-title">Details</h4>
                             <h6 class="pull-right">
                                 Stage : {{ $viewlead->stage }}
@@ -464,9 +471,340 @@
                     </div>
                 </div>
 
+
+                {{-- Legal Remarks --}}
+                <div class="tab-pane pad" id="timeline" role="tabpanel">
+
+                    <div class="box box-solid">
+                        <div class=" box-header with-border">
+                            <h5 class="box-title">Remarks For Legal Team : {{ $viewlead->remarks_for_legal }}</h5>
+                        </div>
+
+
+                        <div class="box-body">
+                            <div class="table-responsive">
+
+
+                                <table id="example"
+                                    class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                    <thead>
+                                        <tr>
+                                            <th>File Link</th>
+                                            <th>Document Type</th>
+                                            <th>Remarks By Legal Team</th>
+
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($remarks as $p) --}}
+                                        @foreach ($viewlead->legalRemarks as $p)
+                                            <tr>
+                                                <td>
+
+                                                    <?php
+                                    //$data->sla_document_link
+                                    $ar = explode(".", $p->document_link);
+                                    
+                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                    if (in_array($ar[1], $extensions)) {
+                                        ?>
+                                                    <img style="width:100px;height:90px"
+                                                        src="/uploads/{{ $p->document_link }}"
+                                                        alt='Legal Remarks Document'>
+
+                                                    <?php
+                                    } else {
+                                        ?>
+                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
+
+                                                        <img style="width:2100px;height:90px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+                                    }
+                                    ?>
+
+
+                                                </td>
+                                                <td>{{ $p->document_type }}</td>
+                                                <td>{{ $p->remarks_by_legal }}</td>
+
+                                            </tr>
+                                        @endforeach
+                                        {{-- @endforeach --}}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+                    <div id="executedrelevant" class="box box-solid">
+                        <div class="box-header with-border">
+                            <h4 id="form_heading" class="box-title">Legal Executed Relevant Document</h4>
+                        </div>
+
+                        <div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+
+
+
+                            <form method="post" id="executedrelevant" name="executedrelevant"
+                                action="/executedrelevant" enctype="multipart/form-data"
+                                class="form-horizontal form-element">
+                                @csrf
+
+
+                                <input type="hidden" name="id" id="leadid" value="{{ $viewlead->id }}">
+
+
+                                <div class="box-body">
+
+                                    {{-- first two --}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="remarksbylegal">Remarks By Legal Team</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="remarksbylegal" type="text" class="form-control "
+                                                        name="remarks_by_legal" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="uploaddocument">Upload Document</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="uploaddocument" type="file" class="form-control "
+                                                        name="upload_document" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- dropdown --}}
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="remarksbylegal">Document Type</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select class="form-control dropdown-item" id="document_type"
+                                                        name="document_type">
+
+                                                        <option selected disabled>
+                                                            Document Type
+                                                        </option>
+
+                                                        <option id="Customer Agreement" value="Customer Agreement">
+                                                            Customer Agreement
+                                                        </option>
+                                                        <option id="lost" value="Commercial Agreement">
+
+                                                            Commercial Agreement
+                                                        </option>
+
+                                                        <option id="lost" value="NDA Agreement">
+                                                            NDA Agreement
+                                                        </option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+
+                                    {{-- first two upto here --}}
+
+                                    <div class="text-right">
+
+                                        <button type="submit" class="btn btn-success btn-md " id="executeddocs"
+                                            tabindex="9">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                {{-- Lead Executed Agreement tab --}}
+                <div class="tab-pane pad" id="legalremarks" role="tabpanel">
+
+
+                    <div id="executedagreement" class="">
+                        <div class="box-header with-border">
+                            <h4 id="form_heading" class="box-title">Executed Agreement Documents</h4>
+                        </div>
+
+                        <div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+
+
+
+                            <form method="post" id="executedagreementdoc" name="executedagreementdoc"
+                                action="/executedagreementdoc" enctype="multipart/form-data"
+                                class="form-horizontal form-element">
+                                @csrf
+
+
+                                <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
+
+
+                                <div class="box-body">
+
+                                    {{-- first two --}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="agreement_remarks">Agreement Remarks</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="agreement_remarks" type="text" class="form-control "
+                                                        name="agreement_remarks" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="executed_agreement">Upload Executed Agreement</label>
+                                                </div>
+                                                <div class="col-10">
+
+
+                                                    <input name="executed_agreement" id="executedagreement"
+                                                        type="file" class="form-control">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {{-- first two upto here --}}
+
+                                    {{-- second two --}}
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="start_date">Agreement Start Date</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="start_date" type="date" class="form-control "
+                                                        name="start_date">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <label for="expiry_date">Agreement Expiry Date</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input id="expiry_date" type="date" class="form-control "
+                                                        name="expiry_date">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                    {{-- second two upto here --}}
+
+                                    <div class="text-right">
+
+                                        <button type="submit" class="btn btn-success btn-md " id="agreement"
+                                            tabindex="9">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                    {{-- Remarks Table --}}
+                    {{-- box header --}}
+                    {{-- Remarks Table --}}
+
+                </div>
+
+                {{-- Finance Verification --}}
+
+
+
+
+
+
             </div>
+
         </div>
     </div>
+
 
 
 

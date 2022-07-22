@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Followup;
 use App\Models\Industry;
 use App\Models\Lead;
+use App\Models\LeadExecutedAgreement;
 use App\Models\LeadProposal;
 use App\Models\LeadSource;
 use App\Models\LegalRemark;
@@ -97,6 +98,9 @@ class LeadsController extends Controller
             $brand->Email = $req->Input(['Email']);
             $brand->save();
 
+            $data->customer_id = $brand->id;
+            $data->update();
+
             $contact = new Contact;
 
             $contact->Customer_Name = $req->Input(['Customer_Name']);
@@ -133,6 +137,7 @@ class LeadsController extends Controller
         // $data = Lead::find($req->id);
         //$data = Lead::where('id', $req->id);
         $data = new Lead;
+        $data->customer_id = $req->id;
         $data->Customer_Name = $req->Customer_Name;
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;
@@ -228,12 +233,13 @@ class LeadsController extends Controller
         $users = User::when(isset(\auth()->user()->lob_id), function ($q1) {
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
-            ->pluck('name', 'id');  
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('proposals')->with('followups')->first();
+            ->pluck('name', 'id');
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('proposals')->with('followups')->with('customer')->first();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
 
     function GetView_Lead_Legal(Request $request)
@@ -350,15 +356,15 @@ class LeadsController extends Controller
         $proposal = new LeadProposal;
         $proposal->lead_id = $request->id;
         $proposal->reason_for_changing_proposal = $request->reason_for_changing_proposal;
-        
-        $doclink="";
-         if(isset($request->upload_proposal_documents )){
-            
-                $doclink = getName($request->upload_proposal_documents);
-         }
-        
-        
-        
+
+        $doclink = "";
+        if (isset($request->upload_proposal_documents)) {
+
+            $doclink = getName($request->upload_proposal_documents);
+        }
+
+
+
         $proposal->proposal_documents = $doclink;
         $proposal->proposal_accepted = $request->proposal_accepted;
 
@@ -412,80 +418,70 @@ class LeadsController extends Controller
     {
         $stageupdate = Lead::where('id', $request->id)->first();
 
-        
-      // dd( \auth()->user()->id);
+
+        // dd( \auth()->user()->id);
+
+        if (isset($request->customer_agreement)) {
+
+            $doclink = getName($request->customer_agreement);
+
+            $attributes[0]['document_link'] = $doclink;
+
+            $attributes[0]['lead_id'] = $request->id;
+
+
+            $attributes[0]['document_type'] = "Customer Agreement";
+            $attributes[0]['user_id'] = \auth()->user()->id;
+            $attributes[0]['remarks_by_legal'] = "";
+        }
+
+        if (isset($request->commercial)) {
+
+            $doclink = getName($request->commercial);
+
+            $attributes[1]['document_link'] = $doclink;
+
+            $attributes[1]['lead_id'] = $request->id;
+
+
+            $attributes[1]['document_type'] = "Commercial Agreement";
+            $attributes[1]['user_id'] = \auth()->user()->id;
+            $attributes[1]['remarks_by_legal'] = "";
+        }
+
+        if (isset($request->nda)) {
+
+            $doclink = getName($request->nda);
+
+            $attributes[2]['document_link'] = $doclink;
+
+            $attributes[2]['lead_id'] = $request->id;
+
+
+            $attributes[2]['document_type'] = "NDA Agreement";
+            $attributes[2]['user_id'] = \auth()->user()->id;
+            $attributes[2]['remarks_by_legal'] = "";
+        }
+
+        LegalRemark::insert($attributes);
 
 
 
 
-        
-                
-     
-            if(isset($request->customer_agreement )){
-            
-                $doclink = getName($request->customer_agreement);
-                
-             $attributes[0]['document_link'] = $doclink;   
-             
-             $attributes[0]['lead_id'] = $request->id;
-             
-             
-             $attributes[0]['document_type'] = "Customer Agreement";
-             $attributes[0]['user_id'] = \auth()->user()->id ;
-             $attributes[0]['remarks_by_legal'] = "";
-            
-            }
-           
-            if(isset($request->commercial )){
-            
-                $doclink = getName($request->commercial);
-                
-             $attributes[1]['document_link'] = $doclink;   
-             
-             $attributes[1]['lead_id'] = $request->id;
-             
-             
-             $attributes[1]['document_type'] = "Commercial Agreement";
-             $attributes[1]['user_id'] = \auth()->user()->id ;
-             $attributes[1]['remarks_by_legal'] = "";
-       
-            }
-            
-             if(isset($request->nda )){
-            
-                $doclink = getName($request->nda);
-                
-             $attributes[2]['document_link'] = $doclink;   
-             
-             $attributes[2]['lead_id'] = $request->id;
-             
-             
-             $attributes[2]['document_type'] = "NDA Agreement";
-             $attributes[2]['user_id'] = \auth()->user()->id;
-             $attributes[2]['remarks_by_legal'] = "";
-              
-    
-            }
-            
-                LegalRemark::insert($attributes); 
-            
 
-  
-        
-        
-        
-        
-        
-//        $remarks->agreement_finalized = $request->agreement_finalized;
-//        $remarks->business_onboarded = $request->business_onboarded;
 
-            $stageupdate->stage = "Agreement";
-             $stageupdate->agreement_finalized = $request->agreement_finalized;
+
+
+        //        $remarks->agreement_finalized = $request->agreement_finalized;
+        //        $remarks->business_onboarded = $request->business_onboarded;
+
+        $stageupdate->stage = "Agreement";
+        $stageupdate->agreement_finalized = $request->agreement_finalized;
         $stageupdate->business_onboarded = $request->business_onboarded;
 
-        $stageupdate->remarks_for_legal = $request->remarks_for_legal;
-            $stageupdate->update();
-        
+        $stageupdate->remarks_for_legal = $request->remarks;
+        $stageupdate->update();
+
 
         LeadLogger(['lead_id' => $request->id, "message" => "Lead data sent to Legal Team "]);
 
@@ -494,20 +490,20 @@ class LeadsController extends Controller
 
     function Agreement_Finalized(Request $request)
     {
-//        $agreement = LegalRemark::where('lead_id', $request->id)->first();
-//
-//        $agreement->agreement_finalized = $request->agreement_finalized;
-//
-//        $agreement->save();
-        
-        
+        //        $agreement = LegalRemark::where('lead_id', $request->id)->first();
+        //
+        //        $agreement->agreement_finalized = $request->agreement_finalized;
+        //
+        //        $agreement->save();
+
+
         $stageupdate = Lead::where('id', $request->id)->first();
- $stageupdate->agreement_finalized = $request->agreement_finalized;
-       
-            $stageupdate->update();
-        
-        
-        
+        $stageupdate->agreement_finalized = $request->agreement_finalized;
+
+        $stageupdate->update();
+
+
+
 
         if ($request->agreement_finalized == "Yes") {
 
@@ -526,11 +522,11 @@ class LeadsController extends Controller
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
-//        $business = LegalRemark::where('lead_id', $request->id)->first();
-//
-//        $business->business_onboarded = $request->business_onboarded;
-//
-//        $business->save();
+        //        $business = LegalRemark::where('lead_id', $request->id)->first();
+        //
+        //        $business->business_onboarded = $request->business_onboarded;
+        //
+        //        $business->save();
 
         if ($request->business_onboarded == "Yes") {
             $stageupdate->stage = "Business Onboarded";
@@ -583,5 +579,103 @@ class LeadsController extends Controller
         $stageupdate->user_id = $r->assigned_user;
         $stageupdate->update();
         return redirect()->back()->with("success", "User Assigned successfuly");
+    }
+
+
+    function Update_Executed_Document(Request $request)
+    {
+
+
+        $executeddoc = LegalRemark::where('lead_id', $request->id)->get();
+
+        // $executeddoc->remarks_by_legal = $request->remarks_by_legal;
+        // $executeddoc->document_type = $request->document_type;
+        // $executeddoc->document_link = $request->upload_document;
+        // $executeddoc->update();
+
+
+
+
+
+
+        if ($request->document_type == "Customer Agreement") {
+
+            $doclink = getName($request->upload_document);
+
+            $attributes[0]['document_link'] = $doclink;
+
+            $attributes[0]['lead_id'] = $request->id;
+
+
+            $attributes[0]['document_type'] = $request->document_type;
+            $attributes[0]['user_id'] = \auth()->user()->id;
+            $attributes[0]['remarks_by_legal'] = $request->remarks_by_legal;
+        }
+
+        if ($request->document_type == "Commercial Agreement") {
+
+            $doclink = getName($request->upload_document);
+
+            $attributes[1]['document_link'] = $doclink;
+
+            $attributes[1]['lead_id'] = $request->id;
+
+
+            $attributes[1]['document_type'] = $request->document_type;
+            $attributes[1]['user_id'] = \auth()->user()->id;
+            $attributes[1]['remarks_by_legal'] = $request->remarks_by_legal;
+        }
+
+        if ($request->document_type == "NDA Agreement") {
+
+            $doclink = getName($request->upload_document);
+
+            $attributes[2]['document_link'] = $doclink;
+
+            $attributes[2]['lead_id'] = $request->id;
+
+
+            $attributes[2]['document_type'] = $request->document_type;
+            $attributes[2]['user_id'] = \auth()->user()->id;
+            $attributes[2]['remarks_by_legal'] = $request->remarks_by_legal;
+        }
+
+        LegalRemark::insert($attributes);
+
+        LeadLogger(['lead_id' => $request->id, "message" => "Legal Team Sent Executed Document and remarks "]);
+
+        return redirect('view_lead_legal/' . $request->id)->with("success", "Remarks And Executed Documents sent");
+    }
+
+
+    function Executed_Agreement(Request $request)
+    {
+        // dd($request);
+        $doclink = getName($request->executed_agreement);
+        $attributes['document_upload'] = $doclink;
+
+        $attributes['lead_id'] = $request->id;
+
+        $attributes['user_id'] = \auth()->user()->id;
+        $attributes['remarks'] = $request->agreement_remarks;
+        $attributes['start_date'] = $request->start_date;
+        $attributes['expiry_date'] = $request->expiry_date;
+
+
+        LeadExecutedAgreement::insert($attributes);
+
+        $stageupdate = Lead::where('id', $request->id)->first();
+        $stageupdate->Lead_Status = "Agreement Executed";
+        $stageupdate->update();
+
+
+        LeadLogger(['lead_id' => $request->id, "message" => "Uploaded Legal Executed Agreement"]);
+        return redirect('view_lead_legal/' . $request->id)->with("success", "Uploaded Legal Executed Agreement");
+    }
+
+    function Finance_Verification(Request $request)
+    {
+
+        dd($request);
     }
 }
