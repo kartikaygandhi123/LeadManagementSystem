@@ -20,9 +20,9 @@ function LeadLogger($Logdata)
     'lead_status' => $lead->Lead_Status,
     'lead_stage' => $lead->stage,
     'user_id' => auth()->user()->id,
-   'lead_owner_id' => $lead->created_by,
-      
-  
+    'lead_owner_id' => $lead->created_by,
+
+
 
     //'created_at' => isset($Logdata['created_at']) ? $Logdata['created_at'] : null,
     //'updated_at' => isset($Logdata['updated_at']) ? $Logdata['updated_at'] : null,
@@ -41,6 +41,8 @@ function getLeadLogData($id)
 
 function getName($file)
 {
+
+
 
   //Display File Name
   $file_name = $file->getClientOriginalName();

@@ -32,7 +32,7 @@
             <div class="tab-content tabcontent-border">
                 <div class="tab-pane active" id="home" role="tabpanel">
                     <div class="pad">
-                        <div class=" box-header with-border">
+                        <div class="box-header with-border">
                             <h4 id="form_heading" class="box-title">Details</h4>
                             <h6 class="pull-right">
                                 Stage : {{ $viewlead->stage }}
@@ -161,9 +161,13 @@
                                     </div>
 
 
+
+
+
                                 </div>
                             </div>
                         </div>
+
 
 
                         <div class="row">
@@ -190,7 +194,11 @@
                                     <div class="col-md-6">
                                         {{ $viewlead->assigned_to_user->name }}
 
+
+
                                     </div>
+
+
 
                                 </div>
                             </div>
@@ -198,7 +206,7 @@
 
 
 
-                        @if (isset($requirements->business_requirement))
+                        @if (isset($viewlead->requirements->business_requirement))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -207,7 +215,7 @@
                                             <b> Business Requirements: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->business_requirement) ? $requirements->business_requirement : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->business_requirement) ? $viewlead->requirements->business_requirement : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -221,7 +229,7 @@
                                             <b> Requirement Documents: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->upload_requirement_documents) ? $requirements->upload_requirement_documents : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->upload_requirement_documents) ? $viewlead->requirements->upload_requirement_documents : 'Not Found' }}
 
                                         </div>
 
@@ -236,7 +244,7 @@
                                             <b> Services: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->services) ? $requirements->services : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->services : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -250,7 +258,7 @@
                                             <b> LOB: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->lob) ? $requirements->lob : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lob : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -264,7 +272,7 @@
                                             <b> Area: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->area) ? $requirements->area : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->area) ? $viewlead->requirements->area : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -278,7 +286,7 @@
                                             <b> Expected Closure Date </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_closure_date) ? $requirements->expected_closure_date : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_closure_date) ? $viewlead->requirements->expected_closure_date : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -293,7 +301,7 @@
                                             <b> Location: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->location) ? $requirements->location : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->location) ? $viewlead->requirements->location : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -307,7 +315,7 @@
                                             <b> Business Type: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->business_type) ? $requirements->business_type : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->business_type) ? $viewlead->requirements->business_type : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -321,7 +329,7 @@
                                             <b> Expected Monthly Revenue </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_monthly_revenue) ? $requirements->expected_monthly_revenue : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_monthly_revenue) ? $viewlead->requirements->expected_monthly_revenue : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -335,7 +343,7 @@
                                             <b> Expected Capex </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->expected_capex) ? $requirements->expected_capex : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_capex) ? $viewlead->requirements->expected_capex : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -349,7 +357,7 @@
                                             <b> EBDTA% </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->ebdta_percentage) ? $requirements->ebdta_percentage : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->ebdta_percentage) ? $viewlead->requirements->ebdta_percentage : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -363,7 +371,7 @@
                                             <b> EBDTA Amount </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->ebdta_amount) ? $requirements->ebdta_amount : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->ebdta_amount) ? $viewlead->requirements->ebdta_amount : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -377,16 +385,22 @@
                                             <b>Business Proposal Shared</b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($requirements->share_business_proposal) ? $requirements->share_business_proposal : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->share_business_proposal) ? $viewlead->requirements->share_business_proposal : 'Not Found' }}
+
+
+
 
                                         </div>
+
 
                                     </div>
                                 </div>
                             </div>
                         @endif
 
-                        @if (isset($proposal->proposal_documents))
+
+
+                        @if (isset($viewlead->proposals->proposal_documents))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -395,7 +409,7 @@
                                             <b> Proposal Documents: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($proposal->proposal_documents) ? $proposal->proposal_documents : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->proposal_documents) ? $viewlead->proposals->proposal_documents : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -409,7 +423,7 @@
                                             <b> Reason For Changing Proposal: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($proposal->reason_for_changing_proposal) ? $proposal->reason_for_changing_proposal : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->reason_for_changing_proposal) ? $viewlead->proposals->reason_for_changing_proposal : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -422,11 +436,139 @@
                                         <div class="col-md-6">
                                             <b> Proposal Accepted: </b>
                                         </div>
+
                                         <div class="col-md-6">
 
-                                            {{ isset($proposal->proposal_accepted) ? $proposal->proposal_accepted : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->proposal_accepted) ? $viewlead->proposals->proposal_accepted : 'Not Found' }}
 
+                                            <span><a href="#"
+                                                    onclick="Proposal_Accepted('{{ $viewlead->proposals->lead_id }}')"
+                                                    data-toggle="modal" data-target=".acceptproposal"><span
+                                                        class="ti-write"></span></a></span>
                                         </div>
+
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  acceptproposal" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/proposal_accepted" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $viewlead->proposals->lead_id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Proposal Status:
+                                                                        {{ $viewlead->proposals->proposal_accepted }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Accept Proposal:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="accept_proposal"
+                                                                                        onchange="select_accept_proposal()"
+                                                                                        name="accept_proposal">
+
+                                                                                        <option selected disabled>
+
+                                                                                            Proposal Accepted
+                                                                                        </option>
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+                                                                                        <option id="No"
+                                                                                            value="No">
+
+                                                                                            No
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+
+                                                                            <div class="form-group" id="counter_proposal"
+                                                                                style="display:none;">
+                                                                                <label> Receive Counter Proposal?</label>
+                                                                                <select class="form-control dropdown-item"
+                                                                                    id="counter_proposal_select"
+                                                                                    name="counter_proposal">
+
+
+                                                                                    <option id="No" value="No"
+                                                                                        selected>
+
+                                                                                        No
+                                                                                    </option>
+                                                                                    <option id="Yes" value="Yes">
+
+                                                                                        Yes
+                                                                                    </option>
+
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
+
+
 
                                     </div>
                                 </div>
@@ -434,7 +576,99 @@
                         @endif
 
 
-                        @if (isset($remarks->id))
+                        {{-- Legal Remarks --}}
+                        @if (isset($viewlead->legalRemarks))
+                            {{-- $loop->last --}}
+                            <hr>
+                            @foreach ($viewlead->legalRemarks as $p)
+                                @if ($loop->last)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Remarks By Legal Team: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->remarks_by_legal) ? $p->remarks_by_legal : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Document Type: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->document_type) ? $p->document_type : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Document Preview: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <?php
+                                            //$data->sla_document_link
+                                            $ar = explode(".", $p->document_link);
+                                            
+                                            $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                            if (in_array($ar[1], $extensions)) {
+                                                ?>
+                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
+                                                        <img style="width:50px;height:20px"
+                                                            src="/uploads/{{ $p->document_link }}"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+                                            } else {
+                                                ?>
+                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
+
+                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+                                            }
+                                            ?>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+                        {{-- Legal Remarks --}}
+
+
+
+
+
+
+
+
+                        @if (in_array($viewlead->stage, ['Agreement', 'Business Onboarded', 'Business Not Onboarded']))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -443,14 +677,19 @@
                                             <b> Agreement Finalized: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($remarks->agreement_finalized) ? $remarks->agreement_finalized : 'Not Found' }}
+                                            {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
+
 
                                         </div>
+
+
 
                                     </div>
                                 </div>
                             </div>
-                            @if ($remarks->agreement_finalized == 'Yes')
+
+
+                            @if ($viewlead->Lead_Status == 'Finance Verification Done')
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -458,7 +697,7 @@
                                                 <b> Business Onboarded: </b>
                                             </div>
                                             <div class="col-md-6">
-                                                {{ isset($remarks->business_onboarded) ? $remarks->business_onboarded : 'Not Found' }}
+                                                {{ isset($viewlead->business_onboarded) ? $viewlead->business_onboarded : 'Not Found' }}
 
                                             </div>
 

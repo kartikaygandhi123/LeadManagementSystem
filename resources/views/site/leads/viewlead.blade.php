@@ -426,7 +426,7 @@
 
 
 
-                        @if (isset($viewlead->requirements->business_requirement))
+                        @if (isset($viewlead->requirements))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -442,20 +442,59 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Requirement Documents: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->upload_requirement_documents) ? $viewlead->requirements->upload_requirement_documents : 'Not Found' }}
+
+
+                            @if (isset($viewlead->requirements->upload_requirement_documents))
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <b> Requirement Document: </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <?php
+                                    //$data->sla_document_link
+
+                                 
+                                    $ar = explode(".", $viewlead->requirements->upload_requirement_documents);
+                                  
+                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                    if (in_array($ar[1], $extensions)) {
+
+                                       
+                                        ?>
+                                                {{-- {{ dd($viewlead->requirements->upload_requirement_documents) }} --}}
+                                                <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                    target="_blank">
+                                                    <img style="width:50px;height:20px"
+                                                        src="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                        alt='Legal Remarks Document'>
+
+                                                </a>
+                                                <?php
+                                    } else {
+                                        ?>
+                                                <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                    target="_blank">
+
+                                                    <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                        alt='Legal Remarks Document'>
+
+                                                </a>
+                                                <?php
+                                    }
+                                    ?>
+
+                                            </div>
 
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
+                            @endif
+
+
+
+
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -717,7 +756,9 @@
                             </div>
                         @endif
 
-                        @if (isset($proposal->proposal_documents))
+
+
+                        @if (isset($viewlead->proposals->proposal_documents))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -726,7 +767,7 @@
                                             <b> Proposal Documents: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($proposal->proposal_documents) ? $proposal->proposal_documents : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->proposal_documents) ? $viewlead->proposals->proposal_documents : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -740,7 +781,7 @@
                                             <b> Reason For Changing Proposal: </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($proposal->reason_for_changing_proposal) ? $proposal->reason_for_changing_proposal : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->reason_for_changing_proposal) ? $viewlead->proposals->reason_for_changing_proposal : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -756,10 +797,10 @@
 
                                         <div class="col-md-6">
 
-                                            {{ isset($proposal->proposal_accepted) ? $proposal->proposal_accepted : 'Not Found' }}
+                                            {{ isset($viewlead->proposals->proposal_accepted) ? $viewlead->proposals->proposal_accepted : 'Not Found' }}
 
                                             <span><a href="#"
-                                                    onclick="Proposal_Accepted('{{ $proposal->lead_id }}')"
+                                                    onclick="Proposal_Accepted('{{ $viewlead->proposals->lead_id }}')"
                                                     data-toggle="modal" data-target=".acceptproposal"><span
                                                         class="ti-write"></span></a></span>
                                         </div>
@@ -784,11 +825,11 @@
                                                                 @csrf
 
                                                                 <input type="hidden" name="id"
-                                                                    value="{{ $proposal->lead_id }}">
+                                                                    value="{{ $viewlead->proposals->lead_id }}">
                                                                 <div
                                                                     style="display: flex; justify-content:center;align-items:center">
                                                                     <h5>Proposal Status:
-                                                                        {{ $proposal->proposal_accepted }}
+                                                                        {{ $viewlead->proposals->proposal_accepted }}
                                                                     </h5>
                                                                 </div>
                                                                 <br>
@@ -893,6 +934,202 @@
                         @endif
 
 
+                        {{-- Legal Remarks --}}
+                        @if (isset($viewlead->legalRemarks))
+                            {{-- $loop->last --}}
+                            <hr>
+                            @foreach ($viewlead->legalRemarks as $p)
+                                @if ($loop->last)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Remarks By Legal Team: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->remarks_by_legal) ? $p->remarks_by_legal : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Document Type: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->document_type) ? $p->document_type : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Document Preview: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <?php
+                                            //$data->sla_document_link
+                                            $ar = explode(".", $p->document_link);
+                                            
+                                            $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                            if (in_array($ar[1], $extensions)) {
+                                                ?>
+                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
+                                                        <img style="width:50px;height:20px"
+                                                            src="/uploads/{{ $p->document_link }}"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+                                            } else {
+                                                ?>
+                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
+
+                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+                                            }
+                                            ?>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+                        {{-- Legal Remarks --}}
+
+
+
+                        {{-- Legal Executed Agreement --}}
+
+
+                        @if (isset($viewlead->legalExecuted))
+                            <hr>
+
+                            @foreach ($viewlead->legalExecuted as $p)
+                                @if ($loop->last)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Agreement Remarks: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->remarks) ? $p->remarks : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Start Date: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->start_date) ? $p->start_date : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Expiry Date: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->expiry_date) ? $p->expiry_date : 'Not Found' }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (isset($p->document_upload))
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <b> Document Preview: </b>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <?php
+                                    //$data->sla_document_link
+                                    $ar = explode(".", $p->document_upload);
+                                    
+                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                    if (in_array($ar[1], $extensions)) {
+                                        ?>
+                                                        <a href="/uploads/{{ $p->document_upload }}" target="_blank">
+                                                            <img style="width:50px;height:20px"
+                                                                src="/uploads/{{ $p->document_upload }}"
+                                                                alt='Legal Remarks Document'>
+
+                                                        </a>
+                                                        <?php
+                                    } else {
+                                        ?>
+                                                        <a href="/uploads/{{ $p->document_upload }}" target="_blank">
+
+                                                            <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                                alt='Legal Remarks Document'>
+
+                                                        </a>
+                                                        <?php
+                                    }
+                                    ?>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+
+
+                        {{-- Legal Executed Agreement --}}
+
+
+
+
 
                         @if (in_array($viewlead->stage, ['Agreement', 'Business Onboarded', 'Business Not Onboarded']))
                             <hr>
@@ -905,8 +1142,7 @@
                                         <div class="col-md-6">
                                             {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
 
-                                            <span><a href="#"
-                                                    onclick="Agreement_Finalized('{{ $viewlead->id }}')"
+                                            <span><a href="#" onclick="Agreement_Finalized('{{ $viewlead->id }}')"
                                                     data-toggle="modal" data-target=".agreementfinalized"><span
                                                         class="ti-write"></span></a></span>
                                         </div>
@@ -918,7 +1154,8 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Agreement Finalized
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Agreement
+                                                            Finalized
                                                         </h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-hidden="true">×</button>
@@ -1012,7 +1249,9 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($viewlead->Lead_Status == 'Finance Verification Done')
+
+
+                            @if ($viewlead->Lead_Status == 'Finance Verified')
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -1359,8 +1598,8 @@
 
 
 
-                            <form method="post" id="requirements" name="requirements" action="/saverequirementsmap"
-                                class="form-horizontal form-element">
+                            <form method="post" id="requirements" enctype="multipart/form-data" name="requirements"
+                                action="/saverequirementsmap" class="form-horizontal form-element">
                                 @csrf
 
 
@@ -1937,8 +2176,7 @@
                                     if (in_array($ar[1], $extensions)) {
                                         ?>
                                                 <img style="width:100px;height:90px"
-                                                    src="/uploads/{{ $p->document_link }}"
-                                                    alt='Legal Remarks Document'>
+                                                    src="/uploads/{{ $p->document_link }}" alt='Legal Remarks Document'>
 
                                                 <?php
                                     } else {

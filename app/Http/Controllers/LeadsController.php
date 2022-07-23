@@ -232,6 +232,9 @@ class LeadsController extends Controller
 
     function GetView_Lead(Request $request)
     {
+
+
+
         $f = isset($request->followup) ? $request->followup : "NO";
         $g = isset($request->requirements) ? $request->requirements : "NO";
         $h = isset($request->proposal) ? $request->proposal : "NO";
@@ -244,7 +247,7 @@ class LeadsController extends Controller
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('customer')->first();
 
 
-        // dd($viewlead->customer);
+
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->first();
@@ -325,11 +328,22 @@ class LeadsController extends Controller
 
     function SaveRequirementsMap(Request $request)
     {
+
+
         $stageupdate = Lead::where('id', $request->id)->first();
         $requirements = new RequirementsMap;
         $requirements->lead_id = $request->id;
         $requirements->business_requirement = $request->business_requirement;
-        $requirements->upload_requirement_documents = $request->upload_requirement_documents;
+
+        $doclink = "";
+        if (isset($request->upload_requirement_documents)) {
+
+
+            $doclink = getName($request->upload_requirement_documents);
+        }
+        $requirements->upload_requirement_documents = $doclink;
+
+
         $requirements->lob = $request->lob;
         $requirements->services = $request->services;
         $requirements->area = $request->area;
@@ -347,6 +361,8 @@ class LeadsController extends Controller
             $stageupdate->Lead_Status = "Proposal To Be Shared";
             $stageupdate->update();
         }
+
+
 
         LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
 
@@ -383,6 +399,8 @@ class LeadsController extends Controller
 
     function Save_Business_Proposal(Request $request)
     {
+
+
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $proposal = new LeadProposal;
@@ -414,7 +432,7 @@ class LeadsController extends Controller
 
     function Proposal_Accepted(Request $request)
     {
-        //dd($request->all());
+
 
         $stageupdate = Lead::where('id', $request->id)->first();
 
@@ -553,7 +571,7 @@ class LeadsController extends Controller
 
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Finalized"]);
 
-            return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized");
+            return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized and sent to Finance Verification");
         } elseif ($request->agreement_finalized == "No") {
 
             $stageupdate->Lead_Status = "Document Re-Revision";

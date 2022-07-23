@@ -40,11 +40,23 @@ class Lead extends Model
         return $this->hasMany(LegalRemark::class, 'lead_id');
     }
 
+    public function legalExecuted()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasMany(LeadExecutedAgreement::class, 'lead_id');
+    }
+
 
     public function proposals()
     {
         // return $this->belongsTo('App\Role');
-        return $this->hasMany(LeadProposal::class, 'lead_id');
+        return $this->hasMany(LeadProposal::class, 'lead_id')->orderBy('id', 'desc');
+    }
+
+    public function latest_proposals()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(LeadProposal::class, 'lead_id')->orderBy('id', 'desc');
     }
 
     public function assigned_to_user()
@@ -56,6 +68,6 @@ class Lead extends Model
     public function requirements()
     {
         // return $this->belongsTo('App\Role');
-        return $this->hasOne(RequirementsMap::class, 'lead_id');
+        return $this->hasOne(RequirementsMap::class, 'lead_id')->orderBy('id', 'desc');
     }
 }
