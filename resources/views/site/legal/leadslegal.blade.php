@@ -66,7 +66,7 @@
                                             class="ti-eye lg\:absolute"></span></a>
 
                                     <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                                                                                                            data-target="#modal-center1"><span class="ti-write"></span></a>-->
+                                                                                                                                        data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 

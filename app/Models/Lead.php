@@ -70,4 +70,16 @@ class Lead extends Model
         // return $this->belongsTo('App\Role');
         return $this->hasOne(RequirementsMap::class, 'lead_id')->orderBy('id', 'desc');
     }
+
+    public function legal_user()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(User::class, 'id', 'legal_user_id');
+    }
+
+    public function finance_user()
+    {
+        // return $this->belongsTo('App\Role');
+        return $this->hasOne(User::class, 'id', 'finance_user_id');
+    }
 }

@@ -758,179 +758,215 @@
 
 
 
-                        @if (isset($viewlead->proposals->proposal_documents))
+                        @if (isset($viewlead->proposals))
                             <hr>
-                            <div class="row">
-                                <div class="col-md-12">
+                            @foreach ($viewlead->proposals as $p)
+                                @if ($loop->first)
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Proposal Documents: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($viewlead->proposals->proposal_documents) ? $viewlead->proposals->proposal_documents : 'Not Found' }}
-                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Proposal Documents: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <?php
+                                        //$data->sla_document_link
+                                        $ar = explode(".", $p->proposal_documents);
+                                        
+                                        $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                        if (in_array($ar[1], $extensions)) {
+                                            ?>
+                                                    <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
+                                                        <img style="width:50px;height:20px"
+                                                            src="/uploads/{{ $p->proposal_documents }}"
+                                                            alt='Legal Remarks Document'>
 
-                                    </div>
-                                </div>
-                            </div>
+                                                    </a>
+                                                    <?php
+                                        } else {
+                                            ?>
+                                                    <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Reason For Changing Proposal: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($viewlead->proposals->reason_for_changing_proposal) ? $viewlead->proposals->reason_for_changing_proposal : 'Not Found' }}
-                                        </div>
+                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Proposal Accepted: </b>
-                                        </div>
-
-                                        <div class="col-md-6">
-
-                                            {{ isset($viewlead->proposals->proposal_accepted) ? $viewlead->proposals->proposal_accepted : 'Not Found' }}
-
-                                            <span><a href="#"
-                                                    onclick="Proposal_Accepted('{{ $viewlead->proposals->lead_id }}')"
-                                                    data-toggle="modal" data-target=".acceptproposal"><span
-                                                        class="ti-write"></span></a></span>
-                                        </div>
-
-                                        {{-- edit modal --}}
-                                        <div class="modal fade  acceptproposal" tabindex="-1" role="dialog"
-                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
-                                            style="display: none;">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Proposal Accepted
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-
-                                                        <div style="display:flex; justify-content:center;">
-                                                            <form action="/proposal_accepted" method="post">
-                                                                @csrf
-
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $viewlead->proposals->lead_id }}">
-                                                                <div
-                                                                    style="display: flex; justify-content:center;align-items:center">
-                                                                    <h5>Proposal Status:
-                                                                        {{ $viewlead->proposals->proposal_accepted }}
-                                                                    </h5>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="form-group"
-                                                                    style="display: flex; justify-content:center;align-items:center">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-                                                                            <div class="row"
-                                                                                style="display: flex; align-items:baseline;">
-                                                                                <div class="col-md-6">
-                                                                                    <h6>
-                                                                                        Accept Proposal:
-                                                                                    </h6>
-
-
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <select
-                                                                                        class="form-control dropdown-item"
-                                                                                        id="accept_proposal"
-                                                                                        onchange="select_accept_proposal()"
-                                                                                        name="accept_proposal">
-
-                                                                                        <option selected disabled>
-
-                                                                                            Proposal Accepted
-                                                                                        </option>
-
-                                                                                        <option id="Yes"
-                                                                                            value="Yes">
-
-                                                                                            Yes
-                                                                                        </option>
-                                                                                        <option id="No"
-                                                                                            value="No">
-
-                                                                                            No
-                                                                                        </option>
-
-                                                                                    </select>
-                                                                                </div>
-                                                                                <br>
-                                                                            </div>
-
-                                                                            <div class="form-group" id="counter_proposal"
-                                                                                style="display:none;">
-                                                                                <label> Receive Counter Proposal?</label>
-                                                                                <select class="form-control dropdown-item"
-                                                                                    id="counter_proposal_select"
-                                                                                    name="counter_proposal">
-
-
-                                                                                    <option id="No" value="No"
-                                                                                        selected>
-
-                                                                                        No
-                                                                                    </option>
-                                                                                    <option id="Yes" value="Yes">
-
-                                                                                        Yes
-                                                                                    </option>
-
-
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                                <div class=" modal-footer "
-                                                                    style="display: flex; justify-content:center">
-                                                                    <button id="" type="submit"
-                                                                        class="btn btn-success">
-                                                                        Save</button>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-
-                                                    </div>
+                                                    </a>
+                                                    <?php
+                                        }
+                                        ?>
 
                                                 </div>
-                                                <!-- /.modal-content -->
+
                                             </div>
-                                            <!-- /.modal-dialog -->
                                         </div>
-                                        {{-- edit modal --}}
-
-
-
                                     </div>
-                                </div>
-                            </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Reason For Changing Proposal: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ isset($p->reason_for_changing_proposal) ? $p->reason_for_changing_proposal : 'Not Found' }}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Proposal Accepted: </b>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    {{ isset($p->proposal_accepted) ? $p->proposal_accepted : 'Not Found' }}
+
+                                                    <span><a href="#"
+                                                            onclick="Proposal_Accepted('{{ $p->lead_id }}')"
+                                                            data-toggle="modal" data-target=".acceptproposal"><span
+                                                                class="ti-write"></span></a></span>
+                                                </div>
+
+                                                {{-- edit modal --}}
+                                                <div class="modal fade  acceptproposal" tabindex="-1" role="dialog"
+                                                    aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                                    style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Proposal
+                                                                    Accepted
+                                                                </h4>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-hidden="true">×</button>
+                                                            </div>
+
+                                                            <div class="modal-body">
+
+                                                                <div style="display:flex; justify-content:center;">
+                                                                    <form action="/proposal_accepted" method="post">
+                                                                        @csrf
+
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $p->lead_id }}">
+                                                                        <div
+                                                                            style="display: flex; justify-content:center;align-items:center">
+                                                                            <h5>Proposal Status:
+                                                                                {{ $p->proposal_accepted }}
+                                                                            </h5>
+                                                                        </div>
+                                                                        <br>
+
+
+                                                                        <div class="form-group"
+                                                                            style="display: flex; justify-content:center;align-items:center">
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row"
+                                                                                        style="display: flex; align-items:baseline;">
+                                                                                        <div class="col-md-6">
+                                                                                            <h6>
+                                                                                                Accept Proposal:
+                                                                                            </h6>
+
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <select
+                                                                                                class="form-control dropdown-item"
+                                                                                                id="accept_proposal"
+                                                                                                onchange="select_accept_proposal()"
+                                                                                                name="accept_proposal">
+
+                                                                                                <option selected disabled>
+
+                                                                                                    Proposal Accepted
+                                                                                                </option>
+
+                                                                                                <option id="Yes"
+                                                                                                    value="Yes">
+
+                                                                                                    Yes
+                                                                                                </option>
+                                                                                                <option id="No"
+                                                                                                    value="No">
+
+                                                                                                    No
+                                                                                                </option>
+
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                    </div>
+
+                                                                                    <div class="form-group"
+                                                                                        id="counter_proposal"
+                                                                                        style="display:none;">
+                                                                                        <label> Receive Counter
+                                                                                            Proposal?</label>
+                                                                                        <select
+                                                                                            class="form-control dropdown-item"
+                                                                                            id="counter_proposal_select"
+                                                                                            name="counter_proposal">
+
+
+                                                                                            <option id="No"
+                                                                                                value="No" selected>
+
+                                                                                                No
+                                                                                            </option>
+                                                                                            <option id="Yes"
+                                                                                                value="Yes">
+
+                                                                                                Yes
+                                                                                            </option>
+
+
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+                                                                        <div class=" modal-footer "
+                                                                            style="display: flex; justify-content:center">
+                                                                            <button id="" type="submit"
+                                                                                class="btn btn-success">
+                                                                                Save</button>
+                                                                        </div>
+
+                                                                    </form>
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                {{-- edit modal --}}
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                         @endif
 
 
@@ -1027,6 +1063,23 @@
                         @if (isset($viewlead->legalExecuted))
                             <hr>
 
+                            @if (isset($viewlead->legal_user->name))
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <b> Agreement Finalized By: </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ $viewlead->legal_user->name }}
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             @foreach ($viewlead->legalExecuted as $p)
                                 @if ($loop->last)
                                     <div class="row">
@@ -1251,7 +1304,33 @@
                             </div>
 
 
+
+
+
                             @if ($viewlead->Lead_Status == 'Finance Verified')
+                                @if (isset($viewlead->finance_user->name))
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b> Finance Verified By: </b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ $viewlead->finance_user->name }}
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+
+
+
+
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -2606,6 +2685,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
 
 
     <script>

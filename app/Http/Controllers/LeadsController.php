@@ -50,7 +50,7 @@ class LeadsController extends Controller
     {
         $leads = Lead::with('created_by_user')
 
-            ->where('stage', "Agreement")
+            ->whereIn('stage', ["Proposal", "Agreement", "Business Onboarded"])
             ->get();
 
         //   dd(\auth()->user()->id);
@@ -61,7 +61,7 @@ class LeadsController extends Controller
     {
         $leads = Lead::with('created_by_user')
 
-            ->where('stage', "Agreement")
+            ->whereIn('stage', ["Agreement", "Business Onboarded"])
             ->get();
 
         //   dd(\auth()->user()->id);
@@ -250,7 +250,8 @@ class LeadsController extends Controller
 
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-        $remarks = LegalRemark::where('lead_id', $request->id)->first();
+
+        $remarks = LegalRemark::where('lead_id', $request->id)->latest();
 
         return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
@@ -434,7 +435,7 @@ class LeadsController extends Controller
     {
 
 
-        $stageupdate = Lead::where('id', $request->id)->first();
+        $stageupdate = Lead::where('id', $request->id)->latest()->first();
 
         $accept = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
@@ -619,8 +620,8 @@ class LeadsController extends Controller
 
 
 
-        $updateproposal = RequirementsMap::where('lead_id', $request->id)->first();
-
+        $updateproposal = RequirementsMap::where('lead_id', $request->id)->latest()->first();
+        // dd($request);
 
         $updateproposal->share_business_proposal = $request->proposal_shared;
 
@@ -628,6 +629,7 @@ class LeadsController extends Controller
         // $stage = Lead::where('id', $request->id)->first();
 
         if ($request->proposal_shared == "Yes") {
+
 
             // $stage->Lead_Status = "Proposal Shared";
             // $stage->update();
@@ -699,7 +701,7 @@ class LeadsController extends Controller
 
     function Executed_Agreement(Request $request)
     {
-        // dd($request);
+
         $doclink = getName($request->executed_agreement);
         $attributes['document_upload'] = $doclink;
 
@@ -714,7 +716,12 @@ class LeadsController extends Controller
         LeadExecutedAgreement::insert($attributes);
 
         $stageupdate = Lead::where('id', $request->id)->first();
+
+
+
         $stageupdate->Lead_Status = "Agreement Finalized";
+
+
         $stageupdate->update();
 
 

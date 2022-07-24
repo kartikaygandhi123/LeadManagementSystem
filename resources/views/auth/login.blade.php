@@ -140,7 +140,7 @@
                         </form>
                     </div>
                 </div>
-                <a href="{{ route('register') }}" class="float-right text-white">Create an account </a>
+                {{-- <a href="{{ route('register') }}" class="float-right text-white">Create an account </a> --}}
             </div>
         </div>
     </div>

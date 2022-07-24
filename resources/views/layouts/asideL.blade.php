@@ -3,24 +3,32 @@
     <section class="sidebar">
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
-            <li>
-                <a href="/dashboard">
-                    <i class="iconsmind-Dashboard"></i>
-                    <span>Dashboard</span>
 
-                </a>
 
-            </li>
+            @if (in_array(\auth()->user()->role_id, [1, 2, 3, 4, 5, 6, 7]))
+                <li>
+                    <a href="/dashboard">
+                        <i class="iconsmind-Dashboard"></i>
+                        <span>Dashboard</span>
 
-            <li>
-                <a href="/leadsshow">
-                    <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
-            @if (Auth()->user()->role_id == 1 || Auth()->user()->role_id == 2)
+                    </a>
+
+                </li>
+            @endif
+
+
+            @if (in_array(\auth()->user()->role_id, [1, 2, 3, 5]))
+                <li>
+                    <a href="/leadsshow">
+                        <i class="iconsmind-Cloud-Email"></i> <span>Leads</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            @endif
+
+            @if (in_array(\auth()->user()->role_id, [1, 2]))
                 <li class="treeview">
                     <a href="#">
                         <i class="iconsmind-Air-Balloon"></i>
@@ -41,16 +49,20 @@
                                 Departments</a>
                         </li>
                         <li>
-                            <a href="/admin/allindustryshow"><i class="iconsmind-Arrow-Through"></i>All Industry</a>
+                            <a href="/admin/allindustryshow"><i class="iconsmind-Arrow-Through"></i>All
+                                Industry</a>
                         </li>
                         <li>
-                            <a href="/admin/allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All LeadSource</a>
+                            <a href="/admin/allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All
+                                LeadSource</a>
                         </li>
                         <li>
-                            <a href="/admin/allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB Service</a>
+                            <a href="/admin/allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB
+                                Service</a>
                         </li>
                         <li>
-                            <a href="/admin/allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All Business</a>
+                            <a href="/admin/allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All
+                                Business</a>
                         </li>
                         <li>
                             <a href="/admin/allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
@@ -59,23 +71,25 @@
                 </li>
             @endif
 
-            <li>
-                <a href="/brandshow">
-                    <i class="iconsmind-Edit"></i> <span>Brand Profile</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="/contactsshow">
-                    <i class="iconsmind-Envelope-2"></i> <span>Contacts</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
-            {{-- <li>
+            @if (in_array(\auth()->user()->role_id, [1, 2, 3, 5]))
+                <li>
+                    <a href="/brandshow">
+                        <i class="iconsmind-Edit"></i> <span>Brand Profile</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contactsshow">
+                        <i class="iconsmind-Envelope-2"></i> <span>Contacts</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+
+                {{-- <li>
                 <a href="/opportunitiesshow">
                     <i class="iconsmind-Cloud-Email"></i> <span>Opportunities</span>
                     <span class="pull-right-container">
@@ -83,31 +97,40 @@
                     </span>
                 </a>
             </li> --}}
-            <li>
-                <a href="/reportsshow">
-                    <i class="iconsmind-Bar-Chart"></i> <span>Reports</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
 
-            <li>
-                <a href="/leadsshowlegal">
-                    <i class="iconsmind-Cloud-Email"></i> <span>Legal Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="/leadsshowfinance">
-                    <i class="iconsmind-Cloud-Email"></i> <span>Finance Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-            </li>
+                <li>
+                    <a href="/reportsshow">
+                        <i class="iconsmind-Bar-Chart"></i> <span>Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            @endif
+
+
+
+            @if (in_array(\auth()->user()->role_id, [1, 2, 6]))
+                <li>
+                    <a href="/leadsshowlegal">
+                        <i class="iconsmind-Cloud-Email"></i> <span>Legal Leads</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            @endif
+
+            @if (in_array(\auth()->user()->role_id, [1, 2, 7]))
+                <li>
+                    <a href="/leadsshowfinance">
+                        <i class="iconsmind-Cloud-Email"></i> <span>Finance Leads</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            @endif
 
             @yield('stage')
 
