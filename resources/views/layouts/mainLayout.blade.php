@@ -33,6 +33,81 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
+    <style>
+        .circle {
+  padding: 13px 20px;
+  border-radius: 50%;
+  background-color: #ED8D8D;
+  color: #fff;
+  max-height: 50px;
+  z-index: 2;
+}
+
+.how-it-works.row .col-2 {
+  align-self: stretch;
+}
+.how-it-works.row .col-2::after {
+  content: "";
+  position: absolute;
+  border-left: 3px solid #ED8D8D;
+  z-index: 1;
+}
+.how-it-works.row .col-2.bottom::after {
+  height: 50%;
+  left: 50%;
+  top: 50%;
+}
+.how-it-works.row .col-2.full::after {
+  height: 100%;
+  left: calc(50% - 3px);
+}
+.how-it-works.row .col-2.top::after {
+  height: 50%;
+  left: 50%;
+  top: 0;
+}
+
+
+.timelinenew div {
+  padding: 0;
+  height: 40px;
+}
+.timelinenew hr {
+  border-top: 3px solid #ED8D8D;
+  margin: 0;
+  top: 17px;
+  position: relative;
+}
+.timelinenew .col-2 {
+  display: flex;
+  overflow: hidden;
+}
+.timelinenew .corner {
+  border: 3px solid #ED8D8D;
+  width: 100%;
+  position: relative;
+  border-radius: 15px;
+}
+.timelinenew .top-right {
+  left: 50%;
+  top: -50%;
+}
+.timelinenew .left-bottom {
+  left: -50%;
+  top: calc(50% - 3px);
+}
+.timelinenew .top-left {
+  left: -50%;
+  top: -50%;
+}
+.timelinenew .right-bottom {
+  left: 50%;
+  top: calc(50% - 3px);
+}
+
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -97,9 +172,6 @@
 
 
 
-
-    <!-- jQuery 3 -->
-    {{-- <script src="/assets/vendor_components/jquery/dist/jquery.js"></script> --}}
 
 
     <!-- jQuery UI 1.11.4 -->

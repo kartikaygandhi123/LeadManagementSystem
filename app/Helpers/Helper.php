@@ -33,8 +33,8 @@ function LeadLogger($Logdata)
 function getLeadLogData($id)
 {
 
-  $data = DB::table('lead_logs')->where('lead_id', $id)->get();
-
+ // $data = DB::table('lead_logs')->where('lead_id', $id)->get();
+$data= LeadLog::where('lead_id', $id)->with('lead_owner')->with('lead_assigned')->get();
   return $data;
 }
 
