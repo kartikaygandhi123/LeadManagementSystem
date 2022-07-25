@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+    {{-- {{ dd($viewlead) }} --}}
 
     <div class="box box-default">
         <div class="box-body">
@@ -163,7 +163,6 @@
 
 
 
-
                                 </div>
                             </div>
                         </div>
@@ -206,7 +205,7 @@
 
 
 
-                        @if (isset($viewlead->requirements))
+                        @if (!empty($viewlead->requirements))
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -224,7 +223,7 @@
 
 
 
-                            @if (isset($viewlead->requirements->upload_requirement_documents))
+                            @if (!empty($viewlead->requirements->upload_requirement_documents))
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -421,7 +420,7 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <b>Business Proposal Shared</b>
+                                            <b>Share Business Proposal </b>
                                         </div>
                                         <div class="col-md-6">
                                             {{ isset($viewlead->requirements->share_business_proposal) ? $viewlead->requirements->share_business_proposal : 'Not Found' }}
@@ -438,8 +437,8 @@
                         @endif
 
 
-
-                        @if (isset($viewlead->proposals))
+                        {{-- {{ dd(!empty($viewlead->proposals)) }} --}}
+                        @if (!empty($viewlead->proposals))
                             <hr>
                             @foreach ($viewlead->proposals as $p)
                                 @if ($loop->first)
@@ -483,20 +482,21 @@
                                     </div>
 
 
+                                    @if (isset($p->reason_for_changing_proposal))
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <b> Reason For Changing Proposal: </b>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ isset($p->reason_for_changing_proposal) ? $p->reason_for_changing_proposal : 'Not Found' }}
+                                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <b> Reason For Changing Proposal: </b>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    {{ isset($p->reason_for_changing_proposal) ? $p->reason_for_changing_proposal : 'Not Found' }}
-                                                </div>
-
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -525,27 +525,47 @@
 
 
                         {{-- Legal Remarks --}}
-                        @if (isset($viewlead->legalRemarks))
+                        @if (!empty($viewlead->legalRemarks))
                             {{-- $loop->last --}}
                             <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Remarks For Legal Team: </b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ isset($viewlead->remarks_for_legal) ? $viewlead->remarks_for_legal : 'Not Found' }}
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
                             @foreach ($viewlead->legalRemarks as $p)
                                 @if ($loop->last)
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <b> Remarks By Legal Team: </b>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {{ isset($p->remarks_by_legal) ? $p->remarks_by_legal : 'Not Found' }}
+                                    @if (isset($p->remarks_by_legal))
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <b> Remarks By Legal Team: </b>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ isset($p->remarks_by_legal) ? $p->remarks_by_legal : 'Not Found' }}
+
+                                                    </div>
+
 
                                                 </div>
-
-
                                             </div>
                                         </div>
-                                    </div>
-
+                                    @endif
 
 
 
@@ -613,10 +633,125 @@
 
                         {{-- Legal Executed Agreement --}}
 
-
-                        @if (isset($viewlead->legalExecuted))
+                        @if (in_array($viewlead->stage, ['Agreement', 'Business Onboarded', 'Business Not Onboarded']))
                             <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Agreement Finalized: </b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
 
+
+                                        </div>
+
+                                        {{-- edit modal --}}
+                                        <div class="modal fade  agreementfinalized" tabindex="-1" role="dialog"
+                                            aria-labelledby="myLargeModalLabel" aria-hidden="true"
+                                            style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Agreement
+                                                            Finalized
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+
+                                                        <div style="display:flex; justify-content:center;">
+                                                            <form action="/agreementfinalized" method="post">
+                                                                @csrf
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $viewlead->id }}">
+                                                                <div
+                                                                    style="display: flex; justify-content:center;align-items:center">
+                                                                    <h5>Agreement Finalized:
+                                                                        {{ $viewlead->agreement_finalized }}
+                                                                    </h5>
+                                                                </div>
+                                                                <br>
+
+
+                                                                <div class="form-group"
+                                                                    style="display: flex; justify-content:center;align-items:center">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <div class="row"
+                                                                                style="display: flex; align-items:baseline;">
+                                                                                <div class="col-md-6">
+                                                                                    <h6>
+                                                                                        Finalize Agreement:
+                                                                                    </h6>
+
+
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <select
+                                                                                        class="form-control dropdown-item"
+                                                                                        id="agreement_finalized"
+                                                                                        name="agreement_finalized">
+
+                                                                                        <option selected disabled>
+
+                                                                                            Select
+                                                                                        </option>
+
+                                                                                        <option id="Yes"
+                                                                                            value="Yes">
+
+                                                                                            Yes
+                                                                                        </option>
+                                                                                        <option id="No"
+                                                                                            value="No">
+
+                                                                                            No
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                </div>
+                                                                                <br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class=" modal-footer "
+                                                                    style="display: flex; justify-content:center">
+                                                                    <button id="" type="submit"
+                                                                        class="btn btn-success">
+                                                                        Save</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        {{-- edit modal --}}
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if (!empty($viewlead->legalExecuted))
                             @if (isset($viewlead->legal_user->name))
                                 <div class="row">
                                     <div class="col-md-12">
@@ -735,78 +870,53 @@
                         {{-- Legal Executed Agreement --}}
 
 
-
-
-
-                        @if (in_array($viewlead->stage, ['Agreement', 'Business Onboarded', 'Business Not Onboarded']))
+                        @if ($viewlead->Lead_Status == 'Finance Verified')
                             <hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> Agreement Finalized: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
-
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-                            @if ($viewlead->Lead_Status == 'Finance Verified')
-                                @if (isset($viewlead->finance_user->name))
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <b> Finance Verified By: </b>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {{ $viewlead->finance_user->name }}
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-
-
-
-
-
+                            @if (isset($viewlead->finance_user->name))
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <b> Business Onboarded: </b>
+                                                <b> Finance Verified By: </b>
                                             </div>
                                             <div class="col-md-6">
-                                                {{ isset($viewlead->business_onboarded) ? $viewlead->business_onboarded : 'Not Found' }}
+                                                {{ $viewlead->finance_user->name }}
 
                                             </div>
-
-
-
-
-
 
 
                                         </div>
                                     </div>
                                 </div>
                             @endif
+
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> Business Onboarded: </b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ isset($viewlead->business_onboarded) ? $viewlead->business_onboarded : 'Not Found' }}
+
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
                         @endif
+
 
                     </div>
                 </div>
@@ -999,11 +1109,15 @@
                             </form>
                         </div>
                     </div>
-
-
-
-
                 </div>
+
+
+
+
+
+                {{-- {{ dd($viewlead) }} --}}
+
+
 
                 {{-- Lead Executed Agreement tab --}}
                 <div class="tab-pane pad" id="legalremarks" role="tabpanel">
@@ -1027,8 +1141,8 @@
 
 
                                 <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
-                                <input type="hidden" name="id" id="legal_user_id"
-                                    value="{{ $viewlead->legal_user->id }}">
+                                {{-- <input type="hidden" name="legal_id" id="legal_user_id"
+                                    value="{{ $viewlead->legal_user->id }}"> --}}
 
 
                                 <div class="box-body">
@@ -1148,6 +1262,7 @@
 
         </div>
     </div>
+
 
 
 

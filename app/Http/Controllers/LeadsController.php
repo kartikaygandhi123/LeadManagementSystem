@@ -244,7 +244,9 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('customer')->first();
+
+        // dd($request->id);
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
 
 
 
@@ -267,10 +269,14 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->with('requirements')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+
+
+
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-        $remarks = LegalRemark::where('lead_id', $request->id)->first();
+
+        $remarks = LegalRemark::where('lead_id', $request->id)->latest();
         return view('site.legal.viewleadlegal', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
@@ -286,10 +292,14 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('proposals')->with('followups')->with('requirements')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+
+
+
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-        $remarks = LegalRemark::where('lead_id', $request->id)->first();
+
+        $remarks = LegalRemark::where('lead_id', $request->id)->latest();
         return view('site.finance.viewleadfinance', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
@@ -449,7 +459,7 @@ class LeadsController extends Controller
             $stageupdate->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Acccepted "]);
 
-            return redirect('view_lead/' . $accept->lead_id . "?remarks=YES")->with("success", "Proposal Accepted");
+            return redirect('view_lead/' . $accept->lead_id . "?remarks=YES")->with("success", "Proposal Accepted, Fill Legal Remarks Form");
         } else if ($request->accept_proposal == "No") {
             if ($request->counter_proposal == "Yes") {
 
@@ -545,7 +555,7 @@ class LeadsController extends Controller
 
         LeadLogger(['lead_id' => $request->id, "message" => "Lead data sent to Legal Team "]);
 
-        return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured");
+        return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured and sent to Legal Team");
     }
 
     function Agreement_Finalized(Request $request)
@@ -572,7 +582,7 @@ class LeadsController extends Controller
 
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Finalized"]);
 
-            return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized and sent to Finance Verification");
+            return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized, waiting for Executed Agreement By Legal Team");
         } elseif ($request->agreement_finalized == "No") {
 
             $stageupdate->Lead_Status = "Document Re-Revision";
@@ -611,7 +621,7 @@ class LeadsController extends Controller
 
             LeadLogger(['lead_id' => $request->id, "message" => "Business Not Onboarded"]);
 
-            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business is not Boarded");
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business is not Boarded, Schedule a Followup");
         }
     }
 
@@ -695,12 +705,14 @@ class LeadsController extends Controller
         $stage->Lead_Status = "Document Revised";
         LeadLogger(['lead_id' => $request->id, "message" => "Legal Team Sent Executed Document and remarks "]);
 
-        return redirect('view_lead_legal/' . $request->id)->with("success", "Remarks And Executed Documents sent");
+        return redirect('view_lead_legal/' . $request->id)->with("success", "Remarks And Executed Documents sent to BD Team");
     }
 
 
     function Executed_Agreement(Request $request)
     {
+
+
 
         $doclink = getName($request->executed_agreement);
         $attributes['document_upload'] = $doclink;
@@ -715,10 +727,9 @@ class LeadsController extends Controller
 
         LeadExecutedAgreement::insert($attributes);
 
+
         $stageupdate = Lead::where('id', $request->id)->first();
-
-
-
+        $stageupdate->legal_user_id = \auth()->user()->id;
         $stageupdate->Lead_Status = "Agreement Finalized";
 
 
@@ -726,7 +737,7 @@ class LeadsController extends Controller
 
 
         LeadLogger(['lead_id' => $request->id, "message" => "Uploaded Legal Executed Agreement"]);
-        return redirect('view_lead_legal/' . $request->id)->with("success", "Uploaded Legal Executed Agreement");
+        return redirect('view_lead_legal/' . $request->id)->with("success", "Uploaded Legal Executed Agreement,Documents Sent To Financial Verification");
     }
 
     function update_customer_details(Request $request)
@@ -787,6 +798,8 @@ class LeadsController extends Controller
         $stageupdate->cost_center = $request->cost_center;
         $stageupdate->Industry =  $request->Industry;
         $stageupdate->Lead_Status = "Finance Verified";
+        $stageupdate->finance_user_id = \auth()->user()->id;
+
         $stageupdate->update();
 
 
@@ -813,6 +826,6 @@ class LeadsController extends Controller
 
 
         LeadLogger(['lead_id' => $request->id, "message" => "Customer details verified by " . \auth()->user()->name]);
-        return redirect('view_lead_finance/' . $request->id)->with("success", "Customer details verified");
+        return redirect('view_lead_finance/' . $request->id)->with("success", "Customer details verified By Finance");
     }
 }

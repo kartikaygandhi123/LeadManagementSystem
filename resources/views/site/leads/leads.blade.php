@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>Action</th>
-                            
+
                             <th>Customer_Name</th>
                             <th>Contact_Number</th>
                             <th>POC_Name</th>
@@ -58,21 +58,21 @@
 
 
 
-                                  <td>
-                                        {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
+                                <td>
+                                    {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
                                             data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
-                                        <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"></span></a>
+                                    <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"></span></a>
 
-<!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                            data-target="#modal-center1"><span class="ti-write"></span></a>-->
+                                    <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
+                                                    data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 
-                                        <a onclick="return confirm('Are you sure you want to Delete?')"
-                                            href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
-                                    </td>
-                             
+                                    <a onclick="return confirm('Are you sure you want to Delete?')"
+                                        href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
+                                </td>
+
 
 
                                 <td>{{ $item['Customer_Name'] }}</td>
@@ -97,7 +97,7 @@
 
 
                     </tbody>
-                  
+
                 </table>
             </div>
         </div>
@@ -152,7 +152,7 @@
 
 
 
-    {{-- <script>
+    <script>
         function view_data(id) {
 
 
@@ -166,7 +166,7 @@
             });
 
         }
-    </script> --}}
+    </script>
 
     <script>
         function Edit_Lead(id) {

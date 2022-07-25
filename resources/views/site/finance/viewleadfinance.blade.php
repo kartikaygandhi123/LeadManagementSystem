@@ -839,8 +839,8 @@
                                 <input type="hidden" name="id" id="lead_id" value="{{ $viewlead->id }}">
                                 <input type="hidden" name="customer_id" id="customer_id"
                                     value="{{ $viewlead->customer->id }}">
-                                <input type="hidden" name="finance_user_id" id="finance_user_id"
-                                    value="{{ $viewlead->finance_user->id }}">
+                                {{-- <input type="hidden" name="finance_user_id" id="finance_user_id"
+                                    value="{{ $viewlead->finance_user->id }}"> --}}
 
 
                                 <div class="box-body">
