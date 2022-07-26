@@ -50,6 +50,8 @@ class Dopex
     public function leadRemarksTicket($id)
     {
         
+        try{
+        
         $client = new \GuzzleHttp\Client();
         $url = config('app.TICKET_SYSTEM_URL')."/api/task_create_ticket";
         // dd($_SERVER['HTTP_HOST']);
@@ -74,7 +76,9 @@ class Dopex
         $response = $request->getBody()->getContents();
        // dd($response);
        
-
+}catch(Exception $e){
+    
+}
         return true;
 
     
@@ -85,7 +89,7 @@ class Dopex
          
     public function leadExecuteTicket($id)
          {
-        
+        try{
         $client = new \GuzzleHttp\Client();
         $url = config('app.TICKET_SYSTEM_URL')."/api/task_create_ticket";
         // dd($_SERVER['HTTP_HOST']);
@@ -110,7 +114,7 @@ class Dopex
         $response = $request->getBody()->getContents();
        // dd($response);
        
-
+}catch(Exception $e){}
         return true;
 
     
@@ -121,7 +125,7 @@ class Dopex
             
     public function leadVerificationTicket($id)
          {
-        
+        try{
         $client = new \GuzzleHttp\Client();
         $url = config('app.TICKET_SYSTEM_URL')."/api/task_create_ticket";
         // dd($_SERVER['HTTP_HOST']);
@@ -145,7 +149,7 @@ class Dopex
         $request = $client->request("POST", $url, ['body' => json_encode($data)]);
         $response = $request->getBody()->getContents();
        // dd($response);
-       
+       }catch(Exception $e){}
 
         return true;
 
