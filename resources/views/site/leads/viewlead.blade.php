@@ -1776,7 +1776,7 @@ if (in_array($ar[1], $extensions)) {
                                     </div>
                                     <div class="box-footer">
                                         <button type="submit" class="btn btn-primary btn-sm pull-right">Schedule
-                                            Mail</button>
+                                            Followup</button>
 
 
                                     </div>
@@ -1794,7 +1794,7 @@ if (in_array($ar[1], $extensions)) {
                     <div class="box box-solid">
                         <div class="box-header with-border">
                             <h5 class="box-title">Scheduled Followups</h5>
-                            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+
                         </div>
 
                         <!-- /.box-header -->
@@ -1836,13 +1836,7 @@ if (in_array($ar[1], $extensions)) {
                                         @endif
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Followup Date</th>
-                                            <th>Remarks</th>
-                                            <th>Followup Done Date </th>
-                                        </tr>
-                                    </tfoot>
+
                                 </table>
                             </div>
                         </div>
@@ -2828,7 +2822,7 @@ if (!empty($viewlead->customer->gst_file)) {
     <div class="pull-right" style="top: 116px; position:absolute ;right:54px;font-size:4px">
 
         <button class="btn btn-danger btn-block btn-shadow margin-bottom" type="button" alt="default"
-            data-toggle="modal" data-target=".bs-example-modal-lg">Lost/Dormant</button>
+            id="stage_button" data-toggle="modal" data-target=".bs-example-modal-lg">Lost/Dormant</button>
 
     </div>
     {{-- Stage Button --}}
@@ -3000,6 +2994,7 @@ if (!empty($viewlead->customer->gst_file)) {
 
             if ("{!! isset($viewlead->business_onboarded) && $viewlead->business_onboarded == 'Yes' ? 'YES' : '' !!}" == "YES") {
                 $('.ti-write').hide();
+                $('#stage_button').hide();
             }
 
 

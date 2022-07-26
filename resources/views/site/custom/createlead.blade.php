@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="col-10">
                                     <input name="Customer_Name" type="text" class="form-control" id="Customer_Name"
-                                        tabindex="1" pattern="[a-zA-Z\s\[1-9]{1}[0-9]{6}[0-9]{3}]+" required />
+                                        pattern="[a-zA-Z\s\[1-9]{1}[0-9]{6}[0-9]{3}]+" required />
                                     <span class="error" style="color: red;">
                                         <p id="customer_Name"> </p>
                                     </span>
@@ -116,7 +116,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name" tabindex="2"
+                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name"
                                         pattern="[a-zA-Z\s]+" required /><span class="error" style="color: red;">
                                         <p id="poc_Name"> </p>
                                     </span>
@@ -137,12 +137,10 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    {{-- <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        id="Contact_Number" onchange="contactVal()" required tabindex="3" /> --}}
-                                    <input type="text" class="form-control" name="Contact_Number" maxlength="10"
-                                        minlength="9"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                        required="">
+                                    <input type="text" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
+                                        maxlength="10" id="Contact_Number" onchange="contactVal()" placeholder="********"
+                                        required />
+
 
 
                                     <span class="error" style="color: red;">
@@ -169,7 +167,7 @@
                                 </div>
                                 <div class="col-10">
                                     <input type="email" name="Email" class="form-control" id="Email"
-                                        tabindex="4" required /><span class="error" style="color: red;">
+                                        required /><span class="error" style="color: red;">
                                         <p id="email"></p>
                                     </span>
                                     @if ($errors->first('email'))
@@ -192,8 +190,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="Industry" id="Industry" class="form-control  " tabindex="5"
-                                        required>
+                                    <select name="Industry" id="Industry" class="form-control  " required>
                                         <option selected disabled value="">
                                             Select Industry
                                         </option>
@@ -217,11 +214,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required
-                                        tabindex="6">
-                                        <option selected disabled>
-                                            Select Lead Source
-                                        </option>
+                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required>
+
                                         @foreach ($leadsource as $lead)
                                             <option value="{{ $lead->lead_source }}">{{ $lead->lead_source }}</option>
                                         @endforeach
@@ -245,7 +239,7 @@
                                 </div>
                                 <div class="col-10">
                                     <input name="First_Contact_Date" type="date" class="form-control"
-                                        id="First_Contact_Date" tabindex="7" required value="<?php echo date('Y-m-d'); ?>" />
+                                        id="First_Contact_Date" required value="<?php echo date('Y-m-d'); ?>" />
                                     <span class="error" style="color: red;">
                                         <p id="first_Contact_Date"></p>
                                     </span>
@@ -263,11 +257,9 @@
                                 </div>
                                 <div class="col-sm-10">
                                     <select name="Lead_Status" id="Lead_Status" onchange="maprequirements()"
-                                        class="form-control select2" tabindex="8" required>
-                                        <option selected disabled>
-                                            Select Lead Status
-                                        </option>
-                                        <option value="Prospect">
+                                        class="form-control select2" required>
+
+                                        <option value="Prospect" selected>
                                             Prospect
                                         </option>
 
@@ -302,7 +294,7 @@
 
                     <div class="text-right" id="hidelead">
                         {{-- <a href="#" class="btn btn-default btn-md" tabindex="8">Cancel</a> --}}
-                        <button class="btn btn-primary btn-md" id="saveLead" tabindex="9">
+                        <button class="btn btn-primary btn-md" id="saveLead">
                             Save
                         </button>
                     </div>
@@ -325,7 +317,26 @@
 
 
 
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
 
+
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        document.getElementById("First_Contact_Date").setAttribute("min", today);
+    </script>
 
 
     <script type="text/javascript">
@@ -346,6 +357,7 @@
                     $('#Customer_Name').val(response.customers.Customer_Name);
                     $('#POC_Name').val(response.customers.POC_Name);
                     $('#Contact_Number').val(response.customers.Contact_Number);
+                    // $('#Lead_Source').val(response.customers.lead_source);
                     $('#Email').val(response.customers.Email);
                     $('#Industry').val(response.customers.Industry);
 
@@ -353,7 +365,7 @@
                     $('#id_update').val(response.customers.id);
 
 
-                    // $('#pin').val(data.pincode);
+
                 }
             });
         }
@@ -362,15 +374,6 @@
 
 
     <script>
-        function contactVal() {
-            console.log('here iam ');
-            var cont = document.getElementById("Contact_Number").value;
-            if (cont > 9999999999 || cont < 1000000000) {
-                document.getElementById("Contact_Number").value = '';
-                alert('Enter valid 10 digit number');
-            }
-        }
-
         function show_form() {
 
             var a = document.getElementById("newcustomerform");
@@ -401,15 +404,7 @@
 
                 fetchcustomer();
 
-
-
-
             }
-
-
-
-
-
 
         }
     </script>
@@ -417,8 +412,6 @@
 
     <script>
         $('#select_customer').select2();
-        // $('#Lead_Source').select2();
-        // $('#Industry').select2();
     </script>
 
 

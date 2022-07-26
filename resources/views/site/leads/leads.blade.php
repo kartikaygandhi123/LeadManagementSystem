@@ -14,16 +14,18 @@
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
             <h4 class="box-title">Leads</h4>
-            <p id="createleadbtn" class="pull-right"><button type="button" class="btn btn-light btn-sm"
+            <p id="createleadbtn" class="pull-right"><button type="button" class="btn btn-light btn-md"
                     onclick="window.location.href = 'createleadshow';">
-                    <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
+
+                    Create Lead<span><i class="fa fa-arrow-right ml-5"></i></span>
+                    {{-- <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5> --}}
                 </button></p>
 
 
 
 
 
-            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -32,7 +34,8 @@
                     <thead>
                         <tr>
                             <th>Action</th>
-
+                            <th>Stage</th>
+                            <th>Lead_Status</th>
                             <th>Customer_Name</th>
                             <th>Contact_Number</th>
                             <th>POC_Name</th>
@@ -40,10 +43,10 @@
                             <th>Lead_Source</th>
                             <th>Email</th>
                             <th>First_Contact_Date</th>
-                            <th>Lead_Status</th>
+
                             <th>Created By</th>
 
-                            <th>Stage</th>
+
                             <th>Reason For Lost</th>
                             <th>Reason For Dormant</th>
                             <th>Reason</th>
@@ -62,19 +65,22 @@
                                     {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
                                             data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
-                                    <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"></span></a>
+                                    <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"
+                                            style="font-size:19px;color:#17a2b8"></span></a>
 
                                     <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                                    data-target="#modal-center1"><span class="ti-write"></span></a>-->
+                                                                                                                                                                                                                                                                data-target="#modal-center1"><span class="ti-write"></span></a>-->
 
 
 
                                     <a onclick="return confirm('Are you sure you want to Delete?')"
-                                        href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
+                                        href="delete-lead/{{ $item->id }}"><span class="ti-close"
+                                            style="font-size:19px;color:#dc3545"></button>
                                 </td>
 
 
-
+                                <td style="color: rgb(87, 209, 87)">{{ $item['stage'] }}</td>
+                                <td>{{ $item['Lead_Status'] }}</td>
                                 <td>{{ $item['Customer_Name'] }}</td>
                                 <td>{{ $item['Contact_Number'] }}</td>
                                 <td>{{ $item['POC_Name'] }}</td>
@@ -84,9 +90,9 @@
                                 <td>{{ $item['First_Contact_Date'] }}</td>
 
 
-                                <td>{{ $item['Lead_Status'] }}</td>
+
                                 <td>{{ $item->created_by_user->name }}</td>
-                                <td style="color: rgb(87, 209, 87)">{{ $item['stage'] }}</td>
+
 
                                 <td>{{ $item['lost_reason'] }}</td>
                                 <td>{{ $item['dormant_reason'] }}</td>

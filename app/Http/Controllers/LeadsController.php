@@ -74,20 +74,20 @@ class LeadsController extends Controller
 
     function Store(Request $req)
     {
-        $this->validate(
-            $req,
-            [
-                'Customer_Name' => ['required', 'string', 'max:255'],
-                'Email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'Contact_Number' => ['required', 'min:10', 'numeric'],
-            ]
-        );
+        // $this->validate(
+        //     $req,
+        //     [
+        //         'Customer_Name' => ['required', 'string', 'max:255'],
+        //         'Email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //         'Contact_Number' => ['required', 'min:10', 'numeric'],
+        //     ]
+        // );
         $data = new Lead;
         $data->Customer_Name = $req->Input(['Customer_Name']);
         $data->Contact_Number = $req->Input(['Contact_Number']);
         $data->POC_Name = $req->Input(['POC_Name']);
         $data->Industry = $req->Input(['Industry']);
-        $data->Lead_Source = $req->Input(['Lead_Source']);
+        $data->lead_source = $req->Input(['Lead_Source']);
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
         $data->Lead_Status = $req->Input(['Lead_Status']);
@@ -153,7 +153,7 @@ class LeadsController extends Controller
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;
         $data->Industry = $req->Industry;
-        $data->Lead_Source = $req->Lead_Source;
+        $data->lead_source = $req->Lead_Source;
         $data->Email = $req->Email;
         $data->First_Contact_Date = $req->First_Contact_Date;
         $data->Lead_Status = $req->Lead_Status;
@@ -270,6 +270,7 @@ class LeadsController extends Controller
         })
             ->pluck('name', 'id');
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+
 
 
 

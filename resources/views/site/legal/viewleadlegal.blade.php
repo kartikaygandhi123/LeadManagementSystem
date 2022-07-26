@@ -8,6 +8,7 @@
         <div class="box-body">
             <!-- Nav tabs -->
 
+
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
                         role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
@@ -1294,6 +1295,88 @@
 
         });
     </script> --}}
+
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        enddate = today = yyyy + '-' + mm + '-' + dd;
+
+        document.getElementById("start_date").setAttribute("min", today);
+
+        document.getElementById("expiry_date").setAttribute("min", enddate);
+
+
+
+        // function changeenddate() {
+        // var X = $("#duration").val(); //or whatever offset
+
+
+        var sdate = $("#start_date").val();
+
+        var date = new Date(sdate);
+
+
+
+        var d = date.getDate();
+        //  alert(d);
+        date.setMonth(date.getMonth());
+
+        if (date.getDate() !== d) {
+            date.setDate(0);
+        }
+        //alert(date);
+
+
+        var today = new Date(date);
+        var dd = today.getDate() - 1; //Due date is
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        var enddate = today = yyyy + '-' + mm + '-' + dd;
+
+
+
+
+
+
+        $("#expiry_date").val(enddate);
+
+        // }
+        $("#start_date").focusout(function() {
+            $("#expiry_date").val("");
+
+
+
+
+
+
+            document.getElementById("expiry_date").setAttribute("min", $("#start_date").val());
+
+            changeenddate();
+
+        });
+    </script>
 
 
 

@@ -29,6 +29,7 @@ class CreateLeadController extends Controller
         $find = $req->get('find');
 
 
+
         $customer = BrandProfile::where('id', $find)->first();
         return response()->json(['customers' => $customer]);
     }
