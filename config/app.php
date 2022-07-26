@@ -58,6 +58,14 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    
+    'TICKET_SYSTEM_URL' => env('TICKET_SYSTEM_URL', 'http://testdopex.holisollogistics.com'),
+    'TICKET_SYSTEM_APIKEY' => env('TICKET_SYSTEM_APIKEY', '05710dafd6913654l'),
+    'TICKET_SYSTEM_USER' => env('TICKET_SYSTEM_USER', 'test.mrf@dopex.com'),
+    'TICKET_SYSTEM_CATEGORY' => env('TICKET_SYSTEM_CATEGORY', 'MRF'),
+        
+        
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

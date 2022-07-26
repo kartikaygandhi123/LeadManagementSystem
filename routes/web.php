@@ -9,6 +9,7 @@ use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\MastersAddUsersController;
 use App\Http\Controllers\MastersAllBusinessController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MastersAllCityController;
 use App\Http\Controllers\MastersAllDepartmentsController;
 use App\Http\Controllers\MastersAllIndustryController;
@@ -46,6 +47,13 @@ Route::post('/executedagreementdoc', [LeadsController::class, 'Executed_Agreemen
 Route::post('/savefinanceverification', [LeadsController::class, 'Finance_Verification'])->name('savefinanceverification');
 
 Route::post('/update_customer_details', [LeadsController::class, 'update_customer_details'])->name('update_customer_details');
+
+
+    //Route::get('get-clients-holibook', 'MasterController@get_holibook_clients');
+Route::get('/get-cost-centers', [MasterController::class, 'get_cost_centers']);
+
+Route::get('/get-holibook-locations', [MasterController::class, 'get_holibook_locations']);
+Route::get('/get-lob-services', [MasterController::class, 'get_lob_services']);
 
 
 

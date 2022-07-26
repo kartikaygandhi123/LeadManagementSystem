@@ -16,6 +16,8 @@ use App\Models\Stages;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use App\Services\Dopex;
+
 class LeadsController extends Controller
 {
 
@@ -248,14 +250,14 @@ class LeadsController extends Controller
         // dd($request->id);
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
 
-
+$lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
 
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
+        return view('site.leads.viewlead', ['viewlead' => $viewlead,'lobs'=>$lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
 
     function GetView_Lead_Legal(Request $request)
@@ -556,6 +558,10 @@ class LeadsController extends Controller
 
         LeadLogger(['lead_id' => $request->id, "message" => "Lead data sent to Legal Team "]);
 
+        $sendticket = new Dopex;
+            $response = $sendticket->leadRemarksTicket($request->id);
+       // dd($response);
+        
         return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured and sent to Legal Team");
     }
 
@@ -583,6 +589,13 @@ class LeadsController extends Controller
 
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Finalized"]);
 
+             $sendticket = new Dopex;
+            $response = $sendticket->leadExecuteTicket($request->id);
+            
+            
+             $sendticket2 = new Dopex;
+            $response = $sendticket2->leadVerificationTicket($request->id);
+            
             return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized, waiting for Executed Agreement By Legal Team");
         } elseif ($request->agreement_finalized == "No") {
 
@@ -590,6 +603,8 @@ class LeadsController extends Controller
             $stageupdate->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Not Finalized"]);
 
+             
+            
             return redirect('view_lead/' . $request->id . "?remarks=YES")->with("error", "Agreement Not Finalized");
         }
     }

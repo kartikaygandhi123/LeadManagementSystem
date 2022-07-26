@@ -1942,13 +1942,10 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="LOB">LOB<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <select id="LOB" name="lob" class="form-control">
-                                                        <option selected disabled>Select Lob</option>
-                                                        <option>lob 1</option>
-                                                        <option>lob 2</option>
-                                                        <option>lob 3</option>
-                                                        <option>lob 4</option>
-                                                        <option>lob 5</option>
+                                                    <select id="LOB_select" name="lob" class="form-control">
+                                                       @foreach($lobs as $k=>$v)
+                                                        <option value="{{$k}}">{{$v}}</option>
+                                                        @endforeach
                                                     </select>
 
                                                 </div>
@@ -1961,13 +1958,8 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="Services">Services<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <select id="Services" name="services" class="form-control">
-                                                        <option selected disabled>Select Services</option>
-                                                        <option>Service 1</option>
-                                                        <option>Service 2</option>
-                                                        <option>Service 3</option>
-                                                        <option>Service 4</option>
-                                                        <option>Service 5</option>
+                                                    <select id="Services_select" name="services" class="form-control">
+                                                    
                                                     </select>
 
                                                 </div>
@@ -2019,13 +2011,8 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="Location">Location<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <select id="Location" name="location" class="form-control">
-                                                        <option selected disabled>Select Location</option>
-                                                        <option>Location 1</option>
-                                                        <option>Location 2</option>
-                                                        <option>Location 3</option>
-                                                        <option>Location 4</option>
-                                                        <option>Location 5</option>
+                                                    <select id="Locationlistselect" name="location" class="form-control">
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -2040,11 +2027,9 @@ if (in_array($ar[1], $extensions)) {
                                                 <div class="col-10">
                                                     <select id="Business" name="business_type" class="form-control">
                                                         <option selected disabled>Select Business</option>
-                                                        <option>Business 1</option>
-                                                        <option>Business 2</option>
-                                                        <option>Business 3</option>
-                                                        <option>Business 4</option>
-                                                        <option>Business 5</option>
+                                                        <option>One Time</option>
+                                                        <option>Recurring</option>
+                                                       
                                                     </select>
                                                 </div>
                                             </div>
@@ -2647,20 +2632,9 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="GST_Number">Cost Center</label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <select name="cost_center" id="cost_center" class="form-control  "
+                                                    <select name="cost_center" id="cost_center_select" class="form-control  "
                                                         required value='{{ $viewlead->cost_center }}'>
-                                                        <option selected disabled value="">
-                                                            Select Cost Center
-                                                        </option>
-                                                        <option value="Cost Center 1">
-                                                            Cost Center 1
-                                                        </option>
-                                                        <option value="Cost Center 2">
-                                                            Cost Center 2
-                                                        </option>
-                                                        <option value="Cost Center 3">
-                                                            Cost Center 3
-                                                        </option>
+                                                        
 
                                                     </select>
 
@@ -3060,4 +3034,102 @@ if (!empty($viewlead->customer->gst_file)) {
             console.log(c.value);
         })
     </script>
+    
+    <script>
+            function fetch_holibook_cc(){
+						$.ajax({
+							type: "GET",
+							url: "{{url('get-cost-centers')}}",
+							success: function(res) {
+								if(res.success){
+									for (let i = 0; i < res.data.length; i++) {
+										$('#cost_center_select').append(`<option value="${res.data[i].cost_center_name}">
+                                       ${res.data[i].cost_center_name}
+                                  </option>`);
+									}
+									
+								}else{
+									alert(res.message);
+								}
+							},
+							error: function(error ) { 
+								alert(error);
+							}
+						});
+					}
+                                        
+                                        
+                                        
+                                        
+                        function fetch_holibook_locations(){
+						$.ajax({
+							type: "GET",
+							url: "{{url('get-holibook-locations')}}",
+							success: function(res) {
+								if(res.success){
+									for (let i = 0; i < res.data.length; i++) {
+										$('#Locationlistselect').append(`<option value="${res.data[i].location_name}">
+                                       ${res.data[i].location_name}
+                                  </option>`);
+									}
+									
+								}else{
+									alert(res.message);
+								}
+							},
+							error: function(error ) { 
+								alert(error);
+							}
+						});
+					}    
+                                        
+                                        
+                                           function fetch_lob_service(id){
+                                              // alert(id);
+						$.ajax({
+							type: "GET",
+							url: "{{url('get-lob-services')}}?id="+id,
+							success: function(res) {
+                                                            console.log(res);
+								if(res.success){
+									for (let i = 0; i < res.data.length; i++) {
+										$('#Services_select').append(`<option value="${res.data[i].location_name}">
+                                       ${res.data[i].location_name}
+                                  </option>`);
+									}
+                                                                        
+                                                                        $.each(res.data, function(k,v){
+                                                                          $('#Services_select').append(`<option value="${k}">
+                                      ${v}
+                                  </option>`);  
+                                                                            
+                                                                        });
+                                                                        
+                                                                        
+									
+								}else{
+									alert(res.message);
+								}
+							},
+							error: function(error ) { 
+								alert(error);
+							}
+						});
+					}  
+                                        
+                                        
+                                        
+		$().ready(function(){
+                
+					fetch_holibook_cc();
+                                        fetch_holibook_locations();
+                                        
+                                        $("#LOB_select").on('change', function(){
+                                             $("#Services_select").empty();
+                                            fetch_lob_service($("#LOB_select").val());
+                                        })
+                                        
+                                        
+                });
+            </script>
 @endsection
