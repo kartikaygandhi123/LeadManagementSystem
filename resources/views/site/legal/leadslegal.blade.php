@@ -18,12 +18,6 @@
                     onclick="window.location.href = 'createleadshow';">
                     <h5>Create Lead<i class="fa fa-arrow-right ml-5"></i></h5>
                 </button></p> --}}
-
-
-
-
-
-
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -59,19 +53,11 @@
 
 
                                 <td>
-                                    {{-- <a onclick="view_data('{{ $item->id }}')" data-toggle="modal"
-                                            data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
-                                    <a href="view_lead_legal/{{ $item->id }}"><span
-                                            class="ti-eye lg\:absolute"></span></a>
+                                    <a href="view_lead_legal/{{ $item->id }}"><span class="ti-eye lg\:absolute"
+                                            style="font-size:19px;color:#17a2b8"></span></a>
 
-                                    <!--                                        <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal"
-                                                                                                                                        data-target="#modal-center1"><span class="ti-write"></span></a>-->
-
-
-
-                                    <a onclick="return confirm('Are you sure you want to Delete?')"
-                                        href="delete-lead/{{ $item->id }}"><span class="ti-close"></button>
+                                    <!-- <a onclick="Edit_Lead('{{ $item->id }}')" data-toggle="modal" data-target="#modal-center1"><span class="ti-write"></span></a>-->
                                 </td>
 
 

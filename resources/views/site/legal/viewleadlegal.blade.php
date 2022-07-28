@@ -34,15 +34,20 @@
                 <div class="tab-pane active" id="home" role="tabpanel">
                     <div class="pad">
                         <div class="box-header with-border">
-                            <h4 id="form_heading" class="box-title">Details</h4>
-                            <h6 class="pull-right">
-                                Stage : {{ $viewlead->stage }}
-                            </h6>
-                            <br>
-                            <br>
-                            <h6 class="pull-right">
-                                Status : {{ $viewlead->Lead_Status }}
-                            </h6>
+                            <div class="" style="display: flex; justify-content:space-between">
+                                <div class="">
+                                    <h4 id="form_heading" class="box-title">Details</h4>
+                                </div>
+                                <div class="" style="display:flex;jutify-content: center;flex-direction:column">
+                                    <h6 class="">
+                                        Stage : {{ $viewlead->stage }}
+                                    </h6>
+
+                                    <h6 class="pull-right">
+                                        Status : {{ $viewlead->Lead_Status }}
+                                    </h6>
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -1001,7 +1006,7 @@
 
                     <div id="executedrelevant" class="box box-solid">
                         <div class="box-header with-border">
-                            <h4 id="form_heading" class="box-title">Legal Executed Relevant Document</h4>
+                            <h5 id="form_heading" class="box-title">Legal Executed Relevant Document</h5>
                         </div>
 
                         <div>
@@ -1021,49 +1026,24 @@
 
                                 <div class="box-body">
 
+
+
+
+
+
+
+
+
                                     {{-- first two --}}
                                     <div class="row">
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
-
-                                                    <label for="remarksbylegal">Remarks By Legal Team</label>
-                                                </div>
-                                                <div class="col-10">
-                                                    <input id="remarksbylegal" type="text" class="form-control "
-                                                        name="remarks_by_legal" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-2">
-
-                                                    <label for="uploaddocument">Upload Document</label>
-                                                </div>
-                                                <div class="col-10">
-                                                    <input id="uploaddocument" type="file" class="form-control "
-                                                        name="upload_document" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- dropdown --}}
-
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="remarksbylegal">Document Type</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select class="form-control dropdown-item" id="document_type"
                                                         name="document_type">
 
@@ -1088,6 +1068,39 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="uploaddocument">Upload Document</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="uploaddocument" type="file" class="form-control "
+                                                        name="upload_document" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- dropdown --}}
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarksbylegal">Remarks By Legal Team</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="remarksbylegal" type="text" class="form-control "
+                                                        name="remarks_by_legal" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                     </div>
@@ -1153,11 +1166,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="agreement_remarks">Agreement Remarks</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="agreement_remarks" type="text" class="form-control "
                                                         name="agreement_remarks" required>
 
@@ -1167,11 +1180,11 @@
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="executed_agreement">Upload Executed Agreement</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
 
 
                                                     <input name="executed_agreement" id="executedagreement"
@@ -1193,11 +1206,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">Agreement Start Date</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="start_date" type="date" class="form-control "
                                                         name="start_date">
 
@@ -1207,11 +1220,11 @@
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="expiry_date">Agreement Expiry Date</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="expiry_date" type="date" class="form-control "
                                                         name="expiry_date">
 

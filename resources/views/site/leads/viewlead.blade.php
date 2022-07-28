@@ -150,7 +150,7 @@
                                         <b> First Contact Date: </b>
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $viewlead->First_Contact_Date }}
+                                        {{ date('d-M-Y', strtotime($viewlead->First_Contact_Date)) }}
                                     </div>
                                 </div>
                             </div>
@@ -468,7 +468,7 @@
                                     $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
                                     if (in_array($ar[1], $extensions)) {
                                         ?>
-                                                {{-- {{ dd($viewlead->requirements->upload_requirement_documents) }} --}}
+
                                                 <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                     target="_blank">
                                                     <img style="width:50px;height:20px"
@@ -550,7 +550,7 @@
                                             <b> Expected Closure Date </b>
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->expected_closure_date) ? $viewlead->requirements->expected_closure_date : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->expected_closure_date) ? date('d-M-Y', strtotime($viewlead->requirements->expected_closure_date)) : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -914,30 +914,42 @@ if (in_array($ar[1], $extensions)) {
                                                                                         <br>
                                                                                     </div>
 
-                                                                                    <div class="form-group"
+
+                                                                                    <div class="form-group row"
                                                                                         id="counter_proposal"
                                                                                         style="display:none;">
-                                                                                        <label> Receive Counter
-                                                                                            Proposal?</label>
-                                                                                        <select
-                                                                                            class="form-control dropdown-item"
-                                                                                            id="counter_proposal_select"
-                                                                                            name="counter_proposal">
 
 
-                                                                                            <option id="No"
-                                                                                                value="No" selected>
 
-                                                                                                No
-                                                                                            </option>
-                                                                                            <option id="Yes"
-                                                                                                value="Yes">
+                                                                                        <div class="d-flex justify-contents-center"
+                                                                                            style="align-items: baseline">
+                                                                                            <div class="col-md-6">
+                                                                                                <h6> Receive Counter
+                                                                                                    Proposal?</h6>
+                                                                                            </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <select
+                                                                                                    class="form-control dropdown-item"
+                                                                                                    id="counter_proposal_select"
+                                                                                                    name="counter_proposal">
 
-                                                                                                Yes
-                                                                                            </option>
+
+                                                                                                    <option id="No"
+                                                                                                        value="No"
+                                                                                                        selected>
+
+                                                                                                        No
+                                                                                                    </option>
+                                                                                                    <option id="Yes"
+                                                                                                        value="Yes">
+
+                                                                                                        Yes
+                                                                                                    </option>
 
 
-                                                                                        </select>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1004,7 +1016,7 @@ if (in_array($ar[1], $extensions)) {
 
                             @foreach ($viewlead->legalRemarks as $p)
                                 @if ($loop->last)
-                                    @if (isset($p->remarks_by_legal))
+                                    @if (!empty($p->remarks_by_legal))
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
@@ -1523,17 +1535,7 @@ if (in_array($ar[1], $extensions)) {
                             for($i=0; $i<$c; $i++){
                               // dd($ll[$i]['lead_status']);
                               // dd($ll[$i]['lead_owner']['name']);
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                               
-     
-    ?>
+  ?>
 
 
 
@@ -1564,7 +1566,7 @@ if (in_array($ar[1], $extensions)) {
                                         <h6>Status :{{ $ll[$i]['lead_status'] }}</h6>
                                         <h6>Lead Owner :{{ $ll[$i]['lead_owner']['name'] }}</h6>
                                         <h6>Lead Assigned To :{{ $ll[$i]['lead_assigned']['name'] }}</h6>
-                                        <h6>Created At: {{ date('d M, Y', strtotime($ll[$i]['created_at'])) }}</h6>
+                                        <h6>Created At: {{ date('d-M-Y h:i', strtotime($ll[$i]['created_at'])) }}</h6>
                                         <p>Message : {{ $ll[$i]['message'] }}</p>
 
                                     </div>
@@ -1599,7 +1601,7 @@ if (in_array($ar[1], $extensions)) {
                                         <h6>Status :{{ $ll[$i]['lead_status'] }}</h6>
                                         <h6>Lead Owner :{{ $ll[$i]['lead_owner']['name'] }}</h6>
                                         <h6>Lead Assigned To :{{ $ll[$i]['lead_assigned']['name'] }}</h6>
-                                        <h6>Created At: {{ date('d M, Y', strtotime($ll[$i]['created_at'])) }}</h6>
+                                        <h6>Created At: {{ date('d-M-Y h:i', strtotime($ll[$i]['created_at'])) }}</h6>
                                         <p>Message: {{ $ll[$i]['message'] }}</p>
                                     </div>
                                     <div
@@ -1657,55 +1659,7 @@ if (in_array($ar[1], $extensions)) {
 
 
 
-                        {{-- <div class="table-responsive">
-                            <table id="example"
-                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr>
-                                        <th>Lead Id</th>
-                                        <th>Lead Owner Id</th>
-                                        <th>User Id</th>
-                                        <th>Lead Status</th>
-                                        <th>Lead Stage</th>
-                                        <th>Message</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
 
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($leadlogdata as $log)
-                                        <tr>
-
-                                            <td>{{ $log->lead_id }}</td>
-
-                                            <td>{{ $log->lead_owner->name }}</td>
-                                            <td>{{ $log->lead_assigned->name }}</td>
-                                            <td>{{ $log->lead_status }}</td>
-                                            <td>{{ $log->lead_stage }}</td>
-                                            <td>{{ $log->message }}</td>
-                                            <td>{{ $log->created_at }}</td>
-                                            <td>{{ $log->updated_at }}</td>
-
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Lead Id</th>
-                                        <th>Lead Owner Id</th>
-                                        <th>User Id</th>
-                                        <th>Lead Status</th>
-                                        <th>Lead Stage</th>
-                                        <th>Message</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div> --}}
                     </div>
                 </div>
 
@@ -1766,8 +1720,8 @@ if (in_array($ar[1], $extensions)) {
                                             <label for="example-date-input" class="col-sm-5 col-form-label">Follow-Up
                                                 Date</label>
                                             <div class="col-sm-10">
-                                                <input class="form-control" type="date" value="<?php echo date('Y-m-d'); ?>"
-                                                    name="date" id="Follow_Up_Date">
+                                                <input class="form-control" type="datetime-local"
+                                                    value="<?php echo date('Y-m-d H:i'); ?>" name="date" id="Follow_Up_Date">
                                             </div>
                                         </div>
 
@@ -1889,11 +1843,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="Business_Requirements">Business Requirements</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Business_Requirements" type="text"
                                                         class="form-control " name="business_requirement"
                                                         autocomplete="Business_Requirements" autofocus required>
@@ -1907,12 +1861,12 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="Upload_Documents">Upload Documents<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Upload_Documents" type="file" class="form-control"
                                                         name="upload_requirement_documents"
                                                         autocomplete="Upload_Documents" required>
@@ -1938,13 +1892,14 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="LOB">LOB<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select id="LOB_select" name="lob" class="form-control">
-                                                       @foreach($lobs as $k=>$v)
-                                                        <option value="{{$k}}">{{$v}}</option>
+                                                        @foreach ($lobs as $k => $v)
+                                                            <option value="{{ $k }}">{{ $v }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
 
@@ -1954,12 +1909,12 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Services">Services<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select id="Services_select" name="services" class="form-control">
-                                                    
+
                                                     </select>
 
                                                 </div>
@@ -1975,11 +1930,11 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Area">Area (Sq Ft.)<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" type="number" value=""
                                                         id="Area" name="area">
                                                 </div>
@@ -1989,11 +1944,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="example-date-input">Date<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" name="expected_closure_date"
                                                         type="date" value="<?php echo date('Y-m-d'); ?>"
                                                         id="example-date-input">
@@ -2007,12 +1962,12 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Location">Location<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select id="Locationlistselect" name="location" class="form-control">
-                                                        
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -2021,15 +1976,15 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Business">Business<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select id="Business" name="business_type" class="form-control">
                                                         <option selected disabled>Select Business</option>
                                                         <option>One Time</option>
                                                         <option>Recurring</option>
-                                                       
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -2041,11 +1996,11 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Expected_Monthy_Revenue">Expected Monthy Revenue<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" name="expected_monthly_revenue"
                                                         type="number" value="" id="Expected_Monthy_Revenue">
                                                 </div>
@@ -2055,11 +2010,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="Expected_Capex">Expected Capex<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" type="number" value=""
                                                         name="expected_capex" id="Expected_Capex">
                                                 </div>
@@ -2074,10 +2029,10 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="EBDTA%">EBITDA%<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" type="number" value=""
                                                         name="ebdta_percentage" value="ebdta_percentage" id="EBDTA">
                                                 </div>
@@ -2087,11 +2042,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <label for="EBDTA_Amount">EBITDA Amount<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input class="form-control" type="number" value=""
                                                         name="ebdta_amount" id="EBDTA_Amount">
                                                 </div>
@@ -2165,11 +2120,11 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="form-group col-md-6">
 
                                         <div class="row">
-                                            <div class="col-2">
+                                            <div class="col-4">
 
                                                 <label for="upload_proposal_documents">Upload Propsal Documents</label>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-8">
                                                 <input id="upload_proposal_documents" type="file"
                                                     class="form-control " name="upload_proposal_documents" required>
 
@@ -2181,12 +2136,12 @@ if (in_array($ar[1], $extensions)) {
                                     @if (in_array($viewlead->Lead_Status, ['Proposal Negotiation', 'Waiting For Proposal Negotiation']))
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="reason_for_changing_proposal">Reason For Changing
                                                         Proposal<span class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select id="reason_for_changing_proposal"
                                                         name="reason_for_changing_proposal" class="form-control" required>
                                                         <option selected disabled>Select Reason</option>
@@ -2331,34 +2286,40 @@ if (in_array($ar[1], $extensions)) {
 
                                     {{-- first two --}}
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-2">
-
-                                                    <label for="remarks">Remarks For Legal Team</label>
-                                                </div>
-                                                <div class="col-10">
-                                                    <input id="remarks" type="text" class="form-control "
-                                                        name="remarks" autofocus required>
-
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
-                                                    <label for="customer_agreement">Upload Customer Agreement</label>
+                                                    <label for="customer_agreement">Customer Agreement</label>
+                                                    <input type="hidden" name="data[0][document_type]"
+                                                        value="Customer Agreement" />
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="customer_agreement" type="file" class="form-control "
-                                                        name="customer_agreement" required>
+                                                        name="data[0][document_link]" required>
 
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarks">Remarks</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="remarks" type="text" class="form-control "
+                                                        name="data[0][remarks_for_legal]" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
 
 
@@ -2372,34 +2333,75 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="commercial">Commercial Go-Ahead</label>
+                                                    <input type="hidden" name="data[1][document_type]"
+                                                        value="Commercial Go-Ahead" />
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="commercial" type="file" class="form-control "
-                                                        name="commercial">
+                                                        name="data[1][document_link]">
 
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-2">
 
-                                                    <label for="nda">Upload NDA</label>
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarks">Remarks</label>
                                                 </div>
-                                                <div class="col-10">
-                                                    <input id="nda" type="file" class="form-control "
-                                                        name="nda">
+                                                <div class="col-8">
+                                                    <input id="remarks" type="text" class="form-control "
+                                                        name="data[1][remarks_for_legal]" required>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
+                                    {{-- 3rd row --}}
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-4">
 
+                                                    <label for="nda">NDA</label>
+                                                    <input type="hidden" name="data[2][document_type]"
+                                                        value="Commercial Go-Ahead" />
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="nda" type="file" class="form-control "
+                                                        name="data[2][document_link]">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarks">Remarks</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="remarks" type="text" class="form-control "
+                                                        name="data[2][remarks_for_legal]" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
 
 
 
@@ -2432,6 +2434,7 @@ if (in_array($ar[1], $extensions)) {
                     </div>
 
                     {{-- box header --}}
+
 
                     <div class="box-body">
                         <div class="table-responsive">
@@ -2550,11 +2553,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="Customer_Name">Customer Name</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Customer_Name" type="text" class="form-control "
                                                         name="Customer_Name"
                                                         value='{{ $viewlead->customer->Customer_Name }}' required>
@@ -2565,11 +2568,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="executed_agreement">Contact Number</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
 
 
                                                     <input type="text" class="form-control" name="Contact_Number"
@@ -2594,11 +2597,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">POC Name</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="POC_Name" type="text" class="form-control "
                                                         name="POC_Name" value='{{ $viewlead->customer->POC_Name }}'>
 
@@ -2608,11 +2611,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="expiry_date">Email</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Email" type="email" class="form-control "
                                                         name="Email" value="{{ $viewlead->customer->Email }}">
 
@@ -2627,14 +2630,15 @@ if (in_array($ar[1], $extensions)) {
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="GST_Number">Cost Center</label>
                                                 </div>
-                                                <div class="col-10">
-                                                    <select name="cost_center" id="cost_center_select" class="form-control  "
-                                                        required value='{{ $viewlead->cost_center }}'>
-                                                        
+                                                <div class="col-8">
+                                                    <select name="cost_center" id="cost_center_select"
+                                                        class="form-control  " required
+                                                        value='{{ $viewlead->cost_center }}'>
+
 
                                                     </select>
 
@@ -2644,11 +2648,11 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="GST_Number">GST Number</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="GST_Number" type="text" class="form-control "
                                                         name="gst_no" value='{{ $viewlead->customer->gst_no }}'
                                                         required>
@@ -2665,11 +2669,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">Address</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="address" type="text" class="form-control "
                                                         name="address" value='{{ $viewlead->customer->address }}'>
 
@@ -2680,11 +2684,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">GST Upload</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="gst_file" type="file" class="form-control "
                                                         name="gst_file">
 
@@ -2701,11 +2705,11 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">Industry</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Industry" type="text" class="form-control "
                                                         name="Industry" value="{{ $viewlead->customer->Industry }}">
 
@@ -2722,7 +2726,8 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group col-md-6">
 
-                                            <div class="row">
+                                            <div class="row" style="justify-content: center">
+
                                                 <?php
 if (!empty($viewlead->customer->gst_file)) {
 
@@ -3030,106 +3035,106 @@ if (!empty($viewlead->customer->gst_file)) {
             var a = document.getElementById("Expected_Monthy_Revenue").value;
             var b = document.getElementById("EBDTA").value;
             var c = document.getElementById("EBDTA_Amount");
-            c.value = a / b;
+            c.value = (a / b).toFixed(2);
             console.log(c.value);
         })
     </script>
-    
+
     <script>
-            function fetch_holibook_cc(){
-						$.ajax({
-							type: "GET",
-							url: "{{url('get-cost-centers')}}",
-							success: function(res) {
-								if(res.success){
-									for (let i = 0; i < res.data.length; i++) {
-										$('#cost_center_select').append(`<option value="${res.data[i].cost_center_name}">
+        function fetch_holibook_cc() {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('get-cost-centers') }}",
+                success: function(res) {
+                    if (res.success) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            $('#cost_center_select').append(`<option value="${res.data[i].cost_center_name}">
                                        ${res.data[i].cost_center_name}
                                   </option>`);
-									}
-									
-								}else{
-									alert(res.message);
-								}
-							},
-							error: function(error ) { 
-								alert(error);
-							}
-						});
-					}
-                                        
-                                        
-                                        
-                                        
-                        function fetch_holibook_locations(){
-						$.ajax({
-							type: "GET",
-							url: "{{url('get-holibook-locations')}}",
-							success: function(res) {
-								if(res.success){
-									for (let i = 0; i < res.data.length; i++) {
-										$('#Locationlistselect').append(`<option value="${res.data[i].location_name}">
+                        }
+
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function(error) {
+                    alert(error);
+                }
+            });
+        }
+
+
+
+
+        function fetch_holibook_locations() {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('get-holibook-locations') }}",
+                success: function(res) {
+                    if (res.success) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            $('#Locationlistselect').append(`<option value="${res.data[i].location_name}">
                                        ${res.data[i].location_name}
                                   </option>`);
-									}
-									
-								}else{
-									alert(res.message);
-								}
-							},
-							error: function(error ) { 
-								alert(error);
-							}
-						});
-					}    
-                                        
-                                        
-                                           function fetch_lob_service(id){
-                                              // alert(id);
-						$.ajax({
-							type: "GET",
-							url: "{{url('get-lob-services')}}?id="+id,
-							success: function(res) {
-                                                            console.log(res);
-								if(res.success){
-									for (let i = 0; i < res.data.length; i++) {
-										$('#Services_select').append(`<option value="${res.data[i].location_name}">
+                        }
+
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function(error) {
+                    alert(error);
+                }
+            });
+        }
+
+
+        function fetch_lob_service(id) {
+            // alert(id);
+            $.ajax({
+                type: "GET",
+                url: "{{ url('get-lob-services') }}?id=" + id,
+                success: function(res) {
+                    console.log(res);
+                    if (res.success) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            $('#Services_select').append(`<option value="${res.data[i].location_name}">
                                        ${res.data[i].location_name}
                                   </option>`);
-									}
-                                                                        
-                                                                        $.each(res.data, function(k,v){
-                                                                          $('#Services_select').append(`<option value="${k}">
+                        }
+
+                        $.each(res.data, function(k, v) {
+                            $('#Services_select').append(`<option value="${k}">
                                       ${v}
-                                  </option>`);  
-                                                                            
-                                                                        });
-                                                                        
-                                                                        
-									
-								}else{
-									alert(res.message);
-								}
-							},
-							error: function(error ) { 
-								alert(error);
-							}
-						});
-					}  
-                                        
-                                        
-                                        
-		$().ready(function(){
-                
-					fetch_holibook_cc();
-                                        fetch_holibook_locations();
-                                        
-                                        $("#LOB_select").on('change', function(){
-                                             $("#Services_select").empty();
-                                            fetch_lob_service($("#LOB_select").val());
-                                        })
-                                        
-                                        
-                });
-            </script>
+                                  </option>`);
+
+                        });
+
+
+
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function(error) {
+                    alert(error);
+                }
+            });
+        }
+
+
+
+        $().ready(function() {
+
+            fetch_holibook_cc();
+            fetch_holibook_locations();
+
+            $("#LOB_select").on('change', function() {
+                $("#Services_select").empty();
+                fetch_lob_service($("#LOB_select").val());
+            })
+
+
+        });
+    </script>
 @endsection

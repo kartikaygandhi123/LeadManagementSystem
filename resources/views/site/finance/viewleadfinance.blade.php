@@ -31,15 +31,20 @@
                 <div class="tab-pane active" id="home" role="tabpanel">
                     <div class="pad">
                         <div class="box-header with-border">
-                            <h4 id="form_heading" class="box-title">Details</h4>
-                            <h6 class="pull-right">
-                                Stage : {{ $viewlead->stage }}
-                            </h6>
-                            <br>
-                            <br>
-                            <h6 class="pull-right">
-                                Status : {{ $viewlead->Lead_Status }}
-                            </h6>
+                            <div class="" style="display: flex; justify-content:space-between">
+                                <div class="">
+                                    <h4 id="form_heading" class="box-title">Details</h4>
+                                </div>
+                                <div class="" style="display:flex;jutify-content: center;flex-direction:column">
+                                    <h6 class="">
+                                        Stage : {{ $viewlead->stage }}
+                                    </h6>
+
+                                    <h6 class="pull-right">
+                                        Status : {{ $viewlead->Lead_Status }}
+                                    </h6>
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -850,11 +855,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="Customer_Name">Customer Name</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Customer_Name" type="text" class="form-control "
                                                         name="Customer_Name"
                                                         value='{{ $viewlead->customer->Customer_Name }}' required>
@@ -865,11 +870,11 @@
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="executed_agreement">Contact Number</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
 
 
                                                     <input type="text" class="form-control" name="Contact_Number"
@@ -894,11 +899,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">POC Name</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="POC_Name" type="text" class="form-control "
                                                         name="POC_Name" value='{{ $viewlead->customer->POC_Name }}'>
 
@@ -908,11 +913,11 @@
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="expiry_date">Email</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Email" type="email" class="form-control "
                                                         name="Email" value="{{ $viewlead->customer->Email }}">
 
@@ -927,25 +932,14 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="GST_Number">Cost Center</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <select name="cost_center" id="cost_center" class="form-control  "
                                                         required value='{{ $viewlead->cost_center }}'>
-                                                        <option selected disabled value="">
-                                                            Select Cost Center
-                                                        </option>
-                                                        <option value="Cost Center 1">
-                                                            Cost Center 1
-                                                        </option>
-                                                        <option value="Cost Center 2">
-                                                            Cost Center 2
-                                                        </option>
-                                                        <option value="Cost Center 3">
-                                                            Cost Center 3
-                                                        </option>
+
 
                                                     </select>
 
@@ -955,11 +949,11 @@
 
                                         <div class="form-group col-md-6">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="GST_Number">GST Number</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="GST_Number" type="text" class="form-control "
                                                         name="gst_no" value='{{ $viewlead->customer->gst_no }}'
                                                         required>
@@ -976,11 +970,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">Address</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="address" type="text" class="form-control "
                                                         name="address" value='{{ $viewlead->customer->address }}'>
 
@@ -991,11 +985,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">GST Upload</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="gst_file" type="file" class="form-control "
                                                         name="gst_file">
 
@@ -1012,11 +1006,11 @@
                                         <div class="form-group col-md-6">
 
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
 
                                                     <label for="start_date">Industry</label>
                                                 </div>
-                                                <div class="col-10">
+                                                <div class="col-8">
                                                     <input id="Industry" type="text" class="form-control "
                                                         name="Industry" value="{{ $viewlead->customer->Industry }}">
 
@@ -1033,7 +1027,7 @@
 
                                         <div class="form-group col-md-6">
 
-                                            <div class="row">
+                                            <div class="row" style="justify-content: center">
                                                 <?php
                                                   
                                                  if(!empty($viewlead->customer->gst_file)){
@@ -1044,9 +1038,12 @@
                                     $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
                                     if (in_array($ar[1], $extensions)) {
                                         ?>
-                                                <img style="width:100px;height:90px"
-                                                    src="/uploads/{{ $viewlead->customer->gst_file }}"
-                                                    alt='SLA Document'>
+                                                <a href="/uploads/{{ $viewlead->customer->gst_file }}" target="_blank">
+                                                    <img style="width:100px;height:90px"
+                                                        src="/uploads/{{ $viewlead->customer->gst_file }}"
+                                                        alt='SLA Document'>
+
+                                                </a>
 
                                                 <?php
                                     } else {

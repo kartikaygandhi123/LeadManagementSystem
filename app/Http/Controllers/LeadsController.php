@@ -250,14 +250,14 @@ class LeadsController extends Controller
         // dd($request->id);
         $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
 
-$lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
+        $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
 
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead,'lobs'=>$lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
 
     function GetView_Lead_Legal(Request $request)
@@ -486,66 +486,37 @@ $lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
         }
     }
 
+
+
     function Save_Legalremarks(Request $request)
     {
+
         $stageupdate = Lead::where('id', $request->id)->first();
+        $i = 0;
+        $attributes = [''];
+        foreach ($request->data as $d) {
+
+            if (isset($d->document_link)) {
+
+                $doclink = getName($request->document_link);
+
+                $attributes[$i]['document_link'] = $doclink;
+
+                $attributes[$i]['lead_id'] = $request->id;
 
 
-        // dd( \auth()->user()->id);
+                $attributes[$i]['document_type'] = $request->document_type;
+                $attributes[$i]['user_id'] = \auth()->user()->id;
+                $attributes[$i]['remarks_for_legal'] = $request->remarks_for_legal;
+                $attributes[$i]['remarks_by_legal'] = "";
+                $attributes[$i]['bd_submitted_time'] = date("Y-m-d H:i");
 
-        if (isset($request->customer_agreement)) {
-
-            $doclink = getName($request->customer_agreement);
-
-            $attributes[0]['document_link'] = $doclink;
-
-            $attributes[0]['lead_id'] = $request->id;
-
-
-            $attributes[0]['document_type'] = "Customer Agreement";
-            $attributes[0]['user_id'] = \auth()->user()->id;
-            $attributes[0]['remarks_by_legal'] = "";
+                $i++;
+            }
         }
-
-        if (isset($request->commercial)) {
-
-            $doclink = getName($request->commercial);
-
-            $attributes[1]['document_link'] = $doclink;
-
-            $attributes[1]['lead_id'] = $request->id;
-
-
-            $attributes[1]['document_type'] = "Commercial Agreement";
-            $attributes[1]['user_id'] = \auth()->user()->id;
-            $attributes[1]['remarks_by_legal'] = "";
-        }
-
-        if (isset($request->nda)) {
-
-            $doclink = getName($request->nda);
-
-            $attributes[2]['document_link'] = $doclink;
-
-            $attributes[2]['lead_id'] = $request->id;
-
-
-            $attributes[2]['document_type'] = "NDA Agreement";
-            $attributes[2]['user_id'] = \auth()->user()->id;
-            $attributes[2]['remarks_by_legal'] = "";
-        }
+        dd($attributes);
 
         LegalRemark::insert($attributes);
-
-
-
-
-
-
-
-
-        //        $remarks->agreement_finalized = $request->agreement_finalized;
-        //        $remarks->business_onboarded = $request->business_onboarded;
 
         $stageupdate->stage = "Agreement";
         $stageupdate->Lead_Status = "Document Revision";
@@ -559,11 +530,14 @@ $lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
         LeadLogger(['lead_id' => $request->id, "message" => "Lead data sent to Legal Team "]);
 
         $sendticket = new Dopex;
-            $response = $sendticket->leadRemarksTicket($request->id);
-       // dd($response);
-        
+        $response = $sendticket->leadRemarksTicket($request->id);
+        // dd($response);
+
         return redirect('view_lead/' . $request->id)->with("success", "Legal Remarks Captured and sent to Legal Team");
     }
+
+
+
 
     function Agreement_Finalized(Request $request)
     {
@@ -589,13 +563,13 @@ $lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
 
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Finalized"]);
 
-             $sendticket = new Dopex;
+            $sendticket = new Dopex;
             $response = $sendticket->leadExecuteTicket($request->id);
-            
-            
-             $sendticket2 = new Dopex;
+
+
+            $sendticket2 = new Dopex;
             $response = $sendticket2->leadVerificationTicket($request->id);
-            
+
             return redirect('view_lead/' . $request->id)->with("success", "Agreement Finalized, waiting for Executed Agreement By Legal Team");
         } elseif ($request->agreement_finalized == "No") {
 
@@ -603,8 +577,8 @@ $lobs= \App\Models\AllBusiness::pluck('all_businesses', 'id');
             $stageupdate->update();
             LeadLogger(['lead_id' => $request->id, "message" => "Lead Agreement Not Finalized"]);
 
-             
-            
+
+
             return redirect('view_lead/' . $request->id . "?remarks=YES")->with("error", "Agreement Not Finalized");
         }
     }

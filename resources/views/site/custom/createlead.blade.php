@@ -94,11 +94,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Customer_Name" class="col-sm-2 control-label">Customer Name<span
+                                <div class="col-4">
+                                    <label for="Customer_Name" class=" control-label">Customer Name<span
                                             style="color: red">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <input name="Customer_Name" type="text" class="form-control" id="Customer_Name"
                                         pattern="[a-zA-Z\s\[1-9]{1}[0-9]{6}[0-9]{3}]+" required />
                                     <span class="error" style="color: red;">
@@ -111,11 +111,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="POC_Name" class="col-sm-2 control-label">POC Name<span
+                                <div class="col-4">
+                                    <label for="POC_Name" class=" control-label">POC Name<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <input name="POC_Name" type="text" class="form-control" id="POC_Name"
                                         pattern="[a-zA-Z\s]+" required /><span class="error" style="color: red;">
                                         <p id="poc_Name"> </p>
@@ -132,11 +132,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Contact_Number" class="col-sm-2 control-label">Contact Number<span
+                                <div class="col-4">
+                                    <label for="Contact_Number" class=" control-label">Contact Number<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <input type="text" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
                                         maxlength="10" id="Contact_Number" onchange="contactVal()" placeholder="********"
                                         required />
@@ -161,11 +161,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Email" class="col-sm-2 control-label">Email<span
+                                <div class="col-4">
+                                    <label for="Email" class=" control-label">Email<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <input type="email" name="Email" class="form-control" id="Email"
                                         required /><span class="error" style="color: red;">
                                         <p id="email"></p>
@@ -185,11 +185,11 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Industry" class="col-sm-2 control-label">Industry<span
+                                <div class="col-4">
+                                    <label for="Industry" class=" control-label">Industry<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <select name="Industry" id="Industry" class="form-control  " required>
                                         <option selected disabled value="">
                                             Select Industry
@@ -209,11 +209,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Lead_Source" class="col-sm-2 control-label">Lead Source<span
+                                <div class="col-4">
+                                    <label for="Lead_Source" class=" control-label">Lead Source<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <select name="Lead_Source" id="Lead_Source" class="form-control  " required>
 
                                         @foreach ($leadsource as $lead)
@@ -233,11 +233,11 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="First_Contact_Date" class="col-sm-2 control-label">First Contact Date<span
+                                <div class="col-4">
+                                    <label for="First_Contact_Date" class=" control-label">First Contact Date<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-8">
                                     <input name="First_Contact_Date" type="date" class="form-control"
                                         id="First_Contact_Date" required value="<?php echo date('Y-m-d'); ?>" />
                                     <span class="error" style="color: red;">
@@ -251,11 +251,11 @@
 
                         <div class="form-group col-md-6">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="Lead_Status" class="col-sm-2 control-label">Lead Status<span
+                                <div class="col-4">
+                                    <label for="Lead_Status" class=" control-label">Lead Status<span
                                             style="color: red;">*</span></label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <select name="Lead_Status" id="Lead_Status" onchange="maprequirements()"
                                         class="form-control select2" required>
 
@@ -279,6 +279,7 @@
                     <div class="pull-left">
                         <div class="row" id="hide_map_requirements" style="display:none">
                             <div class="form-group col-md-12">
+
                                 <label for="map_requirements">Map Business Requirements:</label>
                                 <select id="map_requirements" name="map_requirements" class="form-control style">
 
