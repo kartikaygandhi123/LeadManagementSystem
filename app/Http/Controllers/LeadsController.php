@@ -493,28 +493,31 @@ class LeadsController extends Controller
 
         $stageupdate = Lead::where('id', $request->id)->first();
         $i = 0;
-        $attributes = [''];
+        $attributes = array();
+        
+        //dd($request->data[0]);
         foreach ($request->data as $d) {
+          //  dd($d['document_link']);
 
-            if (isset($d->document_link)) {
+            if (isset($d['document_link'])) {
 
-                $doclink = getName($request->document_link);
+                $doclink = getName($d['document_link']);
 
                 $attributes[$i]['document_link'] = $doclink;
 
                 $attributes[$i]['lead_id'] = $request->id;
 
 
-                $attributes[$i]['document_type'] = $request->document_type;
+                $attributes[$i]['document_type'] =$d['document_type'];
                 $attributes[$i]['user_id'] = \auth()->user()->id;
-                $attributes[$i]['remarks_for_legal'] = $request->remarks_for_legal;
+                $attributes[$i]['remarks_for_legal'] =$d['remarks_for_legal'] ;
                 $attributes[$i]['remarks_by_legal'] = "";
                 $attributes[$i]['bd_submitted_time'] = date("Y-m-d H:i");
 
                 $i++;
             }
         }
-        dd($attributes);
+       // dd($attributes);
 
         LegalRemark::insert($attributes);
 
@@ -662,40 +665,41 @@ class LeadsController extends Controller
     {
 
 
-        $executeddoc = LegalRemark::where('lead_id', $request->id)->get();
+        
+        
+        if(isset($request->legal_document_link)){
+             $doclink = getName($request->legal_document_link);
 
-        // $executeddoc->remarks_by_legal = $request->remarks_by_legal;
-        // $executeddoc->document_type = $request->document_type;
-        // $executeddoc->document_link = $request->upload_document;
-        // $executeddoc->update();
-
-
-
-
-
-        $doclink = getName($request->upload_document);
-
-        $attributes[0]['document_link'] = $doclink;
-
-        $attributes[0]['lead_id'] = $request->id;
-
-
-        $attributes[0]['document_type'] = $request->document_type;
-        $attributes[0]['user_id'] = \auth()->user()->id;
-        $attributes[0]['remarks_by_legal'] = $request->remarks_by_legal;
+            
+            
+        LegalRemark::where('id', $request->id)->update([
+            'remarks_by_legal' =>$request->remarks_by_legal,
+              'legal_document_link' =>$doclink,
+              'legal_submitted_time' =>date("Y-m-d H:i"),
+            
+        ]);
+        
+        
+        
+        
+        
 
 
+       // LegalRemark::insert($attributes);
 
-
-
-        LegalRemark::insert($attributes);
-
-        $stage = Lead::where('id', $request->id)->first();
+        $stage = Lead::where('id', $request->lead_id)->first();
 
         $stage->Lead_Status = "Document Revised";
-        LeadLogger(['lead_id' => $request->id, "message" => "Legal Team Sent Executed Document and remarks "]);
+        LeadLogger(['lead_id' => $request->lead_id, "message" => "Legal Team Sent Executed Document and remarks "]);
 
-        return redirect('view_lead_legal/' . $request->id)->with("success", "Remarks And Executed Documents sent to BD Team");
+        
+        return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Remarks And Executed Documents sent to BD Team");
+    }else{
+      return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Please upload file");
+    
+   }
+        
+        
     }
 
 

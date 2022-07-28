@@ -15,6 +15,10 @@ class LegalRemark extends Model
         'document_type',
         'user_id',
         'remarks_by_legal',
+        'remarks_for_legal',
+        'bd_submitted_time',
+        'legal_submitted_time',
+        'legal_document_link',
     ];
 
 }

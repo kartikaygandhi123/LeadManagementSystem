@@ -2444,9 +2444,10 @@ if (in_array($ar[1], $extensions)) {
                                 class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                 <thead>
                                     <tr>
-                                        <th>File Link</th>
+                                      
                                         <th>Document Type</th>
-                                        <th>Remarks By Legal Team</th>
+                                          <th>BD Remarks</th>
+                                        <th>Legal Remarks</th>
 
 
 
@@ -2457,6 +2458,7 @@ if (in_array($ar[1], $extensions)) {
                                     {{-- @foreach ($remarks as $p) --}}
                                     @foreach ($viewlead->legalRemarks as $p)
                                         <tr>
+                                               <td>{{ $p->document_type }}</td>
                                             <td>
 
                                                 <?php
@@ -2483,10 +2485,133 @@ if (in_array($ar[1], $extensions)) {
 }
 ?>
 
-
+                                                <br>
+                                                @if(isset($p->bd_submitted_time))
+                                                <span>Uploaded Time: {{  date("d M, Y H:i", strtotime($p->bd_submitted_time)) }} </span>
+                                                <br>
+<span>Remarks: {{$p->remarks_for_legal}} </span>
+@endif
                                             </td>
-                                            <td>{{ $p->document_type }}</td>
-                                            <td>{{ $p->remarks_by_legal }}</td>
+                                         
+                                             <td>
+                                   @if(!isset($p->legal_document_link))              
+                                                 
+                             <form method="post" id="executedrelevant{{$p->id}}" name="executedrelevant{{$p->id}}"
+                                action="/executedrelevant" enctype="multipart/form-data"
+                                class="form-horizontal form-element">
+                                @csrf
+
+
+                                <input type="hidden" name="id" id="dd{{$p->id}}" value="{{ $p->id }}">
+                                <input type="hidden" name="lead_id" id="dd{{$p->id}}" value="{{ $viewlead->id }}">
+                                                 
+                                                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="nda">Revised Document</label>
+                                                    
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="nda{{$p->id}}" type="file" class="form-control "
+                                                        name="legal_document_link">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarks">Remarks</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="remarks{{$p->id}}" type="text" class="form-control "
+                                                        name="remarks_by_legal" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                                 
+                                               <button type="submit" class="btn btn-success btn-md " id="save_requirements{{$p->id}}"
+                                            tabindex="9">
+                                            Save
+                                        </button>  
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                </form>                    
+                                                 
+                                         @else
+                             <?php            
+                                         //$data->sla_document_link
+$ar = explode(".", $p->legal_document_link);
+
+$extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+if (in_array($ar[1], $extensions)) {
+    ?>
+                                                <img style="width:100px;height:90px"
+                                                    src="/uploads/{{ $p->legal_document_link }}"
+                                                    alt='Legal Remarks Document'>
+
+                                                <?php
+} else {
+    ?>
+                                                <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
+
+                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                        alt='Legal Remarks Document'>
+
+                                                </a>
+                                                <?php
+}
+?>
+
+                                                <br>
+                                                @if(isset($p->legal_submitted_time))
+                                                <span>Uploaded Time: {{  date("d M, Y H:i", strtotime($p->legal_submitted_time)) }} </span>
+                                                <br>
+<span>Remarks: {{$p->remarks_by_legal}} </span>
+@endif
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         
+                                         @endif
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             </td>
 
                                         </tr>
                                     @endforeach
