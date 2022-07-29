@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BrandProfile;
+use App\Models\City;
 use App\Models\Contact;
 use App\Models\Followup;
 use App\Models\Industry;
@@ -248,16 +249,25 @@ class LeadsController extends Controller
             ->pluck('name', 'id');
 
         // dd($request->id);
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+        $viewlead = Lead::where('id', $request->id)->with('created_by_user')
+            ->with('legalRemarks')
+            ->with('requirements')
+            ->with('proposals')
+            ->with('followups')
+            ->with('legalExecuted')
+            ->with('finance_user')
+            ->with('customer')->first();
 
         $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
+        $cities = City::get();
 
+        $industries = Industry::get();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
-
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
 
-        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
+
+        return view('site.leads.viewlead', ['viewlead' => $viewlead, 'cities' => $cities, 'industries' => $industries, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
 
     function GetView_Lead_Legal(Request $request)
@@ -345,38 +355,72 @@ class LeadsController extends Controller
 
 
         $stageupdate = Lead::where('id', $request->id)->first();
-        $requirements = new RequirementsMap;
-        $requirements->lead_id = $request->id;
-        $requirements->business_requirement = $request->business_requirement;
+        $requirements = RequirementsMap::where('lead_id', $request->id)->first();
 
-        $doclink = "";
-        if (isset($request->upload_requirement_documents)) {
+        if (isset($requirements)) {
+            // dd('if');
+            $requirements->lead_id = $request->id;
+            $requirements->business_requirement = $request->business_requirement;
+
+            $doclink = "";
+            if (isset($request->upload_requirement_documents)) {
 
 
-            $doclink = getName($request->upload_requirement_documents);
+                $doclink = getName($request->upload_requirement_documents);
+            }
+            $requirements->upload_requirement_documents = $doclink;
+
+
+            $requirements->lob = $request->lob;
+            $requirements->services = $request->services;
+            $requirements->area = $request->area;
+            $requirements->expected_closure_date = $request->expected_closure_date;
+            $requirements->location = $request->location;
+            $requirements->business_type = $request->business_type;
+            $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
+            $requirements->expected_capex = $request->expected_capex;
+            $requirements->ebdta_percentage = $request->ebdta_percentage;
+            $requirements->ebdta_amount = $request->ebdta_amount;
+            $requirements->share_business_proposal = "No";
+
+            if ($requirements->update()) {
+                $stageupdate->stage = "Requirements Mapping";
+                $stageupdate->Lead_Status = "Proposal To Be Shared";
+                $stageupdate->update();
+            }
+        } else {
+            // dd('else');
+            $requirements = new RequirementsMap;
+            $requirements->lead_id = $request->id;
+            $requirements->business_requirement = $request->business_requirement;
+
+            $doclink = "";
+            if (isset($request->upload_requirement_documents)) {
+
+
+                $doclink = getName($request->upload_requirement_documents);
+            }
+            $requirements->upload_requirement_documents = $doclink;
+
+
+            $requirements->lob = $request->lob;
+            $requirements->services = $request->services;
+            $requirements->area = $request->area;
+            $requirements->expected_closure_date = $request->expected_closure_date;
+            $requirements->location = $request->location;
+            $requirements->business_type = $request->business_type;
+            $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
+            $requirements->expected_capex = $request->expected_capex;
+            $requirements->ebdta_percentage = $request->ebdta_percentage;
+            $requirements->ebdta_amount = $request->ebdta_amount;
+            $requirements->share_business_proposal = "No";
+
+            if ($requirements->save()) {
+                $stageupdate->stage = "Requirements Mapping";
+                $stageupdate->Lead_Status = "Proposal To Be Shared";
+                $stageupdate->update();
+            }
         }
-        $requirements->upload_requirement_documents = $doclink;
-
-
-        $requirements->lob = $request->lob;
-        $requirements->services = $request->services;
-        $requirements->area = $request->area;
-        $requirements->expected_closure_date = $request->expected_closure_date;
-        $requirements->location = $request->location;
-        $requirements->business_type = $request->business_type;
-        $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
-        $requirements->expected_capex = $request->expected_capex;
-        $requirements->ebdta_percentage = $request->ebdta_percentage;
-        $requirements->ebdta_amount = $request->ebdta_amount;
-        $requirements->share_business_proposal = "No";
-
-        if ($requirements->save()) {
-            $stageupdate->stage = "Requirements Mapping";
-            $stageupdate->Lead_Status = "Proposal To Be Shared";
-            $stageupdate->update();
-        }
-
-
 
         LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
 
@@ -494,10 +538,10 @@ class LeadsController extends Controller
         $stageupdate = Lead::where('id', $request->id)->first();
         $i = 0;
         $attributes = array();
-        
+
         //dd($request->data[0]);
         foreach ($request->data as $d) {
-          //  dd($d['document_link']);
+            //  dd($d['document_link']);
 
             if (isset($d['document_link'])) {
 
@@ -508,16 +552,16 @@ class LeadsController extends Controller
                 $attributes[$i]['lead_id'] = $request->id;
 
 
-                $attributes[$i]['document_type'] =$d['document_type'];
+                $attributes[$i]['document_type'] = $d['document_type'];
                 $attributes[$i]['user_id'] = \auth()->user()->id;
-                $attributes[$i]['remarks_for_legal'] =$d['remarks_for_legal'] ;
+                $attributes[$i]['remarks_for_legal'] = $d['remarks_for_legal'];
                 $attributes[$i]['remarks_by_legal'] = "";
                 $attributes[$i]['bd_submitted_time'] = date("Y-m-d H:i");
 
                 $i++;
             }
         }
-       // dd($attributes);
+        // dd($attributes);
 
         LegalRemark::insert($attributes);
 
@@ -665,41 +709,38 @@ class LeadsController extends Controller
     {
 
 
-        
-        
-        if(isset($request->legal_document_link)){
-             $doclink = getName($request->legal_document_link);
-
-            
-            
-        LegalRemark::where('id', $request->id)->update([
-            'remarks_by_legal' =>$request->remarks_by_legal,
-              'legal_document_link' =>$doclink,
-              'legal_submitted_time' =>date("Y-m-d H:i"),
-            
-        ]);
-        
-        
-        
-        
-        
 
 
-       // LegalRemark::insert($attributes);
+        if (isset($request->legal_document_link)) {
+            $doclink = getName($request->legal_document_link);
 
-        $stage = Lead::where('id', $request->lead_id)->first();
 
-        $stage->Lead_Status = "Document Revised";
-        LeadLogger(['lead_id' => $request->lead_id, "message" => "Legal Team Sent Executed Document and remarks "]);
 
-        
-        return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Remarks And Executed Documents sent to BD Team");
-    }else{
-      return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Please upload file");
-    
-   }
-        
-        
+            LegalRemark::where('id', $request->id)->update([
+                'remarks_by_legal' => $request->remarks_by_legal,
+                'legal_document_link' => $doclink,
+                'legal_submitted_time' => date("Y-m-d H:i"),
+
+            ]);
+
+
+
+
+
+
+
+            // LegalRemark::insert($attributes);
+
+            $stage = Lead::where('id', $request->lead_id)->first();
+
+            $stage->Lead_Status = "Document Revised";
+            LeadLogger(['lead_id' => $request->lead_id, "message" => "Legal Team Sent Executed Document and remarks "]);
+
+
+            return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Remarks And Executed Documents sent to BD Team");
+        } else {
+            return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Please upload file");
+        }
     }
 
 
@@ -736,9 +777,6 @@ class LeadsController extends Controller
 
     function update_customer_details(Request $request)
     {
-
-        //dd($request->all());
-
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $stageupdate->Customer_Name = $request->Customer_Name;

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RequirementsMap extends Model
 {
     use HasFactory;
+    public function service()
+    {
+        return $this->hasOne(LobService::class, 'id');
+    }
 }

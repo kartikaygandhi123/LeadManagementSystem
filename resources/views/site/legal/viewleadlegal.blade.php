@@ -931,205 +931,209 @@
                 {{-- Legal Remarks --}}
                 <div class="tab-pane pad" id="timeline" role="tabpanel">
 
-                    <div class="box box-solid">
-                        <div class=" box-header with-border">
-                            <h5 class="box-title">Remarks For Legal Team : {{ $viewlead->remarks_for_legal }}</h5>
-                        </div>
+                    {{-- <div class="box box-solid"> --}}
+                    <div class=" box-header with-border">
+                        <h5 class="box-title">Remarks For Legal Team : {{ $viewlead->remarks_for_legal }}</h5>
+                    </div>
 
 
-                        <div class="box-body">
-                            <div class="table-responsive">
+                    <div class="box-body">
+                        <div class="table-responsive">
 
 
-                                <table id="example"
-                                    class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                    <thead>
+                            <table id="example"
+                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                <thead>
+                                    <tr>
+
+                                        <th>Document Type</th>
+                                        <th>BD Remarks</th>
+                                        <th>Legal Remarks</th>
+
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @foreach ($remarks as $p) --}}
+                                    @foreach ($viewlead->legalRemarks as $p)
                                         <tr>
-                                            <th>File Link</th>
-                                            <th>Document Type</th>
-                                            <th>Remarks By Legal Team</th>
+                                            <td>{{ $p->document_type }}</td>
+                                            <td>
+
+                                                <?php
+    //$data->sla_document_link
+    $ar = explode(".", $p->document_link);
+    
+    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+    if (in_array($ar[1], $extensions)) {
+        ?>
+                                                <img style="width:100px;height:90px"
+                                                    src="/uploads/{{ $p->document_link }}" alt='Legal Remarks Document'>
+
+                                                <?php
+    } else {
+        ?>
+                                                <a href="/uploads/{{ $p->document_link }}" target="_blank">
+
+                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                        alt='Legal Remarks Document'>
+
+                                                </a>
+                                                <?php
+    }
+    ?>
+
+                                                <br>
+                                                @if (isset($p->bd_submitted_time))
+                                                    <span>Uploaded Time:
+                                                        {{ date('d M, Y H:i', strtotime($p->bd_submitted_time)) }}
+                                                    </span>
+                                                    <br>
+                                                    <span>Remarks: {{ $p->remarks_for_legal }} </span>
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                @if (!isset($p->legal_document_link))
+                                                    <form method="post" id="executedrelevant{{ $p->id }}"
+                                                        name="executedrelevant{{ $p->id }}"
+                                                        action="/executedrelevant" enctype="multipart/form-data"
+                                                        class="form-horizontal form-element">
+                                                        @csrf
+
+
+                                                        <input type="hidden" name="id" id="dd{{ $p->id }}"
+                                                            value="{{ $p->id }}">
+                                                        <input type="hidden" name="lead_id" id="dd{{ $p->id }}"
+                                                            value="{{ $viewlead->id }}">
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-4">
+
+                                                                        <label for="nda">Revised Document</label>
+
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <input id="nda{{ $p->id }}" type="file"
+                                                                            class="form-control "
+                                                                            name="legal_document_link">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6">
+
+                                                                <div class="row">
+                                                                    <div class="col-4">
+
+                                                                        <label for="remarks">Remarks</label>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <input id="remarks{{ $p->id }}"
+                                                                            type="text" class="form-control "
+                                                                            name="remarks_by_legal" required>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
 
 
+
+
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-success btn-md "
+                                                            id="save_requirements{{ $p->id }}" tabindex="9">
+                                                            Save
+                                                        </button>
+
+
+
+
+
+                                                    </form>
+                                                @else
+                                                    <?php            
+                                             //$data->sla_document_link
+    $ar = explode(".", $p->legal_document_link);
+    
+    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+    if (in_array($ar[1], $extensions)) {
+        ?>
+                                                    <img style="width:100px;height:90px"
+                                                        src="/uploads/{{ $p->legal_document_link }}"
+                                                        alt='Legal Remarks Document'>
+
+                                                    <?php
+    } else {
+        ?>
+                                                    <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
+
+                                                        <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
+    }
+    ?>
+
+                                                    <br>
+                                                    @if (isset($p->legal_submitted_time))
+                                                        <span>Uploaded Time:
+                                                            {{ date('d M, Y H:i', strtotime($p->legal_submitted_time)) }}
+                                                        </span>
+                                                        <br>
+                                                        <span>Remarks: {{ $p->remarks_by_legal }} </span>
+                                                    @endif
+                                                @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </td>
 
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{-- @foreach ($remarks as $p) --}}
-                                        @foreach ($viewlead->legalRemarks as $p)
-                                            <tr>
-                                                <td>
+                                    @endforeach
+                                    {{-- @endforeach --}}
+                                </tbody>
 
-                                                    <?php
-                                    //$data->sla_document_link
-                                    $ar = explode(".", $p->document_link);
-                                    
-                                    $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
-                                    if (in_array($ar[1], $extensions)) {
-                                        ?>
-                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
-                                                        <img style="width:60px;height:20px"
-                                                            src="/uploads/{{ $p->document_link }}"
-                                                            alt='Legal Remarks Document'>
-
-                                                    </a>
-                                                    <?php
-                                    } else {
-                                        ?>
-                                                    <a href="/uploads/{{ $p->document_link }}" target="_blank">
-
-                                                        <img style="width:60px;height:20px" src="/assets/doc.svg"
-                                                            alt='Legal Remarks Document'>
-
-                                                    </a>
-                                                    <?php
-                                    }
-                                    ?>
-
-
-                                                </td>
-                                                <td>{{ $p->document_type }}</td>
-                                                <td>{{ $p->remarks_by_legal }}</td>
-
-                                            </tr>
-                                        @endforeach
-                                        {{-- @endforeach --}}
-                                    </tbody>
-
-                                </table>
-                            </div>
+                            </table>
                         </div>
                     </div>
+                    {{-- </div> --}}
                     <br>
                     <br>
 
 
-                    <div id="executedrelevant" class="box box-solid">
-                        <div class="box-header with-border">
-                            <h5 id="form_heading" class="box-title">Legal Executed Relevant Document</h5>
-                        </div>
 
-                        <div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
-
-
-
-                            <form method="post" id="executedrelevant" name="executedrelevant"
-                                action="/executedrelevant" enctype="multipart/form-data"
-                                class="form-horizontal form-element">
-                                @csrf
-
-
-                                <input type="hidden" name="id" id="leadid" value="{{ $viewlead->id }}">
-
-
-                                <div class="box-body">
-
-
-
-
-
-
-
-
-
-                                    {{-- first two --}}
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="remarksbylegal">Document Type</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <select class="form-control dropdown-item" id="document_type"
-                                                        name="document_type">
-
-                                                        <option selected disabled>
-                                                            Document Type
-                                                        </option>
-
-                                                        <option id="Customer Agreement" value="Customer Agreement">
-                                                            Customer Agreement
-                                                        </option>
-                                                        <option id="lost" value="Commercial Agreement">
-
-                                                            Commercial Agreement
-                                                        </option>
-
-                                                        <option id="lost" value="NDA Agreement">
-                                                            NDA Agreement
-                                                        </option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="uploaddocument">Upload Document</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="uploaddocument" type="file" class="form-control "
-                                                        name="upload_document" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- dropdown --}}
-
-                                    <div class="row">
-
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="remarksbylegal">Remarks By Legal Team</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="remarksbylegal" type="text" class="form-control "
-                                                        name="remarks_by_legal" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-
-
-
-                                    {{-- first two upto here --}}
-
-                                    <div class="text-right">
-
-                                        <button type="submit" class="btn btn-success btn-md " id="executeddocs"
-                                            tabindex="9">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-
-
-                            </form>
-                        </div>
-                    </div>
                 </div>
 
 
 
 
 
-                {{-- {{ dd($viewlead) }} --}}
+
 
 
 

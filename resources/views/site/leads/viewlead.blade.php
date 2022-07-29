@@ -1951,7 +1951,7 @@ if (in_array($ar[1], $extensions)) {
                                                 <div class="col-8">
                                                     <input class="form-control" name="expected_closure_date"
                                                         type="date" value="<?php echo date('Y-m-d'); ?>"
-                                                        id="example-date-input">
+                                                        id="example-date-input1">
                                                 </div>
                                             </div>
                                         </div>
@@ -1966,8 +1966,13 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="Location">Location<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <select id="Locationlistselect" name="location" class="form-control">
-
+                                                    <select id="Locationlistselect1" name="location"
+                                                        class="form-control">
+                                                        @foreach ($cities as $city)
+                                                            <option value="{{ $city->name }}">
+                                                                {{ $city->name }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -2444,9 +2449,9 @@ if (in_array($ar[1], $extensions)) {
                                 class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                 <thead>
                                     <tr>
-                                      
+
                                         <th>Document Type</th>
-                                          <th>BD Remarks</th>
+                                        <th>BD Remarks</th>
                                         <th>Legal Remarks</th>
 
 
@@ -2458,7 +2463,7 @@ if (in_array($ar[1], $extensions)) {
                                     {{-- @foreach ($remarks as $p) --}}
                                     @foreach ($viewlead->legalRemarks as $p)
                                         <tr>
-                                               <td>{{ $p->document_type }}</td>
+                                            <td>{{ $p->document_type }}</td>
                                             <td>
 
                                                 <?php
@@ -2486,132 +2491,70 @@ if (in_array($ar[1], $extensions)) {
 ?>
 
                                                 <br>
-                                                @if(isset($p->bd_submitted_time))
-                                                <span>Uploaded Time: {{  date("d M, Y H:i", strtotime($p->bd_submitted_time)) }} </span>
-                                                <br>
-<span>Remarks: {{$p->remarks_for_legal}} </span>
-@endif
+                                                @if (isset($p->bd_submitted_time))
+                                                    <span>Uploaded Time:
+                                                        {{ date('d M, Y H:i', strtotime($p->bd_submitted_time)) }} </span>
+                                                    <br>
+                                                    <span>Remarks: {{ $p->remarks_for_legal }} </span>
+                                                @endif
                                             </td>
-                                         
-                                             <td>
-                                   @if(!isset($p->legal_document_link))              
-                                                 
-                             <form method="post" id="executedrelevant{{$p->id}}" name="executedrelevant{{$p->id}}"
-                                action="/executedrelevant" enctype="multipart/form-data"
-                                class="form-horizontal form-element">
-                                @csrf
 
-
-                                <input type="hidden" name="id" id="dd{{$p->id}}" value="{{ $p->id }}">
-                                <input type="hidden" name="lead_id" id="dd{{$p->id}}" value="{{ $viewlead->id }}">
-                                                 
-                                                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="nda">Revised Document</label>
-                                                    
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="nda{{$p->id}}" type="file" class="form-control "
-                                                        name="legal_document_link">
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="remarks">Remarks</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="remarks{{$p->id}}" type="text" class="form-control "
-                                                        name="remarks_by_legal" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                    </div>
-                                                 
-                                               <button type="submit" class="btn btn-success btn-md " id="save_requirements{{$p->id}}"
-                                            tabindex="9">
-                                            Save
-                                        </button>  
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                </form>                    
-                                                 
-                                         @else
-                             <?php            
+                                            <td>
+                                                @if (!isset($p->legal_document_link))
+                                                @else
+                                                    <?php            
                                          //$data->sla_document_link
 $ar = explode(".", $p->legal_document_link);
 
 $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
 if (in_array($ar[1], $extensions)) {
     ?>
-                                                <img style="width:100px;height:90px"
-                                                    src="/uploads/{{ $p->legal_document_link }}"
-                                                    alt='Legal Remarks Document'>
-
-                                                <?php
-} else {
-    ?>
-                                                <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
-
-                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                    <img style="width:100px;height:90px"
+                                                        src="/uploads/{{ $p->legal_document_link }}"
                                                         alt='Legal Remarks Document'>
 
-                                                </a>
-                                                <?php
+                                                    <?php
+} else {
+    ?>
+                                                    <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
+
+                                                        <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                            alt='Legal Remarks Document'>
+
+                                                    </a>
+                                                    <?php
 }
 ?>
 
-                                                <br>
-                                                @if(isset($p->legal_submitted_time))
-                                                <span>Uploaded Time: {{  date("d M, Y H:i", strtotime($p->legal_submitted_time)) }} </span>
-                                                <br>
-<span>Remarks: {{$p->remarks_by_legal}} </span>
-@endif
-                                         
-                                         
-                                         
-                                         
-                                         
-                                         
-                                         
-                                         @endif
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             
-                                             </td>
+                                                    <br>
+                                                    @if (isset($p->legal_submitted_time))
+                                                        <span>Uploaded Time:
+                                                            {{ date('d M, Y H:i', strtotime($p->legal_submitted_time)) }}
+                                                        </span>
+                                                        <br>
+                                                        <span>Remarks: {{ $p->remarks_by_legal }} </span>
+                                                    @endif
+                                                @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </td>
 
                                         </tr>
                                     @endforeach
@@ -3029,6 +2972,26 @@ if (!empty($viewlead->customer->gst_file)) {
 
 
     <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        document.getElementById("example-date-input1").setAttribute("min", today);
+    </script>
+    <script>
         function stage_change() {
             if (document.getElementById("change_stage").value == "Dormant") {
 
@@ -3177,6 +3140,13 @@ if (!empty($viewlead->customer->gst_file)) {
                                        ${res.data[i].cost_center_name}
                                   </option>`);
                         }
+
+
+                        let selectedval = "{!! $viewlead->cost_center !!}";
+
+
+
+                        $("#cost_center_select").val(selectedval).change();
 
                     } else {
                         alert(res.message);
