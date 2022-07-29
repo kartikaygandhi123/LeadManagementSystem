@@ -251,7 +251,7 @@
                                                 {{-- {{ dd($viewlead->requirements->upload_requirement_documents) }} --}}
                                                 <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                     target="_blank">
-                                                    <img style="width:50px;height:20px"
+                                                    <img style="width:50px;height:50px"
                                                         src="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                         alt='Legal Remarks Document'>
 
@@ -262,7 +262,7 @@
                                                 <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                     target="_blank">
 
-                                                    <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                    <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                         alt='Legal Remarks Document'>
 
                                                 </a>
@@ -463,7 +463,7 @@
                                         if (in_array($ar[1], $extensions)) {
                                             ?>
                                                     <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
-                                                        <img style="width:50px;height:20px"
+                                                        <img style="width:50px;height:50px"
                                                             src="/uploads/{{ $p->proposal_documents }}"
                                                             alt='Legal Remarks Document'>
 
@@ -473,7 +473,7 @@
                                             ?>
                                                     <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
 
-                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                        <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                             alt='Legal Remarks Document'>
 
                                                     </a>
@@ -607,7 +607,7 @@
                                             if (in_array($ar[1], $extensions)) {
                                                 ?>
                                                     <a href="/uploads/{{ $p->document_link }}" target="_blank">
-                                                        <img style="width:50px;height:20px"
+                                                        <img style="width:50px;height:50px"
                                                             src="/uploads/{{ $p->document_link }}"
                                                             alt='Legal Remarks Document'>
 
@@ -617,7 +617,7 @@
                                                 ?>
                                                     <a href="/uploads/{{ $p->document_link }}" target="_blank">
 
-                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                        <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                             alt='Legal Remarks Document'>
 
                                                     </a>
@@ -844,7 +844,7 @@
                                     if (in_array($ar[1], $extensions)) {
                                         ?>
                                                         <a href="/uploads/{{ $p->document_upload }}" target="_blank">
-                                                            <img style="width:50px;height:20px"
+                                                            <img style="width:50px;height:50px"
                                                                 src="/uploads/{{ $p->document_upload }}"
                                                                 alt='Legal Remarks Document'>
 
@@ -854,7 +854,7 @@
                                         ?>
                                                         <a href="/uploads/{{ $p->document_upload }}" target="_blank">
 
-                                                            <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                            <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                                 alt='Legal Remarks Document'>
 
                                                         </a>
@@ -969,7 +969,7 @@
     $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
     if (in_array($ar[1], $extensions)) {
         ?>
-                                                <img style="width:100px;height:90px"
+                                                <img style="width:50px;height:50px"
                                                     src="/uploads/{{ $p->document_link }}" alt='Legal Remarks Document'>
 
                                                 <?php
@@ -977,7 +977,7 @@
         ?>
                                                 <a href="/uploads/{{ $p->document_link }}" target="_blank">
 
-                                                    <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                    <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                         alt='Legal Remarks Document'>
 
                                                 </a>
@@ -1048,8 +1048,8 @@
 
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-success btn-md "
-                                                            id="save_requirements{{ $p->id }}" tabindex="9">
+                                                        <button type="submit" class="btn btn-success btn-sm "
+                                                            id="save_requirements{{ $p->id }}">
                                                             Save
                                                         </button>
 
@@ -1066,7 +1066,7 @@
     $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
     if (in_array($ar[1], $extensions)) {
         ?>
-                                                    <img style="width:100px;height:90px"
+                                                    <img style="width:50px;height:50px"
                                                         src="/uploads/{{ $p->legal_document_link }}"
                                                         alt='Legal Remarks Document'>
 
@@ -1075,7 +1075,7 @@
         ?>
                                                     <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
 
-                                                        <img style="width:100px;height:90px" src="/assets/doc.svg"
+                                                        <img style="width:50px;height:50px" src="/assets/doc.svg"
                                                             alt='Legal Remarks Document'>
 
                                                     </a>
