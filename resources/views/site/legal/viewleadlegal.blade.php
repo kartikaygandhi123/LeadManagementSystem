@@ -1009,46 +1009,49 @@
                                                         <input type="hidden" name="lead_id" id="dd{{ $p->id }}"
                                                             value="{{ $viewlead->id }}">
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <div class="row">
-                                                                    <div class="col-4">
+                                                        <div class="row my-2">
 
-                                                                        <label for="nda">Revised Document</label>
 
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        <input id="nda{{ $p->id }}" type="file"
-                                                                            class="form-control "
-                                                                            name="legal_document_link">
+                                                            <div class="col-md-4">
 
-                                                                    </div>
-                                                                </div>
+                                                                <h6>Revised Document :</h6>
+
                                                             </div>
+                                                            <div class="col-md-8">
+                                                                <input id="nda{{ $p->id }}" type="file"
+                                                                    class="form-control " name="legal_document_link">
 
-                                                            <div class="form-group col-md-6">
-
-                                                                <div class="row">
-                                                                    <div class="col-4">
-
-                                                                        <label for="remarks">Remarks</label>
-                                                                    </div>
-                                                                    <div class="col-8">
-                                                                        <input id="remarks{{ $p->id }}"
-                                                                            type="text" class="form-control "
-                                                                            name="remarks_by_legal" required>
-
-                                                                    </div>
-                                                                </div>
                                                             </div>
-
-
-
 
 
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-success btn-sm "
+                                                        <div class="row my-2">
+
+
+
+                                                            <div class="col-md-4">
+
+                                                                <h6>Remarks :</h6>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input id="remarks{{ $p->id }}" type="text"
+                                                                    class="form-control " name="remarks_by_legal"
+                                                                    required>
+
+                                                            </div>
+
+
+                                                        </div>
+
+
+
+
+
+
+
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-sm pull-right my-2"
                                                             id="save_requirements{{ $p->id }}">
                                                             Save
                                                         </button>
