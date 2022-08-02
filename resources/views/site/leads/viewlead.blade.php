@@ -812,7 +812,7 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <b> Reason For Changing Proposal: </b>
+                                                        <b> Reason For Changed Proposal: </b>
                                                     </div>
                                                     <div class="col-md-6">
                                                         {{ isset($p->reason_for_changing_proposal) ? $p->reason_for_changing_proposal : 'Not Found' }}
@@ -993,7 +993,7 @@ if (in_array($ar[1], $extensions)) {
                             {{-- $loop->last --}}
                             <hr>
 
-                            @if (isset($viewlead->remarks_for_legal))
+                            @if (isset($viewlead->legalRemarks->remarks_for_legal))
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
@@ -1001,7 +1001,7 @@ if (in_array($ar[1], $extensions)) {
                                                 <b> Remarks For Legal Team: </b>
                                             </div>
                                             <div class="col-md-6">
-                                                {{ isset($viewlead->remarks_for_legal) ? $viewlead->remarks_for_legal : 'Not Found' }}
+                                                {{ isset($viewlead->legalRemarks->remarks_for_legal) ? $viewlead->legalRemarks->remarks_for_legal : 'Not Found' }}
 
                                             </div>
 
@@ -2377,7 +2377,7 @@ if (in_array($ar[1], $extensions)) {
 
                                                     <label for="nda">NDA</label>
                                                     <input type="hidden" name="data[2][document_type]"
-                                                        value="Commercial Go-Ahead" />
+                                                        value="NDA" />
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="nda" type="file" class="form-control "

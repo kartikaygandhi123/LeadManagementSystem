@@ -49,7 +49,7 @@ Route::post('/savefinanceverification', [LeadsController::class, 'Finance_Verifi
 Route::post('/update_customer_details', [LeadsController::class, 'update_customer_details'])->name('update_customer_details');
 
 
-    //Route::get('get-clients-holibook', 'MasterController@get_holibook_clients');
+//Route::get('get-clients-holibook', 'MasterController@get_holibook_clients');
 Route::get('/get-cost-centers', [MasterController::class, 'get_cost_centers']);
 
 Route::get('/get-holibook-locations', [MasterController::class, 'get_holibook_locations']);
@@ -188,21 +188,6 @@ Route::group(['prefix' => 'techbd', 'middleware' => ['IsTechBd', 'auth', 'Preven
 //6. Admin
 
 Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth']], function () {
-
-
-
-
-
-    // Masters
-    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
-    Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
-    Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
-    Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);
-    Route::get('alldepartmentsshow', [MastersAllDepartmentsController::class, 'AllDepartmentsShow']);
-    Route::get('allindustryshow', [MastersAllIndustryController::class, 'AllIndustryShow']);
-    Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
-    Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
-    Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
 });
 
 
@@ -328,4 +313,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/view_lead/savefollowup', [FollowupController::class, 'SaveFollowup'])->name('savefollow');
 
     Route::get('leadlogdata', [LeadsController::class, 'AccessLeadLogger']); // helper
+
+
+
+
+    // Masters
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+    Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
+    Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
+    Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);
+    Route::get('alldepartmentsshow', [MastersAllDepartmentsController::class, 'AllDepartmentsShow']);
+    Route::get('allindustryshow', [MastersAllIndustryController::class, 'AllIndustryShow']);
+    Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
+    Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
+    Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
 });

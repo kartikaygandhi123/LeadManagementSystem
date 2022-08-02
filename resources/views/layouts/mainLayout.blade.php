@@ -170,73 +170,73 @@
 
         <!-- Control Sidebar -->
 
-        @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+        {{-- @if (Auth()->user()->id == 1)
             @include('layouts.asideR')
-        @endif
+        @endif --}}
         <!-- /.control-sidebar -->
 
         <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
-    <!-- ./wrapper -->
+        {{-- <div class="control-sidebar-bg"></div>
+    </div> --}}
+        <!-- ./wrapper -->
 
 
 
 
 
-    <!-- jQuery UI 1.11.4 -->
-    <script src="/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="/assets/vendor_components/jquery-ui/jquery-ui.js"></script>
 
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge("uibutton", $.ui.button);
-    </script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge("uibutton", $.ui.button);
+        </script>
 
-    <!-- popper -->
-    <script src="/assets/vendor_components/popper/dist/popper.min.js"></script>
+        <!-- popper -->
+        <script src="/assets/vendor_components/popper/dist/popper.min.js"></script>
 
-    <!-- Bootstrap 4.0-->
-    <script src="/assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- Bootstrap 4.0-->
+        <script src="/assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
 
-    <!-- Slimscroll -->
-    <script src="/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <!-- Slimscroll -->
+        <script src="/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-    <!-- FastClick -->
-    <script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
+        <!-- FastClick -->
+        <script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 
-    <!-- apexcharts -->
-    <script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
-    <script src="/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+        <!-- apexcharts -->
+        <script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
+        <script src="/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
-    <!-- peity -->
-    <script src="/assets/vendor_components/jquery.peity/jquery.peity.js"></script>
+        <!-- peity -->
+        <script src="/assets/vendor_components/jquery.peity/jquery.peity.js"></script>
 
-    <!-- NeoX Admin App -->
-    <script src="/js/template.js"></script>
+        <!-- NeoX Admin App -->
+        <script src="/js/template.js"></script>
 
-    <!-- NeoX Admin dashboard demo (This is only for demo purposes) -->
-    <script src="/js/pages/dashboard.js"></script>
+        <!-- NeoX Admin dashboard demo (This is only for demo purposes) -->
+        <script src="/js/pages/dashboard.js"></script>
 
-    <!-- NeoX Admin for demo purposes -->
-    <script src="/js/demo.js"></script>
-
-
-    <script src="/assets/vendor_components/datatable/datatables.min.js"></script>
-
-    <!-- NeoX Admin for Data Table -->
-    <script src="/js/pages/data-table.js"></script>
-
-    {{-- select2 --}}
-    {{-- <script src="///assets/vendor_components/select2/dist/js/select2.full.js"></script> --}}
+        <!-- NeoX Admin for demo purposes -->
+        <script src="/js/demo.js"></script>
 
 
-    <script src="/js/app.js"></script>
-    <script>
-        $(document).ready(function() {
+        <script src="/assets/vendor_components/datatable/datatables.min.js"></script>
+
+        <!-- NeoX Admin for Data Table -->
+        <script src="/js/pages/data-table.js"></script>
+
+        {{-- select2 --}}
+        {{-- <script src="///assets/vendor_components/select2/dist/js/select2.full.js"></script> --}}
 
 
-        });
-    </script>
+        <script src="/js/app.js"></script>
+        <script>
+            $(document).ready(function() {
+
+
+            });
+        </script>
 
 </body>
 

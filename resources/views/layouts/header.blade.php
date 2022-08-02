@@ -43,20 +43,21 @@
 
 
 
-                <li id=notificationbell class="dropdown notifications-menu" style="display: none">
+                {{-- <li id=notificationbell class="dropdown notifications-menu" style="display: none">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="iconsmind-Bell"></i>
                     </a>
                     <ul class="dropdown-menu scale-up">
                         <li class="header" style="display: flex;justify-content:center">Stage</li>
 
-                        {{-- through javascript --}}
+                        
 
                         <li id=stage class="header"></li>
 
 
                     </ul>
-                </li>
+                </li> --}}
+
                 <!-- User Account-->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -96,8 +97,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -108,11 +108,11 @@
                 </li>
                 <!-- Control Sidebar Toggle Button -->
 
-                @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
+                {{-- @if (Auth()->user()->id == 7 || Auth()->user()->id == 6)
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="iconsmind-Gears-2"></i></a>
                     </li>
-                @endif
+                @endif --}}
 
             </ul>
         </div>

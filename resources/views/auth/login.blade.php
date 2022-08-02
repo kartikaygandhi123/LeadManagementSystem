@@ -120,23 +120,26 @@
 
                             <button class="btn btn-lg btn-primary btn-block mb-20"
                                 type="submit">{{ __('Login') }}</button>
-                            @if (Route::has('password.request'))
+
+
+                            {{-- Forgot password button --}}
+
+                            {{-- @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
-                            @endif
+                            @endif --}}
 
 
 
+                            {{-- Remember Me Check Box --}}
 
-
-
-                            <div class="checkbox float-left">
+                            {{-- <div class="checkbox float-left">
 
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                     {{ old('remember') ? 'checked' : '' }}>
                                 <label for="remember">Remember me</label>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>
