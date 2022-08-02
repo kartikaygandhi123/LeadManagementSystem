@@ -933,7 +933,7 @@
 
                     {{-- <div class="box box-solid"> --}}
                     <div class=" box-header with-border">
-                        <h5 class="box-title">Remarks For Legal Team : {{ $viewlead->remarks_for_legal }}</h5>
+                        <h5 class="box-title">Remarks For BD Team</h5>
                     </div>
 
 

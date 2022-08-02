@@ -989,112 +989,115 @@ if (in_array($ar[1], $extensions)) {
 
 
                         {{-- Legal Remarks --}}
+
                         @if (!empty($viewlead->legalRemarks))
-                            {{-- $loop->last --}}
                             <hr>
-
-                            @if (isset($viewlead->legalRemarks->remarks_for_legal))
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <b> Remarks For Legal Team: </b>
-                                            </div>
-                                            <div class="col-md-6">
-                                                {{ isset($viewlead->legalRemarks->remarks_for_legal) ? $viewlead->legalRemarks->remarks_for_legal : 'Not Found' }}
-
-                                            </div>
+                            <div class=" table-responsive">
 
 
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+                                <table id="ddd" class="table">
+                                    <thead style="border-bottom: hidden;">
+                                        <tr>
+
+                                            <th>Document Type</th>
+                                            <th>BD Remarks</th>
+                                            <th>Legal Remarks</th>
 
 
 
 
-                            @foreach ($viewlead->legalRemarks as $p)
-                                @if ($loop->last)
-                                    @if (!empty($p->remarks_by_legal))
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <b> Remarks By Legal Team: </b>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        {{ isset($p->remarks_by_legal) ? $p->remarks_by_legal : 'Not Found' }}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($remarks as $p) --}}
+                                        @foreach ($viewlead->legalRemarks as $p)
+                                            <tr>
+                                                <td style="border-bottom: hidden;">{{ $p->document_type }}</td>
+                                                <td style="border-bottom: hidden;">
 
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-
-
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <b> Document Type: </b>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {{ isset($p->document_type) ? $p->document_type : 'Not Found' }}
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <b> Document Preview: </b>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <?php
-//$data->sla_document_link
-$ar = explode(".", $p->document_link);
-
-$extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
-if (in_array($ar[1], $extensions)) {
-    ?>
+        //$data->sla_document_link
+        $ar = explode(".", $p->document_link);
+        
+        $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+        if (in_array($ar[1], $extensions)) {
+            ?>
                                                     <a href="/uploads/{{ $p->document_link }}" target="_blank">
-                                                        <img style="width:50px;height:20px"
+                                                        <img style="width:44px;height:26px"
                                                             src="/uploads/{{ $p->document_link }}"
                                                             alt='Legal Remarks Document'>
-
                                                     </a>
                                                     <?php
-} else {
-    ?>
+        } else {
+            ?>
                                                     <a href="/uploads/{{ $p->document_link }}" target="_blank">
 
-                                                        <img style="width:50px;height:20px" src="/assets/doc.svg"
+                                                        <img style="width:44px;height:26px" src="/assets/doc.svg"
                                                             alt='Legal Remarks Document'>
 
                                                     </a>
                                                     <?php
-}
-?>
+        }
+        ?>
 
-                                                </div>
+                                                    <br>
+                                                    @if (isset($p->bd_submitted_time))
+                                                        <span>Remarks: {{ $p->remarks_for_legal }} </span>
+                                                    @endif
+                                                </td>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
+                                                <td style="border-bottom: hidden;">
+                                                    @if (!isset($p->legal_document_link))
+                                                    @else
+                                                        <?php            
+                                                 //$data->sla_document_link
+        $ar = explode(".", $p->legal_document_link);
+        
+        $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+        if (in_array($ar[1], $extensions)) {
+            ?>
+                                                        <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
+                                                            <img style="width:44px;height:26px"
+                                                                src="/uploads/{{ $p->legal_document_link }}"
+                                                                alt='Legal Remarks Document'>
+                                                        </a>
+                                                        <?php
+        } else {
+            ?>
+                                                        <a href="/uploads/{{ $p->legal_document_link }}" target="_blank">
+
+                                                            <img style="width:44px;height:26px" src="/assets/doc.svg"
+                                                                alt='Legal Remarks Document'>
+
+                                                        </a>
+                                                        <?php
+        }
+        ?>
+
+                                                        <br>
+                                                        @if (isset($p->legal_submitted_time))
+                                                            <span>Remarks: {{ $p->remarks_by_legal }} </span>
+                                                        @endif
+                                                    @endif
+
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                        {{-- @endforeach --}}
+                                    </tbody>
+
+                                </table>
+                            </div>
                         @endif
                         {{-- Legal Remarks --}}
+
+
+
+
+
+
+
 
 
 
@@ -2435,7 +2438,7 @@ if (in_array($ar[1], $extensions)) {
                     {{-- Remarks Table --}}
 
                     <div class="box-header with-border">
-                        <h5 class="box-title">Remarks For Legal Team : {{ $viewlead->remarks_for_legal }}</h5>
+                        <h5 class="box-title">Legal Remarks Data</h5>
                     </div>
 
                     {{-- box header --}}
