@@ -88,9 +88,10 @@
                         </span>
                     </a>
                 </li>
+            @endif
 
 
-
+            @if (in_array(\auth()->user()->role_id, [1, 2, 3, 4, 5, 6]))
                 <li>
                     <a href="/reportsshow">
                         <i class="iconsmind-Bar-Chart"></i> <span>Reports</span>
@@ -100,6 +101,7 @@
                     </a>
                 </li>
             @endif
+
 
 
 

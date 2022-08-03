@@ -18,6 +18,7 @@ $(function () {
 
     $("#example").DataTable({
         dom: "lfrtip",
+        bDestroy: true,
         buttons: ["copy", "csv", "excel", "pdf", "print"],
     });
 
@@ -38,4 +39,6 @@ $(function () {
         info: true,
         autoWidth: false,
     });
-}); // End of use strict
+});
+
+// End of use strict

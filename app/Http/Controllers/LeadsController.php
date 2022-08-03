@@ -354,6 +354,7 @@ class LeadsController extends Controller
     {
 
 
+
         $stageupdate = Lead::where('id', $request->id)->first();
         $requirements = RequirementsMap::where('lead_id', $request->id)->first();
 
@@ -381,7 +382,7 @@ class LeadsController extends Controller
             $requirements->expected_capex = $request->expected_capex;
             $requirements->ebdta_percentage = $request->ebdta_percentage;
             $requirements->ebdta_amount = $request->ebdta_amount;
-            $requirements->share_business_proposal = "No";
+            $requirements->share_business_proposal = $request->share_business_proposal;
 
             if ($requirements->update()) {
                 $stageupdate->stage = "Requirements Mapping";
@@ -413,7 +414,7 @@ class LeadsController extends Controller
             $requirements->expected_capex = $request->expected_capex;
             $requirements->ebdta_percentage = $request->ebdta_percentage;
             $requirements->ebdta_amount = $request->ebdta_amount;
-            $requirements->share_business_proposal = "No";
+            $requirements->share_business_proposal = $request->share_business_proposal;
 
             if ($requirements->save()) {
                 $stageupdate->stage = "Requirements Mapping";
@@ -424,7 +425,15 @@ class LeadsController extends Controller
 
         LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
 
-        return redirect('view_lead/' . $requirements->lead_id . "?followup=YES")->with("success", "Requirements mapping done,Share Business Proposal through Details Tab for next step, else Followup");
+        if ($request->share_business_proposal == "Yes") {
+            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
+
+            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
+        } elseif ($request->share_business_proposal == "No") {
+            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
+
+            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
+        }
     }
 
     function Update_status(Request $request)

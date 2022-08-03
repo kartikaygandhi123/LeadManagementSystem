@@ -990,8 +990,9 @@ if (in_array($ar[1], $extensions)) {
 
                         {{-- Legal Remarks --}}
 
-                        @if (!empty($viewlead->legalRemarks))
+                        @if (isset($viewlead->legalRemarks))
                             <hr>
+
                             <div class=" table-responsive">
 
 
@@ -1990,8 +1991,17 @@ if (in_array($ar[1], $extensions)) {
                                                 <div class="col-8">
                                                     <select id="Business" name="business_type" class="form-control">
                                                         <option selected disabled>Select Business</option>
-                                                        <option>One Time</option>
-                                                        <option>Recurring</option>
+                                                        <option value="One Time">One Time</option>
+                                                        <option value="6 Months">6 Months</option>
+                                                        <option value="7 Months">7 Months</option>
+                                                        <option value="8 Months">8 Months</option>
+                                                        <option value="9 Months">9 Months</option>
+                                                        <option value="10 Months">10 Months</option>
+                                                        <option value="11 Months">11 Months</option>
+                                                        <option value="1 Year">1 Year</option>
+                                                        <option value="2 Years">2 Year</option>
+                                                        <option value="3 Years">3 Year</option>
+
 
                                                     </select>
                                                 </div>
@@ -2064,6 +2074,34 @@ if (in_array($ar[1], $extensions)) {
 
                                     <br>
                                     <br>
+
+
+                                    <div class="pull-left">
+                                        <div class="row" id="require">
+                                            <div class="form-group col-md-12">
+
+                                                <label for="map_requirements">Share Business Proposal:</label>
+                                                <select class="form-control dropdown-item" id="share_business_proposal"
+                                                    name="share_business_proposal" required="">
+
+                                                    <option id="No" value="No" selected>
+
+                                                        No
+                                                    </option>
+
+
+                                                    <option id="Yes" value="Yes">
+
+                                                        Yes
+                                                    </option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 
 
 
@@ -2304,8 +2342,8 @@ if (in_array($ar[1], $extensions)) {
                                                         value="Customer Agreement" />
                                                 </div>
                                                 <div class="col-8">
-                                                    <input id="customer_agreement" type="file" class="form-control "
-                                                        name="data[0][document_link]" required>
+                                                    <input id="customer_agreement" type="file"
+                                                        class="form-control " name="data[0][document_link]" required>
 
                                                 </div>
                                             </div>
