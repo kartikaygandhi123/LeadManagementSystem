@@ -47,6 +47,7 @@ Route::post('/executedagreementdoc', [LeadsController::class, 'Executed_Agreemen
 Route::post('/savefinanceverification', [LeadsController::class, 'Finance_Verification'])->name('savefinanceverification');
 
 Route::post('/update_customer_details', [LeadsController::class, 'update_customer_details'])->name('update_customer_details');
+Route::get('/fetchrequirements', [LeadsController::class, 'Fetch_Requirements'])->name('fetchrequirements');
 
 
 //Route::get('get-clients-holibook', 'MasterController@get_holibook_clients');

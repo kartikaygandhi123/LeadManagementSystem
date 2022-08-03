@@ -1853,8 +1853,7 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="Business_Requirements" type="text"
-                                                        class="form-control " name="business_requirement"
-                                                        autocomplete="Business_Requirements" autofocus required>
+                                                        class="form-control " name="business_requirement" required>
 
                                                 </div>
                                             </div>
@@ -1872,8 +1871,7 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="Upload_Documents" type="file" class="form-control"
-                                                        name="upload_requirement_documents"
-                                                        autocomplete="Upload_Documents" required>
+                                                        name="upload_requirement_documents" required>
 
 
 
@@ -1935,20 +1933,6 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="Area">Area (Sq Ft.)<span
-                                                            class="danger">*</span></label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input class="form-control" type="number" value=""
-                                                        id="Area" name="area">
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <div class="col-4">
                                                     <label for="example-date-input">Date<span
                                                             class="danger">*</span></label>
                                                 </div>
@@ -1959,11 +1943,8 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {{-- 4th row --}}
 
-                                    <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -1983,13 +1964,27 @@ if (in_array($ar[1], $extensions)) {
                                         </div>
 
 
+
+
+
+
+
+                                    </div>
+
+                                    {{-- 4th row --}}
+
+                                    <div class="row">
+
+
+
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="Business">Business<span class="danger">*</span></label>
+                                                    <label for="Business">Business Type<span
+                                                            class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <select id="Business" name="business_type" class="form-control">
+                                                    <select id="Business_Type" name="business_type" class="form-control">
                                                         <option selected disabled>Select Business</option>
                                                         <option value="One Time">One Time</option>
                                                         <option value="6 Months">6 Months</option>
@@ -2007,11 +2002,7 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {{-- 5th row --}}
-
-                                    <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -2026,6 +2017,17 @@ if (in_array($ar[1], $extensions)) {
                                         </div>
 
 
+
+
+
+                                    </div>
+
+                                    {{-- 5th row --}}
+
+                                    <div class="row">
+
+
+
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -2038,13 +2040,8 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
-
-                                    {{-- 6th row --}}
-
-                                    <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -2058,6 +2055,17 @@ if (in_array($ar[1], $extensions)) {
                                         </div>
 
 
+
+                                    </div>
+
+
+
+                                    {{-- 6th row --}}
+
+                                    <div class="row">
+
+
+
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -2066,10 +2074,32 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-8">
                                                     <input class="form-control" type="number" value=""
-                                                        name="ebdta_amount" id="EBDTA_Amount">
+                                                        name="ebdta_amount" id="ebdta_amount">
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+                                        <div id="area_id" class="form-group col-md-6" style="display: none">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="Area">Area (Sq Ft.)<span
+                                                            class="danger">*</span></label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="number" value=""
+                                                        id="Area" name="area">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
                                     </div>
 
                                     <br>
@@ -2331,6 +2361,49 @@ if (in_array($ar[1], $extensions)) {
                                 <div class="box-body">
 
                                     {{-- first two --}}
+
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="commercial">Commercial Go-Ahead</label>
+                                                    <input type="hidden" name="data[1][document_type]"
+                                                        value="Commercial Go-Ahead" />
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="commercial" type="file" class="form-control "
+                                                        name="data[1][document_link]">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group col-md-6">
+
+                                            <div class="row">
+                                                <div class="col-4">
+
+                                                    <label for="remarks">Remarks</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input id="remarks" type="text" class="form-control "
+                                                        name="data[1][remarks_for_legal]" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    {{-- second row --}}
                                     <div class="row">
 
                                         <div class="form-group col-md-6">
@@ -2371,44 +2444,11 @@ if (in_array($ar[1], $extensions)) {
 
 
 
-                                    {{-- first two upto here --}}
+
 
                                     {{-- second two --}}
 
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
 
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="commercial">Commercial Go-Ahead</label>
-                                                    <input type="hidden" name="data[1][document_type]"
-                                                        value="Commercial Go-Ahead" />
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="commercial" type="file" class="form-control "
-                                                        name="data[1][document_link]">
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group col-md-6">
-
-                                            <div class="row">
-                                                <div class="col-4">
-
-                                                    <label for="remarks">Remarks</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input id="remarks" type="text" class="form-control "
-                                                        name="data[1][remarks_for_legal]" required>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     {{-- 3rd row --}}
                                     <div class="row">
@@ -3012,6 +3052,28 @@ if (!empty($viewlead->customer->gst_file)) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
         var today = new Date();
         var dd = today.getDate();
@@ -3109,7 +3171,7 @@ if (!empty($viewlead->customer->gst_file)) {
 
 
 
-            ti - write
+
         });
     </script>
 
@@ -3163,11 +3225,42 @@ if (!empty($viewlead->customer->gst_file)) {
 
             var a = document.getElementById("Expected_Monthy_Revenue").value;
             var b = document.getElementById("EBDTA").value;
-            var c = document.getElementById("EBDTA_Amount");
+
+            var c = document.getElementById("ebdta_amount");
             c.value = (a / b).toFixed(2);
             console.log(c.value);
         })
     </script>
+
+    <script>
+        $("#LOB_select").on('change', function() {
+            // alert(document.getElementById("LOB_select").value);
+            if (document.getElementById("LOB_select").value == 4 || document.getElementById("LOB_select").value ==
+                6) {
+                document.getElementById("area_id").style.display = "block";
+
+            } else {
+
+                document.getElementById("area_id").style.display = "none";
+            }
+        })
+
+
+        $("#Services_select").on('change', function() {
+
+            if (document.getElementById("Services_select").value == 18 || document.getElementById("Services_select")
+                .value == 23) {
+                document.getElementById("area_id").style.display = "block";
+
+            } else {
+
+                document.getElementById("area_id").style.display = "none";
+            }
+        })
+    </script>
+
+
+
 
     <script>
         function fetch_holibook_cc() {
@@ -3273,4 +3366,62 @@ if (!empty($viewlead->customer->gst_file)) {
 
         });
     </script>
+
+    <script>
+        $().ready(function() {
+
+            var id = "{{ $viewlead->id }}";
+            // console.log(id);
+            $.ajax({
+                type: "GET",
+                url: "{{ URL::to('fetchrequirements') }}",
+                data: {
+                    'find': id
+                },
+
+                success: function(response) {
+                    try {
+                        $('#Business_Requirements').val(response?.requirements?.business_requirement);
+                        // $('#Upload_Documents').val(response.requirements.upload_requirement_documents);
+                        $('#LOB_select').val(response.requirements.lob);
+
+                        $('#Services_select').val(response.requirements.services);
+
+
+                        $('#example-date-input1').val(response.requirements.expected_closure_date);
+
+
+                        $('#Locationlistselect1').val(response.requirements.location);
+
+
+                        $('#Business_Type').val(response.requirements.business_type);
+
+
+                        $('#Expected_Monthy_Revenue').val(response.requirements
+                            .expected_monthly_revenue);
+
+                        $('#Expected_Capex').val(response.requirements.expected_capex);
+
+
+                        $('#EBDTA').val(response.requirements.ebdta_percentage);
+
+                        $('#ebdta_amount').val(response.requirements.ebdta_amount);
+                        $('#Area').val(response.requirements.area);
+                        $('#share_business_proposal').val(response.requirements
+                            .share_business_proposal);
+
+                    } catch (error) {
+                        alert(error);
+                        console.log(error);
+
+                    }
+                    // console.log(response.requirements.ebdta_percentage);
+
+
+
+                }
+            });
+        });
+    </script>
+
 @endsection

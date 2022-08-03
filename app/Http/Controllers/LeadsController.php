@@ -356,72 +356,45 @@ class LeadsController extends Controller
 
 
         $stageupdate = Lead::where('id', $request->id)->first();
-        $requirements = RequirementsMap::where('lead_id', $request->id)->first();
-
-        if (isset($requirements)) {
-            // dd('if');
-            $requirements->lead_id = $request->id;
-            $requirements->business_requirement = $request->business_requirement;
-
-            $doclink = "";
-            if (isset($request->upload_requirement_documents)) {
 
 
-                $doclink = getName($request->upload_requirement_documents);
-            }
-            $requirements->upload_requirement_documents = $doclink;
 
 
-            $requirements->lob = $request->lob;
-            $requirements->services = $request->services;
-            $requirements->area = $request->area;
-            $requirements->expected_closure_date = $request->expected_closure_date;
-            $requirements->location = $request->location;
-            $requirements->business_type = $request->business_type;
-            $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
-            $requirements->expected_capex = $request->expected_capex;
-            $requirements->ebdta_percentage = $request->ebdta_percentage;
-            $requirements->ebdta_amount = $request->ebdta_amount;
-            $requirements->share_business_proposal = $request->share_business_proposal;
+        // dd('else');
+        $requirements = new RequirementsMap;
+        $requirements->lead_id = $request->id;
+        $requirements->business_requirement = $request->business_requirement;
 
-            if ($requirements->update()) {
-                $stageupdate->stage = "Requirements Mapping";
-                $stageupdate->Lead_Status = "Proposal To Be Shared";
-                $stageupdate->update();
-            }
-        } else {
-            // dd('else');
-            $requirements = new RequirementsMap;
-            $requirements->lead_id = $request->id;
-            $requirements->business_requirement = $request->business_requirement;
-
-            $doclink = "";
-            if (isset($request->upload_requirement_documents)) {
+        $doclink = "";
+        if (isset($request->upload_requirement_documents)) {
 
 
-                $doclink = getName($request->upload_requirement_documents);
-            }
-            $requirements->upload_requirement_documents = $doclink;
-
-
-            $requirements->lob = $request->lob;
-            $requirements->services = $request->services;
-            $requirements->area = $request->area;
-            $requirements->expected_closure_date = $request->expected_closure_date;
-            $requirements->location = $request->location;
-            $requirements->business_type = $request->business_type;
-            $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
-            $requirements->expected_capex = $request->expected_capex;
-            $requirements->ebdta_percentage = $request->ebdta_percentage;
-            $requirements->ebdta_amount = $request->ebdta_amount;
-            $requirements->share_business_proposal = $request->share_business_proposal;
-
-            if ($requirements->save()) {
-                $stageupdate->stage = "Requirements Mapping";
-                $stageupdate->Lead_Status = "Proposal To Be Shared";
-                $stageupdate->update();
-            }
+            $doclink = getName($request->upload_requirement_documents);
         }
+        $requirements->upload_requirement_documents = $doclink;
+
+
+        $requirements->lob = $request->lob;
+        $requirements->services = $request->services;
+        $requirements->area = $request->area;
+        $requirements->expected_closure_date = $request->expected_closure_date;
+        $requirements->location = $request->location;
+        $requirements->business_type = $request->business_type;
+        $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
+        $requirements->expected_capex = $request->expected_capex;
+        $requirements->ebdta_percentage = $request->ebdta_percentage;
+        $requirements->ebdta_amount = $request->ebdta_amount;
+        $requirements->share_business_proposal = $request->share_business_proposal;
+
+
+        if ($requirements->save()) {
+            $stageupdate->stage = "Requirements Mapping";
+            $stageupdate->Lead_Status = "Proposal To Be Shared";
+            $stageupdate->update();
+        }
+
+
+
 
         LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
 
@@ -434,6 +407,18 @@ class LeadsController extends Controller
 
             return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
         }
+    }
+
+
+    function Fetch_Requirements(Request $request)
+    {
+
+
+        $find = $request->get('find');
+
+        $requirements = RequirementsMap::where('lead_id', $find)->latest()->first();
+
+        return response()->json(['requirements' => $requirements]);
     }
 
     function Update_status(Request $request)
