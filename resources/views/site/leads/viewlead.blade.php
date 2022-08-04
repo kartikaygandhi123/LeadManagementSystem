@@ -3429,27 +3429,27 @@ if (!empty($viewlead->customer->gst_file)) {
                         $('#example-date-input1').val(response?.requirements?.expected_closure_date);
 
 
-                        $('#Locationlistselect1').val(response?.requirements.location);
+                        $('#Locationlistselect1').val(response?.requirements?.location);
 
 
                         $('#Business_Type').val(response?.requirements?.business_type);
 
 
-                        $('#Expected_Monthy_Revenue').val(response?.requirements ?
-                            .expected_monthly_revenue);
+                        $('#Expected_Monthy_Revenue').val(response?.requirements
+                            ?.expected_monthly_revenue);
 
                         $('#Expected_Capex').val(response?.requirements?.expected_capex);
-                        s
+
 
                         $('#EBDTA').val(response?.requirements?.ebdta_percentage);
 
                         $('#ebdta_amount').val(response?.requirements?.ebdta_amount);
                         $('#Area').val(response?.requirements?.area);
-                        $('#share_business_proposal').val(response?.requirements ?
-                            .share_business_proposal);
+                        $('#share_business_proposal').val(response?.requirements
+                            ?.share_business_proposal);
 
                     } catch (error) {
-                        // alert(error);
+                        alert(error);
                         console.log(error);
 
                     }
