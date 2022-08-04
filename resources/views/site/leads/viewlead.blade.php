@@ -1804,6 +1804,7 @@ if (in_array($ar[1], $extensions)) {
 
                 </div>
 
+
                 {{-- Requirements Tab --}}
                 <div class="tab-pane pad" id="requirements" role="tabpanel">
 
@@ -1869,11 +1870,48 @@ if (in_array($ar[1], $extensions)) {
                                                     <label for="Upload_Documents">Upload Documents<span
                                                             class="danger">*</span></label>
                                                 </div>
-                                                <div class="col-8">
+                                                <div class="col-5">
                                                     <input id="Upload_Documents" type="file" class="form-control"
                                                         name="upload_requirement_documents" required>
 
 
+
+
+                                                </div>
+
+                                                <div class="col-3">
+
+                                                    <span> <?php
+                                                        if (!empty($viewlead->requirements->upload_requirement_documents)) {
+                                                        
+                                                            //$data->sla_document_link
+                                                            $ar = explode(".", $viewlead->requirements->upload_requirement_documents);
+                                                        
+                                                            $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
+                                                            if (in_array($ar[1], $extensions)) {
+                                                                ?>
+                                                        <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                            target="_blank">
+                                                            <img style="width:37px;height:37px"
+                                                                src="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                                alt='SLA Document'>
+
+                                                        </a>
+
+                                                        <?php
+                                                            } else {
+                                                                ?>
+                                                        <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
+                                                            target="_blank">
+
+                                                            <img style="width:37px;height:37px" src="/assets/doc.svg"
+                                                                alt='SLA Document'>
+
+                                                        </a>
+                                                        <?php
+                                                            }
+                                                        }
+                                                        ?>Preview</span>
 
                                                 </div>
                                             </div>
@@ -3380,21 +3418,18 @@ if (!empty($viewlead->customer->gst_file)) {
                 },
 
                 success: function(response) {
+                    console.log(response);
                     try {
                         $('#Business_Requirements').val(response?.requirements?.business_requirement);
                         // $('#Upload_Documents').val(response.requirements.upload_requirement_documents);
-                        $('#LOB_select').val(response?.requirements?.lob);
+                        $('#LOB_select').val(response?.requirements?.lob).trigger('change');
 
-                        // $('#Services_select').val(response.requirements.services);
-                        $('#Services_select').append(`<option value="${response.requirements.services}"?${response.requirements.services}":"" selected>
-                                   ${response.requirements.services}
-                              </option>`);
-
+                        $('#Services_select').val(response?.requirements?.services);
 
                         $('#example-date-input1').val(response?.requirements?.expected_closure_date);
 
 
-                        $('#Locationlistselect1').val(response?.requirements?.location);
+                        $('#Locationlistselect1').val(response?.requirements.location);
 
 
                         $('#Business_Type').val(response?.requirements?.business_type);
@@ -3404,7 +3439,7 @@ if (!empty($viewlead->customer->gst_file)) {
                             .expected_monthly_revenue);
 
                         $('#Expected_Capex').val(response?.requirements?.expected_capex);
-
+                        s
 
                         $('#EBDTA').val(response?.requirements?.ebdta_percentage);
 
@@ -3414,7 +3449,7 @@ if (!empty($viewlead->customer->gst_file)) {
                             .share_business_proposal);
 
                     } catch (error) {
-                        alert(error);
+                        // alert(error);
                         console.log(error);
 
                     }

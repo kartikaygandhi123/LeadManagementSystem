@@ -422,7 +422,7 @@ class LeadsController extends Controller
 
         $find = $request->get('find');
 
-        $requirements = RequirementsMap::where('lead_id', $find)->latest()->first();
+        $requirements = RequirementsMap::where('lead_id', $find)->with('service')->latest()->first();
 
         return response()->json(['requirements' => $requirements]);
     }
