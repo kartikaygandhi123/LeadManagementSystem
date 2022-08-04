@@ -53,7 +53,7 @@ class LeadsController extends Controller
     {
         $leads = Lead::with('created_by_user')
 
-            ->whereIn('stage', ["Proposal", "Agreement", "Business Onboarded"])
+            ->whereIn('stage', ["Proposal", "Agreement"])
             ->get();
 
         //   dd(\auth()->user()->id);
@@ -64,7 +64,7 @@ class LeadsController extends Controller
     {
         $leads = Lead::with('created_by_user')
 
-            ->whereIn('stage', ["Agreement", "Business Onboarded"])
+            ->whereIn('stage', ["Agreement"])
             ->get();
 
         //   dd(\auth()->user()->id);
@@ -89,8 +89,11 @@ class LeadsController extends Controller
         $data->Customer_Name = $req->Input(['Customer_Name']);
         $data->Contact_Number = $req->Input(['Contact_Number']);
         $data->POC_Name = $req->Input(['POC_Name']);
+
         $data->Industry = $req->Input(['Industry']);
+
         $data->lead_source = $req->Input(['Lead_Source']);
+
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
         $data->Lead_Status = $req->Input(['Lead_Status']);
@@ -360,7 +363,6 @@ class LeadsController extends Controller
 
 
 
-        // dd('else');
         $requirements = new RequirementsMap;
         $requirements->lead_id = $request->id;
         $requirements->business_requirement = $request->business_requirement;
@@ -392,6 +394,10 @@ class LeadsController extends Controller
             $stageupdate->Lead_Status = "Proposal To Be Shared";
             $stageupdate->update();
         }
+
+
+
+
 
 
 

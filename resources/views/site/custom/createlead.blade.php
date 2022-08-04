@@ -190,7 +190,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select name="Industry" id="Industry" class="form-control  " required>
+                                    <select id="Industry" class="form-control  " required>
                                         <option selected disabled value="">
                                             Select Industry
                                         </option>
@@ -202,6 +202,20 @@
                                     </select>
                                 </div>
                             </div>
+
+
+                            {{-- hidden industry --}}
+                            <div class="row " style="display: none" id="industry_hidden">
+                                <div class="col-4">
+                                    <label for="Other_Industry" class="control-label">Input Other
+                                        Industry<span style="color: red;">*</span></label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" name="Industry" id="Other_Industry" class="form-control">
+                                </div>
+                            </div>
+                            {{-- hidden industry --}}
+
                         </div>
 
 
@@ -214,7 +228,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select name="Lead_Source" id="Lead_Source" class="form-control  " required>
+                                    <select id="Lead_Source" class="form-control  " required>
 
                                         @foreach ($leadsource as $lead)
                                             <option value="{{ $lead->lead_source }}">{{ $lead->lead_source }}</option>
@@ -222,9 +236,43 @@
                                     </select>
                                 </div>
                             </div>
+                            {{-- hidden lead source --}}
+                            <div class="row" style="display: none" id="leadsource_hidden">
+                                <div class="col-4">
+                                    <label for="Other_Lead_Source" class=" control-label">Input Other
+                                        Lead
+                                        Source<span style="color: red;">*</span></label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" name="Lead_Source" id="Other_Lead_Source"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            {{-- hidden lead source --}}
+
+
+
                         </div>
                     </div>
                     {{-- 3rd row upto here --}}
+
+
+
+                    {{-- hidden row for industry and lead source --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    {{-- hidden row for industry and lead source --}}
 
 
 
@@ -314,6 +362,39 @@
     <script src="/assets/vendor_components/select2/dist/js/select2.min.js"></script>
 
 
+
+
+    <script>
+        $("#Industry").on('change', function() {
+
+            if (document.getElementById("Industry").value == "Others") {
+                document.getElementById("industry_hidden").style.display = "flex";
+
+
+            } else {
+                document.getElementById("industry_hidden").style.display = "none";
+                $("#Other_Industry").val(document.getElementById("Industry").value)
+            }
+
+
+
+
+        })
+
+        $("#Lead_Source").on('change', function() {
+
+            if (document.getElementById("Lead_Source").value == "Others") {
+                document.getElementById("leadsource_hidden").style.display = "flex";
+
+
+            } else {
+                document.getElementById("leadsource_hidden").style.display = "none";
+                $("#Other_Lead_Source").val(document.getElementById("Lead_Source").value)
+            }
+
+
+        })
+    </script>
 
 
 

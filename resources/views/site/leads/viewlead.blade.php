@@ -990,7 +990,7 @@ if (in_array($ar[1], $extensions)) {
 
                         {{-- Legal Remarks --}}
 
-                        @if (isset($viewlead->legalRemarks))
+                        @if (isset($viewlead->legalRemarks->id))
                             <hr>
 
                             <div class=" table-responsive">
@@ -1980,7 +1980,7 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="Business">Business Type<span
+                                                    <label for="Business">Agreement Duration<span
                                                             class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-8">
@@ -3383,31 +3383,34 @@ if (!empty($viewlead->customer->gst_file)) {
                     try {
                         $('#Business_Requirements').val(response?.requirements?.business_requirement);
                         // $('#Upload_Documents').val(response.requirements.upload_requirement_documents);
-                        $('#LOB_select').val(response.requirements.lob);
+                        $('#LOB_select').val(response?.requirements?.lob);
 
-                        $('#Services_select').val(response.requirements.services);
-
-
-                        $('#example-date-input1').val(response.requirements.expected_closure_date);
-
-
-                        $('#Locationlistselect1').val(response.requirements.location);
+                        // $('#Services_select').val(response.requirements.services);
+                        $('#Services_select').append(`<option value="${response.requirements.services}"?${response.requirements.services}":"" selected>
+                                   ${response.requirements.services}
+                              </option>`);
 
 
-                        $('#Business_Type').val(response.requirements.business_type);
+                        $('#example-date-input1').val(response?.requirements?.expected_closure_date);
 
 
-                        $('#Expected_Monthy_Revenue').val(response.requirements
+                        $('#Locationlistselect1').val(response?.requirements?.location);
+
+
+                        $('#Business_Type').val(response?.requirements?.business_type);
+
+
+                        $('#Expected_Monthy_Revenue').val(response?.requirements ?
                             .expected_monthly_revenue);
 
-                        $('#Expected_Capex').val(response.requirements.expected_capex);
+                        $('#Expected_Capex').val(response?.requirements?.expected_capex);
 
 
-                        $('#EBDTA').val(response.requirements.ebdta_percentage);
+                        $('#EBDTA').val(response?.requirements?.ebdta_percentage);
 
-                        $('#ebdta_amount').val(response.requirements.ebdta_amount);
-                        $('#Area').val(response.requirements.area);
-                        $('#share_business_proposal').val(response.requirements
+                        $('#ebdta_amount').val(response?.requirements?.ebdta_amount);
+                        $('#Area').val(response?.requirements?.area);
+                        $('#share_business_proposal').val(response?.requirements ?
                             .share_business_proposal);
 
                     } catch (error) {
