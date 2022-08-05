@@ -138,8 +138,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        maxlength="10" id="Contact_Number" onchange="contactVal()" placeholder="********"
-                                        required />
+                                        maxlength="10" id="Contact_Number" onchange="contactVal()" placeholder="********" />
 
 
 
@@ -166,8 +165,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="email" name="Email" class="form-control" id="Email"
-                                        required /><span class="error" style="color: red;">
+                                    <input type="email" name="Email" class="form-control" id="Email" /><span
+                                        class="error" style="color: red;">
                                         <p id="email"></p>
                                     </span>
                                     @if ($errors->first('email'))
@@ -190,7 +189,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select id="Industry" class="form-control  " required>
+                                    <select id="Industry" class="form-control  " required onchange="hidden_industry()">
                                         <option selected disabled value="">
                                             Select Industry
                                         </option>
@@ -228,8 +227,10 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select id="Lead_Source" class="form-control  " required>
-
+                                    <select id="Lead_Source" class="form-control " required onchange="hidden_lead()">
+                                        <option selected disabled value="">
+                                            Select Lead Source
+                                        </option>
                                         @foreach ($leadsource as $lead)
                                             <option value="{{ $lead->lead_source }}">{{ $lead->lead_source }}</option>
                                         @endforeach
@@ -244,8 +245,7 @@
                                         Source<span style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" name="Lead_Source" id="Other_Lead_Source"
-                                        class="form-control">
+                                    <input type="text" name="Lead_Source" class="form-control Other_Lead_Source">
                                 </div>
                             </div>
                             {{-- hidden lead source --}}
@@ -365,35 +365,33 @@
 
 
     <script>
-        $("#Industry").on('change', function() {
+        function hidden_lead() {
 
-            if (document.getElementById("Industry").value == "Others") {
-                document.getElementById("industry_hidden").style.display = "flex";
-
-
-            } else {
-                document.getElementById("industry_hidden").style.display = "none";
-                $("#Other_Industry").val(document.getElementById("Industry").value)
-            }
-
-
-
-
-        })
-
-        $("#Lead_Source").on('change', function() {
-
+            alert("lead");
             if (document.getElementById("Lead_Source").value == "Others") {
                 document.getElementById("leadsource_hidden").style.display = "flex";
 
 
             } else {
                 document.getElementById("leadsource_hidden").style.display = "none";
-                $("#Other_Lead_Source").val(document.getElementById("Lead_Source").value)
+                $(".Other_Lead_Source").val(document.getElementById("Lead_Source").value)
             }
 
+        }
 
-        })
+
+        function hidden_industry() {
+
+            alert("industry");
+            if (document.getElementById("Industry").value == "Others") {
+                document.getElementById("industry_hidden").style.display = "flex";
+
+            } else {
+                document.getElementById("industry_hidden").style.display = "none";
+                $("#Other_Industry").val(document.getElementById("Industry").value)
+            }
+
+        }
     </script>
 
 
@@ -441,7 +439,7 @@
                     $('#Contact_Number').val(response.customers.Contact_Number);
                     // $('#Lead_Source').val(response.customers.lead_source);
                     $('#Email').val(response.customers.Email);
-                    $('#Industry').val(response.customers.Industry);
+                    // $('#Industry').val(response.customers.Industry);
 
 
                     $('#id_update').val(response.customers.id);

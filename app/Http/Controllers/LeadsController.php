@@ -353,63 +353,7 @@ class LeadsController extends Controller
     //     return $data;
     // }
 
-    function SaveRequirements(Request $request)
-    {
 
-
-
-        $stageupdate = Lead::where('id', $request->id)->first();
-
-
-        $requirements = new RequirementsMap;
-        $requirements->lead_id = $request->id;
-        $requirements->business_requirement = $request->business_requirement;
-
-        $doclink = "";
-        if (isset($request->upload_requirement_documents)) {
-
-
-            $doclink = getName($request->upload_requirement_documents);
-        }
-        $requirements->upload_requirement_documents = $doclink;
-        $requirements->lob = $request->lob;
-        $requirements->services = $request->services;
-        $requirements->area = $request->area;
-        $requirements->expected_closure_date = $request->expected_closure_date;
-        $requirements->location = $request->location;
-        $requirements->business_type = $request->business_type;
-        $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
-        $requirements->expected_capex = $request->expected_capex;
-        $requirements->ebdta_percentage = $request->ebdta_percentage;
-        $requirements->ebdta_amount = $request->ebdta_amount;
-        $requirements->share_business_proposal = $request->share_business_proposal;
-
-
-        if ($requirements->save()) {
-            $stageupdate->stage = "Requirements Mapping";
-            $stageupdate->Lead_Status = "Proposal To Be Shared";
-            $stageupdate->update();
-        }
-
-
-
-
-
-
-
-
-        LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
-
-        if ($request->share_business_proposal == "Yes") {
-            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
-
-            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
-        } elseif ($request->share_business_proposal == "No") {
-            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
-
-            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
-        }
-    }
 
 
     function Fetch_Requirements(Request $request)
@@ -864,42 +808,124 @@ class LeadsController extends Controller
 
     function SaveRequirementsMap(Request $request)
     {
-        $stageupdate = Lead::where('id', $request->id)->first();
-        $doclink = getName($request->upload_requirement_documents);
-        // $requirements->lead_id = $request->id;
-        $requirements = array(
-            'business_requirement' => $request->business_requirement,
-            'lob' => $request->lob,
-            'services' => $request->services,
-            'area' => $request->area,
-            'expected_closure_date' => $request->expected_closure_date,
-            'location' => $request->location,
-            'business_type' => $request->business_type,
-            'expected_monthly_revenue' => $request->expected_monthly_revenue,
-            'expected_capex' => $request->expected_capex,
-            'ebdta_percentage' => $request->ebdta_percentage,
-            'ebdta_amount' => $request->ebdta_amount,
-            'share_business_proposal' => $request->share_business_proposal,
-            'upload_requirement_documents' => $doclink,
-        );
-        RequirementsMap::updateOrCreate(
-            ['lead_id' => $request->id],
-            $requirements
-        );
-        $stageupdate->stage = "Requirements Mapping";
-        $stageupdate->Lead_Status = "Proposal To Be Shared";
-        $stageupdate->update();
 
-        LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
+        try {
 
-        if ($request->share_business_proposal == "Yes") {
-            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
 
-            return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
-        } elseif ($request->share_business_proposal == "No") {
-            LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
+            $stageupdate = Lead::where('id', $request->id)->first();
 
-            return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
+
+            if (isset($request->upload_requirement_documents)) {
+                $doclink = getName($request->upload_requirement_documents);
+            } else {
+
+                $data = RequirementsMap::where('lead_id', $request->id)->first();
+
+                $doclink = $data->upload_requirement_documents;
+            }
+            // $requirements->lead_id = $request->id;
+
+
+
+            $requirements = array(
+                'business_requirement' => $request->business_requirement,
+                'lob' => $request->lob,
+                'services' => $request->services,
+                'area' => $request->area,
+                'expected_closure_date' => $request->expected_closure_date,
+                'location' => $request->location,
+                'business_type' => $request->business_type,
+                'expected_monthly_revenue' => $request->expected_monthly_revenue,
+                'expected_capex' => $request->expected_capex,
+                'ebdta_percentage' => $request->ebdta_percentage,
+                'ebdta_amount' => $request->ebdta_amount,
+                'share_business_proposal' => $request->share_business_proposal,
+                'upload_requirement_documents' => $doclink,
+            );
+            RequirementsMap::updateOrCreate(
+                ['lead_id' => $request->id],
+                $requirements
+            );
+            $stageupdate->stage = "Requirements Mapping";
+            $stageupdate->Lead_Status = "Proposal To Be Shared";
+            $stageupdate->update();
+
+            LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
+
+            if ($request->share_business_proposal == "Yes") {
+                LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
+
+                return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
+            } elseif ($request->share_business_proposal == "No") {
+                LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
+
+                return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
+            }
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
+
+
+    // function SaveRequirements(Request $request)
+    // {
+
+
+
+    //     $stageupdate = Lead::where('id', $request->id)->first();
+
+
+    //     $requirements = new RequirementsMap;
+    //     $requirements->lead_id = $request->id;
+    //     $requirements->business_requirement = $request->business_requirement;
+
+    //     $doclink = "";
+    //     if (isset($request->upload_requirement_documents)) {
+
+
+    //         $doclink = getName($request->upload_requirement_documents);
+    //     }
+    //     $requirements->upload_requirement_documents = $doclink;
+    //     $requirements->lob = $request->lob;
+    //     $requirements->services = $request->services;
+    //     $requirements->area = $request->area;
+    //     $requirements->expected_closure_date = $request->expected_closure_date;
+    //     $requirements->location = $request->location;
+    //     $requirements->business_type = $request->business_type;
+    //     $requirements->expected_monthly_revenue = $request->expected_monthly_revenue;
+    //     $requirements->expected_capex = $request->expected_capex;
+    //     $requirements->ebdta_percentage = $request->ebdta_percentage;
+    //     $requirements->ebdta_amount = $request->ebdta_amount;
+    //     $requirements->share_business_proposal = $request->share_business_proposal;
+
+
+    //     if ($requirements->save()) {
+    //         $stageupdate->stage = "Requirements Mapping";
+    //         $stageupdate->Lead_Status = "Proposal To Be Shared";
+    //         $stageupdate->update();
+    //     }
+
+
+
+
+
+
+
+
+    //     LeadLogger(['lead_id' => $request->id, "message" => "Requirements mapping done  "]);
+
+    //     if ($request->share_business_proposal == "Yes") {
+    //         LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Shared"]);
+
+    //         return redirect('view_lead/' . $request->id . "?proposal=YES")->with("success", "Fill Proposal Form To Share Business Proposal");
+    //     } elseif ($request->share_business_proposal == "No") {
+    //         LeadLogger(['lead_id' => $request->id, "message" => "Business Proposal Not shared "]);
+
+    //         return redirect('view_lead/' . $request->id . "?followup=YES")->with("error", "Business Proposal Not shared, Schedule Followup");
+    //     }
+    // }
+
+
+
+
 }

@@ -258,17 +258,27 @@
                                                                         Select Reason
                                                                     </option>
 
-                                                                    <option id="EIEC" value="EIEC">
+                                                                    <option id="Project_on_Hold" value="Project on Hold">
 
-                                                                        Existing Industry/Existing Customer
+                                                                        Project on Hold
                                                                     </option>
-                                                                    <option id="EINC" value="EINC">
+                                                                    <option id="Poor_Followup" value="Poor Followup">
 
-                                                                        Existing Industry/New Customer
+                                                                        Poor Followup
                                                                     </option>
-                                                                    <option id="NINC" value="NINC">
+                                                                    <option id="Offering_not_available"
+                                                                        value="Offering not available">
 
-                                                                        New Industry/New Customer
+                                                                        Offering not available
+                                                                    </option>
+                                                                    <option id="Not_in_Our_Target_set"
+                                                                        value="Not in Our Target set">
+
+                                                                        Not in Our Target set
+                                                                    </option>
+                                                                    <option id="Others" value="Others">
+
+                                                                        Others
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -1872,7 +1882,8 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-5">
                                                     <input id="Upload_Documents" type="file" class="form-control"
-                                                        name="upload_requirement_documents" required>
+                                                        name="upload_requirement_documents"
+                                                        {{ empty($viewlead->requirements->upload_requirement_documents) ? 'required' : '' }}>
 
 
 
@@ -2112,7 +2123,7 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-8">
                                                     <input class="form-control" type="number" value=""
-                                                        name="ebdta_amount" id="ebdta_amount">
+                                                        step="any" name="ebdta_amount" id="ebdta_amount">
                                                 </div>
                                             </div>
                                         </div>
@@ -3405,6 +3416,11 @@ if (!empty($viewlead->customer->gst_file)) {
         });
     </script>
 
+
+
+
+
+
     <script>
         $().ready(function() {
 
@@ -3420,6 +3436,7 @@ if (!empty($viewlead->customer->gst_file)) {
                 success: function(response) {
                     console.log(response);
                     try {
+
                         $('#Business_Requirements').val(response?.requirements?.business_requirement);
                         // $('#Upload_Documents').val(response.requirements.upload_requirement_documents);
                         $('#LOB_select').val(response?.requirements?.lob).trigger('change');
@@ -3459,6 +3476,9 @@ if (!empty($viewlead->customer->gst_file)) {
 
                 }
             });
+
+
+
         });
     </script>
 
