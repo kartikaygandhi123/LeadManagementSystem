@@ -54,6 +54,7 @@
                             </div>
                         </div>
                         <br>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -437,6 +438,20 @@
                                     </div>
                                     {{-- edit modal --}}
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <b> Lead Description : </b>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        {{ isset($viewlead->lead_description) ? $viewlead->lead_description : 'Not Found' }}
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3013,13 +3028,14 @@ if (!empty($viewlead->customer->gst_file)) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">Lost/Dormant</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" id="dismiss_modal" class="close" data-dismiss="modal"
+                        aria-hidden="true">×</button>
                 </div>
 
                 <div class="modal-body">
 
                     <div style="display:flex; justify-content:center;">
-                        <form action="/stage_status" method="post">
+                        <form id="stage_modal" action="/stage_status" method="post">
                             @csrf
 
                             <input type="hidden" name="id" value="{{ $viewlead->id }}">
@@ -3072,14 +3088,77 @@ if (!empty($viewlead->customer->gst_file)) {
                             </div>
 
 
-                            <div class="form-group">
-                                <input id="input_lost" class="form-control" name="lost_reason"
-                                    placeholder="Reason for Lost" style="display: none">
+
+                            <div class="form-group " id="input_lost_div"
+                                style="display: none;justify-content:center;align-items:center">
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row" style="display: flex; align-items:baseline;">
+
+                                            <div class="col-md-6">
+                                                <h6>
+                                                    Select Reason :
+                                                </h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control dropdown-item" id="input_lost"
+                                                    name="lost_reason" style="display: none">
+
+                                                    <option disabled>
+
+                                                        Select Reason
+                                                    </option>
+
+                                                    <option value="Target Price not feasible">
+
+                                                        Target Price not feasible
+                                                    </option>
+                                                    <option value="Project on Hold">
+
+                                                        Project on Hold
+                                                    </option>
+                                                    <option value="Lost to Competition">
+
+                                                        Lost to Competition
+                                                    </option>
+                                                    <option value="Poor Followup">
+
+                                                        Poor Followup
+                                                    </option>
+                                                    <option value="Others">
+
+                                                        Others
+                                                    </option>
+                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <input id="input_dormant" class="form-control" name="lost_reason"
                                     placeholder="Reason for Dormant" style="display: none">
-                            </div>
+                                <select class="form-control dropdown-item" id="change_stage" name="stage">
+
+                                    <option selected disabled>
+
+                                        Change State
+                                    </option>
+
+                                    <option id="dormant" value="Dormant" name="Dormant">
+
+                                        Dormant
+                                    </option>
+                                    <option id="lost" value="Lost" name="Lost">
+
+                                        Lost
+                                    </option>
+                                </select>
+                            </div> --}}
 
 
                             <div class=" modal-footer " style="display: flex; justify-content:center">
@@ -3117,6 +3196,17 @@ if (!empty($viewlead->customer->gst_file)) {
 
 
 
+    <script>
+        $(document).ready(function() {
+            $('#dismiss_modal').on('click', function() {
+                $('#stage_modal').trigger("reset");
+                document.getElementById('input_lost_div').style.display = "none";
+                document.getElementById('input_lost').style.display = "none";
+
+                console.log($('#stage_modal'));
+            })
+        });
+    </script>
 
 
 
@@ -3145,13 +3235,17 @@ if (!empty($viewlead->customer->gst_file)) {
     </script>
     <script>
         function stage_change() {
-            if (document.getElementById("change_stage").value == "Dormant") {
+            if (document.getElementById("change_stage").value == "Dormant" || document.getElementById("change_stage")
+                .value == "Lost") {
 
+
+                document.getElementById('input_lost_div').style.display = "flex";
+                document.getElementById('input_lost').style.display = "flex";
+
+            } else {
+                document.getElementById('input_lost_div').style.display = "none";
                 document.getElementById('input_lost').style.display = "none";
-                document.getElementById('input_dormant').style.display = "block";
-            } else if (document.getElementById("change_stage").value == "Lost") {
-                document.getElementById('input_lost').style.display = "block";
-                document.getElementById('input_dormant').style.display = "none";
+
             }
         }
     </script>

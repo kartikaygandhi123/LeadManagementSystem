@@ -322,7 +322,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('view_user', [MastersAddUsersController::class, 'View_User'])->name('view_user');
     Route::post('edituser', [MastersAddUsersController::class, 'Edit_User'])->name('edituser');
 
-    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+    Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow'])->name('addusersshow');
 
     Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);

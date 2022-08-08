@@ -205,8 +205,8 @@
         <script src="/assets/vendor_components/fastclick/lib/fastclick.js"></script>
 
         <!-- apexcharts -->
-        <script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
-        <script src="/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+        {{-- <script src="/assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script> --}}
+        {{-- <script src="/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script> --}}
 
         <!-- peity -->
         <script src="/assets/vendor_components/jquery.peity/jquery.peity.js"></script>

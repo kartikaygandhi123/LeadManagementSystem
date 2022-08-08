@@ -66,7 +66,7 @@
                                             data-target="#modal-center"><span class="ti-eye"></span></a> --}}
 
                                     <a href="view_lead/{{ $item->id }}"><span class="ti-eye lg\:absolute"
-                                            style="font-size:19px;color:#17a2b8"></span></a>
+                                            style="font-size:19px;color:#17a2b8;display:flex;justify-content:center"></span></a>
                                     {{-- <a onclick="return confirm('Are you sure you want to Delete?')"
                                         href="delete-lead/{{ $item->id }}"><span class="ti-close"
                                             style="font-size:19px;color:#dc3545"></a> --}}

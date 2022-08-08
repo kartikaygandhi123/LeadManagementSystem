@@ -31,7 +31,7 @@
 
                 <div class="form-group">
 
-                    <label>Select Customer</label>
+                    <label>Select Customer :</label>
                     <select class="form-control dropdown-item select2 col-md-5 " id="select_customer" onchange='show_form()'>
                         <optgroup>
                             <option id="create_new" value="create_new"><button class="btn btn-sm" id="create_new_customer">
@@ -316,6 +316,22 @@
                                         </option>
 
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="lead_description" class=" control-label">Lead Description<span
+                                            style="color: red;">*</span></label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="lead_description" type="text" class="form-control"
+                                        id="lead_description" />
+
                                 </div>
                             </div>
                         </div>

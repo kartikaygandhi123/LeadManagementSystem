@@ -39,7 +39,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
+                            <a href="/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add
+                                Users</a>
                         </li>
                         {{-- <li>
                             <a href="/allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>

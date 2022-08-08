@@ -426,6 +426,21 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <b> Lead Description : </b>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        {{ isset($viewlead->lead_description) ? $viewlead->lead_description : 'Not Found' }}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
 
                         @if (!empty($viewlead->requirements))
