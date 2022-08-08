@@ -6,6 +6,7 @@ use App\Models\AllBusiness;
 use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class MastersAddUsersController extends Controller
@@ -13,13 +14,18 @@ class MastersAddUsersController extends Controller
 
     function AddUsersShow()
     {
-        $roles = Role::get();
-        $lobs = AllBusiness::get();
-        $cities = City::get();
 
-        $users = User::with('roles')->with('lobs')->get();
+        try {
+            $roles = Role::get();
+            $lobs = AllBusiness::get();
+            $cities = City::get();
 
-        return view('site.masters.addusers', ['roles' => $roles, 'users' => $users, 'lobs' => $lobs, 'cities' => $cities]);
+            $users = User::with('roles')->with('lobs')->get();
+
+            return view('site.masters.addusers', ['roles' => $roles, 'users' => $users, 'lobs' => $lobs, 'cities' => $cities]);
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 
     function SaveUser(Request $request)
@@ -56,5 +62,34 @@ class MastersAddUsersController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'failed to create user due to duplicate entry');
         }
+    }
+
+    function View_User(Request $request)
+    {
+        $roles = Role::get();
+        $lobs = AllBusiness::get();
+        $cities = City::get();
+        $user = User::where('id', $request->id)->with('roles')->with('lobs')->first();
+
+
+
+
+        return view('site.masters.edituser', ['roles' => $roles, 'lobs' => $lobs, 'cities' => $cities, 'user' => $user]);
+    }
+
+    function Edit_User(Request $request)
+    {
+
+        // dd($request);
+        $user = User::where('id', $request->id)->first();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role_id = $request->role;
+        $user->lob_id = $request->lob;
+        $user->city_id = $request->city;
+
+        $user->update();
+        return redirect()->back()->with('success', 'Record Updated Successfuly');
     }
 }

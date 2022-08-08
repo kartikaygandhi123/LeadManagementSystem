@@ -24,7 +24,7 @@
 
     {{-- Form --}}
 
-    <div id="newcustomerform" class="box box-solid box-primary">
+    <div id="newcustomerform" class="box box-solid box-light">
         <div class="box-header with-border">
             <h3 id="form_heading" class="box-title">Add User</h3>
         </div>
@@ -190,58 +190,108 @@
 
                 <br>
                 <br>
-
-
-
-
-                {{-- Leads --}}
-                <div class="box box-solid ">
-                    <div class="box-header with-border">
-                        <h4 class="box-title">Users</h4>
-                        <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table id="example"
-                                class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                <thead>
-                                    <tr>
-                                        <th>Role_Id</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role Name</th>
-                                        <th>LOB</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php //dd($users[3]->lobs->all_businesses );
-                                    ?>
-                                    @foreach ($users as $user)
-                                        <tr>
-                                            <td>{{ $user['role_id'] }}</td>
-                                            <td>{{ $user['name'] }}</td>
-                                            <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user->roles->role_name ?? '' }}</td>
-                                            <td>{{ $user->lobs->all_businesses ?? '' }}</td>
-                                        </tr>
-                                    @endforeach
-
-
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-
+            </form>
         </div>
+    </div>
 
 
-        </form>
+    {{-- Leads --}}
+    <div class="box box-solid ">
+        <div class="box-header with-border">
+            <h4 class="box-title">Users</h4>
+            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                    <thead>
+                        <tr>
+
+                            <th>Action</th>
+                            <th>Role_Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role Name</th>
+                            <th>LOB</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php //dd($users[3]->lobs->all_businesses );
+                        ?>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td><a onclick="view_data('{{ $user->id }}')" data-toggle="modal"
+                                        data-target="#modal-center"><span class="ti-write"
+                                            style="font-size:19px;color:#17a2b8;display:flex;justify-content:center"></span></a>
+                                </td>
+                                <td>{{ $user['role_id'] }}</td>
+                                <td>{{ $user['name'] }}</td>
+                                <td>{{ $user['email'] }}</td>
+                                <td>{{ $user->roles->role_name ?? '' }}</td>
+                                <td>{{ $user->lobs->all_businesses ?? '' }}</td>
+                            </tr>
+                        @endforeach
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+
+
+
+    {{-- </form> --}}
+    {{-- </div> --}}
+
+
+    <div class="modal center-modal fade" id="modal-center" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="mymodalbody" class="modal-body">
+                    {{-- Appending through Ajax --}}
+                </div>
+                <div class="modal-footer modal-footer-uniform">
+                    {{-- <button type="button" class="btn btn-bold btn-pure btn-secondary pull-right"
+                        data-dismiss="modal">Close</button> --}}
+
+                </div>
+            </div>
+        </div>
     </div>
     {{-- </div> --}}
+
+
+
+
+
+
+    <script>
+        function view_data(id) {
+
+
+            $.ajax({
+                type: "GET",
+                url: "view_user?id=" + id,
+
+                success: function(msg) {
+
+                    $("#mymodalbody").html(msg);
+                }
+            });
+
+        }
+    </script>
 @endsection

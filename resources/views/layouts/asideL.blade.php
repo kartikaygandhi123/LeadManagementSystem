@@ -41,7 +41,7 @@
                         <li>
                             <a href="/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add Users</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="/allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
                         </li>
                         <li>
@@ -66,7 +66,7 @@
                         </li>
                         <li>
                             <a href="/allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endif

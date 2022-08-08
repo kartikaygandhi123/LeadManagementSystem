@@ -319,7 +319,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Masters
+    Route::get('view_user', [MastersAddUsersController::class, 'View_User'])->name('view_user');
+    Route::post('edituser', [MastersAddUsersController::class, 'Edit_User'])->name('edituser');
+
     Route::get('addusersshow', [MastersAddUsersController::class, 'AddUsersShow']);
+
     Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
     Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);

@@ -2776,7 +2776,6 @@ if (in_array($ar[1], $extensions)) {
                                                     <input type="text" class="form-control" name="Contact_Number"
                                                         maxlength="10" minlength="10"
                                                         value='{{ $viewlead->customer->Contact_Number }}'
-                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                         required="">
 
                                                 </div>
@@ -2815,7 +2814,8 @@ if (in_array($ar[1], $extensions)) {
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="Email" type="email" class="form-control "
-                                                        name="Email" value="{{ $viewlead->customer->Email }}">
+                                                        name="Email" value="{{ $viewlead->customer->Email }}"
+                                                        required>
 
                                                 </div>
                                             </div>
@@ -3466,7 +3466,7 @@ if (!empty($viewlead->customer->gst_file)) {
                             ?.share_business_proposal);
 
                     } catch (error) {
-                        alert(error);
+                        // alert(error);
                         console.log(error);
 
                     }

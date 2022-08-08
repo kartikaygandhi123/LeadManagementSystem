@@ -3,12 +3,12 @@
         <form method="POST" id="myLeadform" name="myform" action="{{ route('update_lead', $editlead->id) }}"
             class="form-horizontal form-element">
             @csrf
-            @method('put')
+            @method('put') <input type="hidden" name="id" value=" {{ $editlead->id }}" />
 
 
 
             <input type="hidden" name="flag_id" id="flag" />
-            <input type="hidden" name="id" value=" {{ $editlead->id }}" />
+
             <div class="box-body">
 
                 {{-- 1st row --}}
@@ -89,8 +89,7 @@
                             </div>
                             <div class="col-md-6">
                                 <input type="email" name="Email" class="form-control" id="Email" tabindex="7"
-                                    value="{{ $editlead->Email }}" required /><span class="error"
-                                    style="color: red;">
+                                    value="{{ $editlead->Email }}" required /><span class="error" style="color: red;">
                                     <p id="email"></p>
                                 </span>
                                 @if ($errors->first('email'))

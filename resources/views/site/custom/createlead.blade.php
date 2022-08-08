@@ -367,7 +367,7 @@
     <script>
         function hidden_lead() {
 
-            alert("lead");
+            // alert("lead");
             if (document.getElementById("Lead_Source").value == "Others") {
                 document.getElementById("leadsource_hidden").style.display = "flex";
 
@@ -382,7 +382,7 @@
 
         function hidden_industry() {
 
-            alert("industry");
+            // alert("industry");
             if (document.getElementById("Industry").value == "Others") {
                 document.getElementById("industry_hidden").style.display = "flex";
 
