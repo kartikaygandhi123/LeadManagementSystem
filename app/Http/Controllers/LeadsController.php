@@ -409,12 +409,13 @@ class LeadsController extends Controller
     function Save_Business_Proposal(Request $request)
     {
 
-
+        // dd($request);
         $stageupdate = Lead::where('id', $request->id)->first();
 
         $proposal = new LeadProposal;
         $proposal->lead_id = $request->id;
         $proposal->reason_for_changing_proposal = $request->reason_for_changing_proposal;
+        $proposal->proposal_remarks = $request->proposal_remarks;
 
         $doclink = "";
         if (isset($request->upload_proposal_documents)) {

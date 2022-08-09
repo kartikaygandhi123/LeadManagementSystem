@@ -836,6 +836,23 @@ if (in_array($ar[1], $extensions)) {
                                     </div>
 
 
+                                    @if (isset($p->proposal_remarks))
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <b> Remarks: </b>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{ isset($p->proposal_remarks) ? $p->proposal_remarks : 'Not Found' }}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
                                     @if (isset($p->reason_for_changing_proposal))
                                         <div class="row">
                                             <div class="col-md-12">
@@ -2284,8 +2301,27 @@ if (in_array($ar[1], $extensions)) {
                                         </div>
                                     </div>
 
+                                    <div class="form-group col-md-6">
 
-                                    @if (in_array($viewlead->Lead_Status, ['Proposal Negotiation', 'Waiting For Proposal Negotiation']))
+                                        <div class="row">
+                                            <div class="col-4">
+
+                                                <label for="proposal_remarks">Remarks</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="proposal_remarks" type="text" class="form-control "
+                                                    name="proposal_remarks">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                @if (in_array($viewlead->Lead_Status, ['Proposal Negotiation', 'Waiting For Proposal Negotiation']))
+                                    <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-4">
@@ -2294,7 +2330,7 @@ if (in_array($ar[1], $extensions)) {
                                                         Proposal<span class="danger">*</span></label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <select id="reason_for_changing_proposal"
+                                                    {{-- <select id="reason_for_changing_proposal"
                                                         name="reason_for_changing_proposal" class="form-control" required>
                                                         <option selected disabled>Select Reason</option>
                                                         <option value="Reason 1">Reason 1</option>
@@ -2302,13 +2338,16 @@ if (in_array($ar[1], $extensions)) {
                                                         <option value="Reason 3">Reason 3</option>
                                                         <option value="Reason 4">Reason 4</option>
 
-                                                    </select>
+                                                    </select> --}}
+                                                    <input id="reason_for_changing_proposal" type="text"
+                                                        class="form-control " name="reason_for_changing_proposal">
 
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
-                                </div>
+
+                                    </div>
+                                @endif
 
 
 
@@ -2342,6 +2381,7 @@ if (in_array($ar[1], $extensions)) {
                                 <thead>
                                     <tr>
                                         <th>Proposal Doc</th>
+                                        <th>Reason For Change In Proposal</th>
                                         <th>Remarks</th>
 
 
@@ -2361,9 +2401,12 @@ $ar = explode(".", $p->proposal_documents);
 $extensions = array('jpg', 'JPG', 'png', 'PNG', 'jpeg', 'JPEG');
 if (in_array($ar[1], $extensions)) {
     ?>
-                                                <img style="width:100px;height:90px"
-                                                    src="/uploads/{{ $p->proposal_documents }}" alt='SLA Document'>
+                                                <a href="/uploads/{{ $p->proposal_documents }}" target="_blank">
+                                                    <img style="width:100px;height:90px"
+                                                        src="/uploads/{{ $p->proposal_documents }}"
+                                                        alt='SLA Document'>
 
+                                                </a>
                                                 <?php
 } else {
     ?>
@@ -2386,6 +2429,7 @@ if (in_array($ar[1], $extensions)) {
 
                                             </td>
                                             <td>{{ $p->reason_for_changing_proposal }}</td>
+                                            <td>{{ $p->proposal_remarks }}</td>
 
                                         </tr>
                                     @endforeach

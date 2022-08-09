@@ -143,8 +143,8 @@
                                 -Select City-
                             </option>
                             @foreach ($cities as $city)
-                                <option
-                                    value="{{ $city->id }} {{ $city->id == $user->city_id ? 'selected' : '' }}">
+                                <option value="{{ $city->id }}"
+                                    {{ $city->id == $user->city_id ? 'selected' : '' }}>
                                     {{ $city->name }}
                                 </option>
                             @endforeach
