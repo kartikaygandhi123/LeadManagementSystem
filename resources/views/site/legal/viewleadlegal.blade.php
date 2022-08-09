@@ -510,7 +510,21 @@
                             @endif
 
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b> LOB: </b>
+                                            {{-- <b> Services: </b> --}}
+                                        </div>
+                                        <div class="col-md-6">
 
+                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lobmap->all_businesses : 'Not Found' }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="row">
@@ -518,28 +532,17 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <b> Services: </b>
+
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->services : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->servicesMap->services : 'Not Found' }}
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <b> LOB: </b>
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lob : 'Not Found' }}
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-12">

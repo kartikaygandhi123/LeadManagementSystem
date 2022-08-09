@@ -53,7 +53,7 @@ class LeadsController extends Controller
     {
         $leads = Lead::with('created_by_user')
 
-            ->whereIn('stage', ["Proposal", "Agreement"])->orderBy('id', 'desc')
+            ->whereIn('stage', ["Agreement"])->orderBy('id', 'desc')
             ->get();
 
         //   dd(\auth()->user()->id);
@@ -255,7 +255,8 @@ class LeadsController extends Controller
             ->pluck('name', 'id');
 
         // dd($request->id);
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')
+        $viewlead = Lead::where('id', $request->id)
+            ->with('created_by_user')
             ->with('legalRemarks')
             ->with('requirements')
             ->with('proposals')
@@ -263,11 +264,6 @@ class LeadsController extends Controller
             ->with('legalExecuted')
             ->with('finance_user')
             ->with('customer')->first();
-
-        // dd($viewlead);
-
-
-
         $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
         $cities = City::get();
 
@@ -275,8 +271,6 @@ class LeadsController extends Controller
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
-
-
         return view('site.leads.viewlead', ['viewlead' => $viewlead, 'cities' => $cities, 'industries' => $industries, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i,  'remarks' => $remarks]);
     }
 
@@ -291,16 +285,27 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+        $viewlead = Lead::where('id', $request->id)
+            ->with('created_by_user')
+            ->with('legalRemarks')
+            ->with('requirements')
+            ->with('proposals')
+            ->with('followups')
+            ->with('legalExecuted')
+            ->with('finance_user')
+            ->with('customer')->first();
 
+        $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
+        $cities = City::get();
 
+        $industries = Industry::get();
 
 
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
-        return view('site.legal.viewleadlegal', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
+        return view('site.legal.viewleadlegal', ['viewlead' => $viewlead, 'cities' => $cities, 'industries' => $industries, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
 
@@ -315,15 +320,27 @@ class LeadsController extends Controller
             $q1->where('lob_id', \auth()->user()->lob_id);
         })
             ->pluck('name', 'id');
-        $viewlead = Lead::where('id', $request->id)->with('created_by_user')->with('legalRemarks')->with('requirements')->with('proposals')->with('followups')->with('legalExecuted')->with('finance_user')->with('customer')->first();
+        $viewlead = Lead::where('id', $request->id)
+            ->with('created_by_user')
+            ->with('legalRemarks')
+            ->with('requirements')
+            ->with('proposals')
+            ->with('followups')
+            ->with('legalExecuted')
+            ->with('finance_user')
+            ->with('customer')->first();
 
 
 
+        $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
+        $cities = City::get();
+
+        $industries = Industry::get();
         $requirements = RequirementsMap::where('lead_id', $request->id)->latest()->first();
         $proposal = LeadProposal::where('lead_id', $request->id)->latest()->first();
 
         $remarks = LegalRemark::where('lead_id', $request->id)->latest();
-        return view('site.finance.viewleadfinance', ['viewlead' => $viewlead, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
+        return view('site.finance.viewleadfinance', ['viewlead' => $viewlead, 'cities' => $cities, 'industries' => $industries, 'lobs' => $lobs, 'users' => $users, 'openfollowup' => $f, 'openrequirements' => $g, 'leadlogdata' => $data, 'openproposal' => $h, 'requirements' => $requirements, 'proposal' => $proposal, 'openremarks' => $i, 'remarks' => $remarks]);
     }
 
 

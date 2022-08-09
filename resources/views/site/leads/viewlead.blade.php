@@ -1036,7 +1036,7 @@ if (in_array($ar[1], $extensions)) {
 
                         {{-- Legal Remarks --}}
 
-                        @if (isset($viewlead->legalRemarks->id))
+                        @if (!empty($viewlead->legalRemarks))
                             <hr>
 
                             <div class=" table-responsive">
@@ -2381,7 +2381,7 @@ if (in_array($ar[1], $extensions)) {
                                 <thead>
                                     <tr>
                                         <th>Proposal Doc</th>
-                                        <th>Reason For Change In Proposal</th>
+                                        <th>Reason(if change in Proposal)</th>
                                         <th>Remarks</th>
 
 
