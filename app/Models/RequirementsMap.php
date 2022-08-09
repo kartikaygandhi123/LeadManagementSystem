@@ -32,4 +32,16 @@ class RequirementsMap extends Model
     {
         return $this->hasOne(LobService::class, 'id');
     }
+
+
+
+    public function servicesMap()
+    {
+        return $this->hasOne(LobService::class, 'id', 'services');
+    }
+
+    public function lobmap()
+    {
+        return $this->hasOne(AllBusiness::class, 'id', 'lob');
+    }
 }

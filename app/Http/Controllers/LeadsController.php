@@ -264,6 +264,10 @@ class LeadsController extends Controller
             ->with('finance_user')
             ->with('customer')->first();
 
+        // dd($viewlead);
+
+
+
         $lobs = \App\Models\AllBusiness::pluck('all_businesses', 'id');
         $cities = City::get();
 

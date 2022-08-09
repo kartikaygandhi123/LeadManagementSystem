@@ -530,24 +530,28 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <b> Services: </b>
+                                            <b> LOB: </b>
+                                            {{-- <b> Services: </b> --}}
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->services : 'Not Found' }}
+
+                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lobmap->all_businesses : 'Not Found' }}
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
 
+                            {{-- {{ dd($viewlead->requirements->lobmap->all_businesses) }} --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <b> LOB: </b>
+                                            <b> Services: </b>
+
                                         </div>
                                         <div class="col-md-6">
-                                            {{ isset($viewlead->requirements->lob) ? $viewlead->requirements->lob : 'Not Found' }}
+                                            {{ isset($viewlead->requirements->services) ? $viewlead->requirements->servicesMap->services : 'Not Found' }}
                                         </div>
 
                                     </div>
@@ -2170,30 +2174,38 @@ if (in_array($ar[1], $extensions)) {
                                     <br>
 
 
-                                    <div class="pull-left">
-                                        <div class="row" id="require">
-                                            <div class="form-group col-md-12">
+                                    {{-- <div class="pull-left"> --}}
+                                    <div class="row" id="require">
 
-                                                <label for="map_requirements">Share Business Proposal:</label>
-                                                <select class="form-control dropdown-item" id="share_business_proposal"
-                                                    name="share_business_proposal" required="">
+                                        <div class="form-group col-md-6">
+                                            <div class="row">
+                                                <div class=" col-4">
+                                                    <label for="map_requirements">Share Business Proposal:</label>
+                                                </div>
 
-                                                    <option id="No" value="No" selected>
+                                                <div class="col-2">
+                                                    <select class="form-control" id="share_business_proposal"
+                                                        name="share_business_proposal" required="">
 
-                                                        No
-                                                    </option>
+                                                        <option id="No" value="No" selected>
 
-
-                                                    <option id="Yes" value="Yes">
-
-                                                        Yes
-                                                    </option>
+                                                            No
+                                                        </option>
 
 
-                                                </select>
+                                                        <option id="Yes" value="Yes">
+
+                                                            Yes
+                                                        </option>
+
+
+                                                    </select>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- </div> --}}
 
 
 

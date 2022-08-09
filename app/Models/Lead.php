@@ -59,7 +59,11 @@ class Lead extends Model
 
     public function requirements()
     {
-        return $this->hasOne(RequirementsMap::class, 'lead_id')->with('service')->orderBy('id', 'desc');
+        return $this->hasOne(RequirementsMap::class, 'lead_id')->with('service')->with('servicesMap')->with('lobmap')->orderBy('id', 'desc');
+    }
+    public function requirementService()
+    {
+        return $this->hasOne(RequirementsMap::class, 'services')->with('servicesMap')->orderBy('id', 'desc');
     }
 
     public function legal_user()
