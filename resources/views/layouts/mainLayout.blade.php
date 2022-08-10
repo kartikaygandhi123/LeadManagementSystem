@@ -231,12 +231,9 @@
 
 
         <script src="/js/app.js"></script>
-        <script>
-            $(document).ready(function() {
 
 
-            });
-        </script>
+        <script></script>
 
 </body>
 

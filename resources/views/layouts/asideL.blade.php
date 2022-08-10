@@ -29,7 +29,7 @@
             @endif
 
             @if (in_array(\auth()->user()->role_id, [1, 2]))
-                <li class="treeview">
+                <li class="treeview {{ request()->is('addusersshow') ? 'menu-open' : '' }}">
                     <a href="#">
                         <i class="iconsmind-Air-Balloon"></i>
                         <span>Masters</span>
@@ -37,8 +37,9 @@
                             <i class="fa fa-angle-right pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li>
+                    <ul class="treeview-menu"
+                        style="{{ request()->is('addusersshow') ? 'display:block' : 'display:none' }}">
+                        <li class="active">
                             <a href="/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add
                                 Users</a>
                         </li>

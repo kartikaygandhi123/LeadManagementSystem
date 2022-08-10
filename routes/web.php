@@ -332,4 +332,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
     Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
     Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
+
+    Route::get('logout', function () {
+        return view('errors.404');
+    });
 });

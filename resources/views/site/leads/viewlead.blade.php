@@ -1760,7 +1760,7 @@ if (in_array($ar[1], $extensions)) {
                                                 class="col-sm-5 col-form-label">Remarks:</label>
                                             <div class="col-sm-10">
 
-                                                <textarea class="form-control" type="text" value="" name="remarks" id="Remarks"></textarea>
+                                                <textarea class="form-control" type="text" value="" name="remarks" id="Remarks" required></textarea>
                                             </div>
                                         </div>
 
@@ -1768,7 +1768,7 @@ if (in_array($ar[1], $extensions)) {
 
                                         <div class="form-group row">
                                             <label for="example-date-input" class="col-sm-5 col-form-label">Follow-Up
-                                                Date</label>
+                                                Date :</label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" type="datetime-local"
                                                     value="<?php echo date('Y-m-d H:i'); ?>" name="date" id="Follow_Up_Date">
@@ -3341,7 +3341,7 @@ if (!empty($viewlead->customer->gst_file)) {
                 // dataType: "dataType",
                 success: function(response) {
 
-                    console.log(response);
+                    // console.log(response);
                     window.location.reload();
                 },
                 error: function(error) {
@@ -3427,7 +3427,7 @@ if (!empty($viewlead->customer->gst_file)) {
 
             var c = document.getElementById("ebdta_amount");
             c.value = (a / b).toFixed(2);
-            console.log(c.value);
+            // console.log(c.value);
         })
     </script>
 
@@ -3523,7 +3523,7 @@ if (!empty($viewlead->customer->gst_file)) {
                 type: "GET",
                 url: "{{ url('get-lob-services') }}?id=" + id,
                 success: function(res) {
-                    console.log(res);
+                    // console.log(res);
                     if (res.success) {
                         for (let i = 0; i < res.data.length; i++) {
                             $('#Services_select').append(`<option value="${res.data[i].location_name}">
@@ -3584,7 +3584,7 @@ if (!empty($viewlead->customer->gst_file)) {
                 },
 
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     try {
 
                         $('#Business_Requirements').val(response?.requirements?.business_requirement);

@@ -144,7 +144,7 @@
                                     <label for="role">LOB<span class="danger">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="lob" id="role" class="form-control  " tabindex="7" required>
+                                    <select name="lob" id="lob" class="form-control  " tabindex="7" required>
                                         <option disabled value="">
                                             -Select Lob-
                                         </option>
@@ -164,7 +164,7 @@
                                     <label for="role">City<span class="danger">*</span></label>
                                 </div>
                                 <div class="col-10">
-                                    <select name="city" id="role" class="form-control  " tabindex="7" required>
+                                    <select name="city" id="city" class="form-control  " tabindex="7" required>
                                         <option disabled value="">
                                             -Select City-
                                         </option>
