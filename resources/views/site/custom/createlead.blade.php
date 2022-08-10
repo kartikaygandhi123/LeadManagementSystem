@@ -204,7 +204,7 @@
 
 
                             {{-- hidden industry --}}
-                            <div class="row " style="display: none" id="industry_hidden">
+                            <div class="row" style="display: none;margin-top:19px" id="industry_hidden">
                                 <div class="col-4">
                                     <label for="Other_Industry" class="control-label">Input Other
                                         Industry<span style="color: red;">*</span></label>
@@ -238,7 +238,7 @@
                                 </div>
                             </div>
                             {{-- hidden lead source --}}
-                            <div class="row" style="display: none" id="leadsource_hidden">
+                            <div class="row" style="display: none;margin-top:19px" id="leadsource_hidden">
                                 <div class="col-4">
                                     <label for="Other_Lead_Source" class=" control-label">Input Other
                                         Lead
@@ -254,29 +254,6 @@
 
                         </div>
                     </div>
-                    {{-- 3rd row upto here --}}
-
-
-
-                    {{-- hidden row for industry and lead source --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {{-- hidden row for industry and lead source --}}
-
-
-
-
                     {{-- 4th row --}}
                     <div class="row">
                         <div class="form-group col-md-6">
