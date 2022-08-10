@@ -6,30 +6,119 @@
             <!-- Nav tabs -->
 
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
-                            class="hidden-xs-down">Details</span></a>
-                </li>
-                <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
-                            class="hidden-xs-down">
-                            Timeline</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="followuptab" data-toggle="tab" href="#followups"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                            class="hidden-xs-down">Followup</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="requirementstab" data-toggle="tab" href="#requirements"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
-                            class="hidden-xs-down">Requirements Mapping</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="businessproposaltab" data-toggle="tab"
-                        href="#businessproposal" role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
-                        <span class="hidden-xs-down">Proposal Form</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
-                        <span class="hidden-xs-down">Legal Remarks</span></a> </li>
-                <li class="nav-item"> <a class="nav-link" id="financetab" data-toggle="tab" href="#finance"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
-                        <span class="hidden-xs-down">Customer Details</span></a> </li>
 
+                @if (in_array($viewlead->stage, [
+                    'Lead',
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                    'Lost',
+                    'Dormant',
+                ]) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
+                                class="hidden-xs-down">Details</span></a>
+                    </li>
+                @endif
+
+
+                @if (in_array($viewlead->stage, [
+                    'Lead',
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                    'Lost',
+                    'Dormant',
+                ]) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                class="hidden-xs-down">
+                                Timeline</span></a> </li>
+                @endif
+
+                @if (in_array($viewlead->stage, [
+                    'Lead',
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                    'Lost',
+                    'Dormant',
+                ]) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link" id="followuptab" data-toggle="tab" href="#followups"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                class="hidden-xs-down">Followup</span></a> </li>
+                @endif
+
+                @if (in_array($viewlead->stage, [
+                    'Lead',
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                ]) && !in_array($viewlead->Lead_Status, ['Prospect', 'Not Qualified']))
+                    <li class="nav-item"> <a class="nav-link" id="requirementstab" data-toggle="tab" href="#requirements"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span> <span
+                                class="hidden-xs-down">Requirements Mapping</span></a> </li>
+                @endif
+
+                @if (in_array($viewlead->stage, [
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                ]) && !in_array($viewlead->Lead_Status, ['Prospect', 'Not Qualified', 'Proposal Not Accepted', 'Proposal Not Shared']))
+                    <li class="nav-item"> <a class="nav-link" id="businessproposaltab" data-toggle="tab"
+                            href="#businessproposal" role="tab"><span class="hidden-sm-up"><i
+                                    class="ion-email"></i></span>
+                            <span class="hidden-xs-down">Proposal Form</span></a> </li>
+                @endif
+
+                @if (in_array($viewlead->stage, [
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                ]) &&
+                    !in_array($viewlead->Lead_Status, [
+                        'Prospect',
+                        'Qualified',
+                        'Not Qualified',
+                        'Proposal To Be Shared',
+                        'Proposal Not Shared',
+                        'Proposal Not Accepted',
+                        'Proposal Submitted',
+                    ]))
+                    <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                            <span class="hidden-xs-down">Legal Remarks</span></a> </li>
+                @endif
+
+                @if (in_array($viewlead->stage, [
+                    'Requirements Mapping',
+                    'Proposal',
+                    'Negotiation',
+                    'Agreement',
+                    'Business Onboarded',
+                    'Business Not Onboarded',
+                ]) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link" id="financetab" data-toggle="tab" href="#finance"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                            <span class="hidden-xs-down">Customer Details</span></a> </li>
+                @endif
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabcontent-border">

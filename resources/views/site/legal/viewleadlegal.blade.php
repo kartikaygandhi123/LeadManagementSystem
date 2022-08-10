@@ -10,19 +10,30 @@
 
 
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
-                            class="hidden-xs-down">Details</span></a>
-                </li>
-                <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
-                            class="hidden-xs-down">
-                            Legal Remarks</span></a> </li>
 
-                <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
-                        <span class="hidden-xs-down">Agreement Documents</span></a> </li>
 
+                @if (in_array($viewlead->stage, ['Agreement']) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
+                                class="hidden-xs-down">Details</span></a>
+                    </li>
+                @endif
+
+
+                @if (in_array($viewlead->stage, ['Agreement']) && !in_array($viewlead->Lead_Status, []))
+                    <li class="nav-item"> <a class="nav-link" id="timelinetab" data-toggle="tab" href="#timeline"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                class="hidden-xs-down">
+                                Legal Remarks</span></a> </li>
+                @endif
+
+
+                @if (in_array($viewlead->stage, ['Agreement']) &&
+                    !in_array($viewlead->Lead_Status, ['Document Revision', 'Document Re-Revision']))
+                    <li class="nav-item"> <a class="nav-link" id="legalremarkstab" data-toggle="tab" href="#legalremarks"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-email"></i></span>
+                            <span class="hidden-xs-down">Agreement Documents</span></a> </li>
+                @endif
 
 
 

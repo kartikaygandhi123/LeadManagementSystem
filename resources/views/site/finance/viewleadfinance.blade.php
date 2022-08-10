@@ -9,15 +9,22 @@
             <!-- Nav tabs -->
 
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
-                            class="hidden-xs-down">Details</span></a>
-                </li>
-                <li class="nav-item"> <a class="nav-link" id="financetab" data-toggle="tab" href="#finance"
-                        role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
-                            class="hidden-xs-down">
-                            Finance Verification</span></a> </li>
 
+                @if (in_array($viewlead->stage, ['Agreement']) &&
+                    !in_array($viewlead->Lead_Status, ['Document Revision', 'Document Re-Revision', 'Document Finalized']))
+                    <li class="nav-item"> <a class="nav-link active" id="detailstab" data-toggle="tab" href="#home"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-home"></i></span> <span
+                                class="hidden-xs-down">Details</span></a>
+                    </li>
+                @endif
+
+                @if (in_array($viewlead->stage, ['Agreement']) &&
+                    !in_array($viewlead->Lead_Status, ['Document Revision', 'Document Re-Revision', 'Document Finalized']))
+                    <li class="nav-item"> <a class="nav-link" id="financetab" data-toggle="tab" href="#finance"
+                            role="tab"><span class="hidden-sm-up"><i class="ion-person"></i></span> <span
+                                class="hidden-xs-down">
+                                Finance Verification</span></a> </li>
+                @endif
 
 
 
