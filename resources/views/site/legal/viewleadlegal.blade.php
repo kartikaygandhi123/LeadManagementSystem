@@ -176,9 +176,9 @@
                                     <div class="col-md-6">
 
                                         {{ $viewlead->Lead_Status }}
-                                        <span><a href="#" onclick="Edit_Lead('{{ $viewlead->id }}')"
+                                        {{-- <span><a href="#" onclick="Edit_Lead('{{ $viewlead->id }}')"
                                                 data-toggle="modal" data-target=".editmodal"><span
-                                                    class="ti-write"></span></a></span>
+                                                    class="ti-write"></span></a></span> --}}
                                     </div>
 
                                     {{-- edit modal --}}
@@ -343,9 +343,9 @@
                                     <div class="col-md-6">
                                         {{ $viewlead->assigned_to_user->name }}
 
-                                        <span><a href="#" onclick="Update_User('{{ $viewlead->id }}')"
+                                        {{-- <span><a href="#" onclick="Update_User('{{ $viewlead->id }}')"
                                                 data-toggle="modal" data-target=".updateuser"><span
-                                                    class="ti-write"></span></a></span>
+                                                    class="ti-write"></span></a></span> --}}
 
                                     </div>
 
@@ -677,10 +677,10 @@
                                         <div class="col-md-6">
                                             {{ isset($viewlead->requirements->share_business_proposal) ? $viewlead->requirements->share_business_proposal : 'Not Found' }}
 
-                                            <span><a href="#"
+                                            {{-- <span><a href="#"
                                                     onclick="Update_Proposal_Accepted('{{ $viewlead->requirements->lead_id }}')"
                                                     data-toggle="modal" data-target=".updateproposalaccepted"><span
-                                                        class="ti-write"></span></a></span>
+                                                        class="ti-write"></span></a></span> --}}
 
 
                                         </div>
@@ -860,10 +860,10 @@ if (in_array($ar[1], $extensions)) {
 
                                                     {{ isset($p->proposal_accepted) ? $p->proposal_accepted : 'Not Found' }}
 
-                                                    <span><a href="#"
+                                                    {{-- <span><a href="#"
                                                             onclick="Proposal_Accepted('{{ $p->lead_id }}')"
                                                             data-toggle="modal" data-target=".acceptproposal"><span
-                                                                class="ti-write"></span></a></span>
+                                                                class="ti-write"></span></a></span> --}}
                                                 </div>
 
                                                 {{-- edit modal --}}
@@ -1140,9 +1140,9 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="col-md-6">
                                             {{ isset($viewlead->agreement_finalized) ? $viewlead->agreement_finalized : 'Not Found' }}
 
-                                            <span><a href="#" onclick="Agreement_Finalized('{{ $viewlead->id }}')"
+                                            {{-- <span><a href="#" onclick="Agreement_Finalized('{{ $viewlead->id }}')"
                                                     data-toggle="modal" data-target=".agreementfinalized"><span
-                                                        class="ti-write"></span></a></span>
+                                                        class="ti-write"></span></a></span> --}}
                                         </div>
 
                                         {{-- edit modal --}}
@@ -1401,9 +1401,9 @@ if (in_array($ar[1], $extensions)) {
                                         </div>
                                         <div class="col-md-6">
                                             {{ isset($viewlead->business_onboarded) ? $viewlead->business_onboarded : 'Not Found' }}
-                                            <span><a href="#" onclick="Business_Onboarded('{{ $viewlead->id }}')"
+                                            {{-- <span><a href="#" onclick="Business_Onboarded('{{ $viewlead->id }}')"
                                                     data-toggle="modal" data-target=".businessonboarded"><span
-                                                        class="ti-write"></span></a></span>
+                                                        class="ti-write"></span></a></span> --}}
                                         </div>
 
                                         {{-- edit modal --}}
