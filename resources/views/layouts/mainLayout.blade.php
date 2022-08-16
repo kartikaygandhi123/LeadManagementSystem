@@ -182,6 +182,7 @@
 
 
 
+        {{-- jquery validate --}}
 
 
         <!-- jQuery UI 1.11.4 -->

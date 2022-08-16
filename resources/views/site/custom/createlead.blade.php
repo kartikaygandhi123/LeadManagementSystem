@@ -14,6 +14,11 @@
             width: 80%;
             border: 1px solid grey
         }
+
+        .error {
+            /* color: #007bff; */
+            color: red;
+        }
     </style>
 
     {{-- select2 --}}
@@ -99,11 +104,8 @@
                                             style="color: red">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <input name="Customer_Name" type="text" class="form-control" id="Customer_Name"
-                                        pattern="[a-zA-Z\s\[1-9]{1}[0-9]{6}[0-9]{3}]+" required />
-                                    <span class="error" style="color: red;">
-                                        <p id="customer_Name"> </p>
-                                    </span>
+                                    <input name="Customer_Name" type="text" class="form-control" id="Customer_Name" />
+
                                 </div>
                             </div>
                         </div>
@@ -116,10 +118,7 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name"
-                                        pattern="[a-zA-Z\s]+" required /><span class="error" style="color: red;">
-                                        <p id="poc_Name"> </p>
-                                    </span>
+                                    <input name="POC_Name" type="text" class="form-control" id="POC_Name" />
                                 </div>
                             </div>
                         </div>
@@ -133,23 +132,11 @@
                         <div class="form-group col-md-6">
                             <div class="row">
                                 <div class="col-4">
-                                    <label for="Contact_Number" class=" control-label">Contact Number<span
-                                            style="color: red;">*</span></label>
+                                    <label for="Contact_Number" class=" control-label">Contact Number</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        maxlength="10" id="Contact_Number" onchange="contactVal()" placeholder="********" />
-
-
-
-                                    <span class="error" style="color: red;">
-                                        <p id="contact_Number"> </p>
-                                    </span>
-
-                                    @if ($errors->first('Contact_Number'))
-                                        <span class="error"
-                                            style="color: red;">{{ $errors->first('Contact_Number') }}</span>
-                                    @endif
+                                        maxlength="10" id="Contact_Number" />
                                 </div>
                             </div>
                         </div>
@@ -161,17 +148,11 @@
                         <div class="form-group col-md-6">
                             <div class="row">
                                 <div class="col-4">
-                                    <label for="Email" class=" control-label">Email<span
-                                            style="color: red;">*</span></label>
+                                    <label for="Email" class=" control-label">Email</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="email" name="Email" class="form-control" id="Email" /><span
-                                        class="error" style="color: red;">
-                                        <p id="email"></p>
-                                    </span>
-                                    @if ($errors->first('email'))
-                                        <span class="error" style="color: red;">{{ $errors->first('email') }}</span>
-                                    @endif
+                                    <input type="email" name="Email" class="form-control" id="Email" />
+
                                 </div>
                             </div>
                         </div>
@@ -189,7 +170,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select id="Industry" class="form-control  " required onchange="hidden_industry()">
+                                    <select name="Industry" id="Industry" class="form-control  "
+                                        onchange="hidden_industry()">
                                         <option selected disabled value="">
                                             Select Industry
                                         </option>
@@ -227,7 +209,8 @@
                                             style="color: red;">*</span></label>
                                 </div>
                                 <div class="col-8">
-                                    <select id="Lead_Source" class="form-control " required onchange="hidden_lead()">
+                                    <select name="Lead_Source" id="Lead_Source" class="form-control "
+                                        onchange="hidden_lead()">
                                         <option selected disabled value="">
                                             Select Lead Source
                                         </option>
@@ -264,10 +247,8 @@
                                 </div>
                                 <div class="col-8">
                                     <input name="First_Contact_Date" type="date" class="form-control"
-                                        id="First_Contact_Date" required value="<?php echo date('Y-m-d'); ?>" />
-                                    <span class="error" style="color: red;">
-                                        <p id="first_Contact_Date"></p>
-                                    </span>
+                                        id="First_Contact_Date" value="<?php echo date('Y-m-d'); ?>" />
+
                                 </div>
                             </div>
                         </div>
@@ -282,7 +263,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <select name="Lead_Status" id="Lead_Status" onchange="maprequirements()"
-                                        class="form-control select2" required>
+                                        class="form-control select2">
 
                                         <option value="Prospect" selected>
                                             Prospect
@@ -336,7 +317,7 @@
 
                     <div class="text-right" id="hidelead">
                         {{-- <a href="#" class="btn btn-default btn-md" tabindex="8">Cancel</a> --}}
-                        <button class="btn btn-primary btn-md" id="saveLead">
+                        <button type="submit" class="btn btn-primary btn-md" id="saveLead">
                             Save
                         </button>
                     </div>
@@ -353,7 +334,50 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="/assets/vendor_components/select2/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
+
+    <script>
+        $(document).ready(function() {
+
+            $('#myLeadform').validate({
+
+                rules: {
+                    Customer_Name: "required",
+                    POC_Name: "required",
+
+                    Email: {
+                        email: true
+                    },
+                    Contact_Number: {
+                        maxlength: 10,
+                        minlength: 10
+                    },
+                    Industry: "required",
+                    Lead_Source: "required",
+                    First_Contact_Date: "required",
+                    Lead_Status: "required",
+                    lead_description: "required",
+
+                },
+                messages: {
+                    Customer_Name: "This field is required",
+                    POC_Name: "This field is required",
+
+                    Email: "Enter valid email",
+                    Contact_Number: "Enter valid 10-digit number",
+                    Industry: "Select Industry",
+                    Lead_Source: "Select Source",
+                    First_Contact_Date: "This field is required",
+                    Lead_Status: "This field is required",
+                    lead_description: "This field is required",
+
+
+                }
+
+            })
+        });
+    </script>
 
 
 
@@ -481,6 +505,9 @@
 
         }
     </script>
+
+
+
 
 
     <script>
