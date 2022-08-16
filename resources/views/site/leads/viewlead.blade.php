@@ -2583,7 +2583,7 @@ if (in_array($ar[1], $extensions)) {
                                                         value="Commercial Go-Ahead" />
                                                 </div>
                                                 <div class="col-8">
-                                                    <input id="commercial" type="file" class="form-control "
+                                                    <input id="commercial" type="file" class="form-control"
                                                         name="data[1][document_link]">
 
                                                 </div>
@@ -2596,11 +2596,12 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="remarks">Remarks</label>
+                                                    <label class="commercial_remarks" for="remarks">Remarks</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input id="remarks" type="text" class="form-control "
-                                                        name="data[1][remarks_for_legal]" required>
+                                                    <input id="commercial_remarks_id" type="text"
+                                                        class="form-control commercial_remarks"
+                                                        name="data[1][remarks_for_legal]">
 
                                                 </div>
                                             </div>
@@ -2619,7 +2620,8 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="customer_agreement">Customer Agreement</label>
+                                                    <label for="customer_agreement">Customer Agreement <span
+                                                            style="color: red">*</span></label>
                                                     <input type="hidden" name="data[0][document_type]"
                                                         value="Customer Agreement" />
                                                 </div>
@@ -2637,10 +2639,11 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="remarks">Remarks</label>
+                                                    <label class="customer_remarks" for="remarks">Remarks</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input id="remarks" type="text" class="form-control "
+                                                    <input id="customer_remarks_id" type="text"
+                                                        class="form-control customer_remarks"
                                                         name="data[0][remarks_for_legal]" required>
 
                                                 </div>
@@ -2682,11 +2685,12 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="remarks">Remarks</label>
+                                                    <label class="nda_remarks" for="remarks">Remarks</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input id="remarks" type="text" class="form-control "
-                                                        name="data[2][remarks_for_legal]" required>
+                                                    <input id="nda_remarks_id" type="text"
+                                                        class="form-control nda_remarks"
+                                                        name="data[2][remarks_for_legal]">
 
                                                 </div>
                                             </div>
@@ -3721,4 +3725,60 @@ if (!empty($viewlead->customer->gst_file)) {
         });
     </script>
 
+
+    <script>
+        $().ready(function() {
+
+            $('.commercial_remarks').hide();
+            $('.customer_remarks').hide();
+            $('.nda_remarks').hide();
+
+
+            $('#commercial').on('change', function() {
+
+                if ($("#commercial")[0].files.length === 0) {
+                    $('.commercial_remarks').hide();
+                    $('#commercial_remarks_id').prop('required', false);
+
+                } else {
+
+                    $('.commercial_remarks').show();
+                    $('#commercial_remarks_id').prop('required', true);
+                }
+            })
+
+
+            $('#customer_agreement').on('change', function() {
+
+                if ($("#customer_agreement")[0].files.length === 0) {
+                    $('.customer_remarks').hide();
+                    $('#customer_remarks_id').prop('required', false);
+
+                } else {
+
+                    $('.customer_remarks').show();
+                    $('#customer_remarks_id').prop('required', true);
+                }
+            })
+
+
+            $('#nda').on('change', function() {
+
+                if ($("#nda")[0].files.length === 0) {
+                    $('.nda_remarks').hide();
+                    $('#nda_remarks_id').prop('required', false);
+
+                } else {
+
+                    $('.nda_remarks').show();
+                    $('#nda_remarks_id').prop('required', true);
+                }
+            })
+
+
+
+
+
+        })
+    </script>
 @endsection

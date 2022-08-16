@@ -712,7 +712,7 @@ class LeadsController extends Controller
 
             return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Remarks And Executed Documents sent to BD Team");
         } else {
-            return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Please upload file");
+            return redirect('view_lead_legal/' . $request->lead_id)->with("error", "Please upload a file");
         }
     }
 
