@@ -29,7 +29,7 @@
             @endif
 
             @if (in_array(\auth()->user()->role_id, [1, 2]))
-                <li class="treeview {{ request()->is('addusersshow') ? 'menu-open' : '' }}">
+                <li class="treeview {{ request()->is('addusersshow') || request()->is('all*') ? 'menu-open' : '' }}">
                     <a href="#">
                         <i class="iconsmind-Air-Balloon"></i>
                         <span>Masters</span>
@@ -38,37 +38,37 @@
                         </span>
                     </a>
                     <ul class="treeview-menu"
-                        style="{{ request()->is('addusersshow') ? 'display:block' : 'display:none' }}">
-                        <li class="active">
+                        style="{{ request()->is('addusersshow') || request()->is('all*') ? 'display:block' : 'display:none' }}">
+                        <li class="{{ request()->is('addusersshow') ? 'active' : '' }}">
                             <a href="/addusersshow"><i class="iconsmind-Arrow-Through"></i>Add
                                 Users</a>
                         </li>
-                        {{-- <li>
+                        <li class="{{ request()->is('allcityshow') ? 'active' : '' }}">
                             <a href="/allcityshow"><i class="iconsmind-Arrow-Through"></i>All City</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('alldepartmentsshow') ? 'active' : '' }}">
                             <a href="/alldepartmentsshow"><i class="iconsmind-Arrow-Through"></i>All
                                 Departments</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('allindustryshow') ? 'active' : '' }}">
                             <a href="/allindustryshow"><i class="iconsmind-Arrow-Through"></i>All
                                 Industry</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('allleadsourceshow') ? 'active' : '' }}">
                             <a href="/allleadsourceshow"><i class="iconsmind-Arrow-Through"></i>All
                                 LeadSource</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('allobserviceshow') ? 'active' : '' }}">
                             <a href="/allobserviceshow"><i class="iconsmind-Arrow-Through"></i>All LOB
                                 Service</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('allbusinessshow') ? 'active' : '' }}">
                             <a href="/allbusinessshow"><i class="iconsmind-Arrow-Through"></i>All
                                 Business</a>
                         </li>
-                        <li>
+                        <li class="{{ request()->is('allstageshow') ? 'active' : '' }}">
                             <a href="/allstageshow"><i class="iconsmind-Arrow-Through"></i>All Stage</a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
             @endif

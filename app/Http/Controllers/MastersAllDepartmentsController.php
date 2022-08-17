@@ -13,4 +13,15 @@ class MastersAllDepartmentsController extends Controller
         $departments = Department::get();
         return view('site.masters.alldepartments', ['departments' => $departments]);
     }
+
+    function AddDepartment(Request $request)
+    {
+
+
+
+        $department = new Department;
+        $department->department = $request->department;
+        $department->save();
+        return redirect()->back()->with('success', 'Department Added');
+    }
 }

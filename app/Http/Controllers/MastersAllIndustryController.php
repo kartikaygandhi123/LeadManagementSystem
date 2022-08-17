@@ -14,4 +14,14 @@ class MastersAllIndustryController extends Controller
         $industries = Industry::get();
         return view('site.masters.allindustry', ['industries' => $industries]);
     }
+
+    function AddIndustry(Request $request)
+    {
+
+
+        $industry = new Industry;
+        $industry->name = $request->industry;
+        $industry->save();
+        return redirect()->back()->with('success', 'Industry Added');
+    }
 }

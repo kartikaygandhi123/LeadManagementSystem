@@ -326,12 +326,20 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('saveuser', [MastersAddUsersController::class, 'saveUser']);
     Route::get('allbusinessshow', [MastersAllBusinessController::class, 'AllBusinessShow']);
+    Route::post('addbusiness', [MastersAllBusinessController::class, 'AddBusiness'])->name('addbusiness');
+
     Route::get('allcityshow', [MastersAllCityController::class, 'AllCityShow']);
+    Route::post('addcity', [MastersAllCityController::class, 'AddCity'])->name('addcity');
     Route::get('alldepartmentsshow', [MastersAllDepartmentsController::class, 'AllDepartmentsShow']);
+    Route::post('adddepartment', [MastersAllDepartmentsController::class, 'AddDepartment'])->name('adddepartment');
     Route::get('allindustryshow', [MastersAllIndustryController::class, 'AllIndustryShow']);
+    Route::post('addindustry', [MastersAllIndustryController::class, 'AddIndustry'])->name('addindustry');
     Route::get('allleadsourceshow', [MastersAllLeadSourceController::class, 'AllLeadSourceShow']);
+    Route::post('addleadsource', [MastersAllLeadSourceController::class, 'AddLeadSource'])->name('addleadsource');
     Route::get('allobserviceshow', [MastersAllObServiceController::class, 'AllObServiceShow']);
+    Route::post('addlobservice', [MastersAllObServiceController::class, 'AddLobService'])->name('addlobservice');
     Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
+    Route::post('addstage', [MastersAllStageController::class, 'AddStage'])->name('addstage');
 
     Route::get('logout', function () {
         return view('errors.404');

@@ -86,7 +86,8 @@
 
 
 
-            <form method="post" id="myLeadform" name="myform" action="/followupshow" class="form-horizontal form-element">
+            <form method="post" id="myLeadform" name="myform" action="/followupshow"
+                class="form-horizontal form-element myLeadform">
                 @csrf
 
 
@@ -338,9 +339,9 @@
 
 
     <script>
-        $(document).ready(function() {
+        function validating() {
+            $('.myLeadform').validate({
 
-            $('#myLeadform').validate({
 
                 rules: {
                     Customer_Name: "required",
@@ -376,7 +377,7 @@
                 }
 
             })
-        });
+        }
     </script>
 
 
@@ -477,9 +478,12 @@
             // console.log(document.getElementById("select_customer").value);
             if (document.getElementById("select_customer").value == 'create_new') {
 
+                validating();
                 console.log("clicked");
                 a.style.display = "block";
                 document.getElementById('append_form').style.display = "none";
+
+
 
             } else {
 
@@ -496,10 +500,11 @@
                 document.getElementById("select_customer").value;
                 document.getElementById("myLeadform").action = "existingupdate";
 
-
                 document.getElementById('saveLead').innerHTML = "Save"; //changed From Update To save
-
+                validating();
                 fetchcustomer();
+
+
 
             }
 
