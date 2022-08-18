@@ -93,7 +93,7 @@ class LeadsController extends Controller
 
         $data->Industry = $req->Input(['Industry']);
 
-        $data->lead_source = $req->Input(['Lead_Source']);
+        $data->Lead_Source = $req->Input(['Lead_Source']);
 
         $data->Email = $req->Input(['Email']);
         $data->First_Contact_Date = $req->Input(['First_Contact_Date']);
@@ -161,7 +161,7 @@ class LeadsController extends Controller
         $data->Contact_Number = $req->Contact_Number;
         $data->POC_Name = $req->POC_Name;
         $data->Industry = $req->Industry;
-        $data->lead_source = $req->Lead_Source;
+        $data->Lead_Source = $req->Lead_Source;
         $data->lead_description = $req->lead_description;
         $data->Email = $req->Email;
         $data->First_Contact_Date = $req->First_Contact_Date;

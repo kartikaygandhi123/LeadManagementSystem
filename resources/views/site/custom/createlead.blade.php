@@ -457,10 +457,12 @@
                     $('#Contact_Number').val(response.customers.Contact_Number);
                     // $('#Lead_Source').val(response.customers.lead_source);
                     $('#Email').val(response.customers.Email);
-                    // $('#Industry').val(response.customers.Industry);
+                    $('#Industry').val(response.customers.Industry);
+                    $('#Other_Industry').val(response.customers.Industry);
 
 
                     $('#id_update').val(response.customers.id);
+
 
 
 
@@ -474,13 +476,15 @@
     <script>
         function show_form() {
 
+            validating();
             var a = document.getElementById("newcustomerform");
             // console.log(document.getElementById("select_customer").value);
             if (document.getElementById("select_customer").value == 'create_new') {
 
-                validating();
+
                 console.log("clicked");
                 a.style.display = "block";
+
                 document.getElementById('append_form').style.display = "none";
 
 
@@ -495,14 +499,19 @@
 
                 a.style.display = "none";
                 document.getElementById('append_form').style.display = "block";
+
                 document.getElementById('append_form').innerHTML = gud;
+
                 document.getElementById('form_heading').innerHTML = "Existing Customer";
                 document.getElementById("select_customer").value;
                 document.getElementById("myLeadform").action = "existingupdate";
 
                 document.getElementById('saveLead').innerHTML = "Save"; //changed From Update To save
-                validating();
+
                 fetchcustomer();
+
+                validating();
+
 
 
 
