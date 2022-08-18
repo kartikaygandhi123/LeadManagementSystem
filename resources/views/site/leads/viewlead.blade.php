@@ -2578,13 +2578,14 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="commercial">Commercial Go-Ahead</label>
+                                                    <label for="commercial">Commercial Go-Ahead<span
+                                                            style="color: red">*</span></label>
                                                     <input type="hidden" name="data[1][document_type]"
                                                         value="Commercial Go-Ahead" />
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="commercial" type="file" class="form-control"
-                                                        name="data[1][document_link]">
+                                                        name="data[1][document_link]" required>
 
                                                 </div>
                                             </div>
@@ -2601,7 +2602,7 @@ if (in_array($ar[1], $extensions)) {
                                                 <div class="col-8">
                                                     <input id="commercial_remarks_id" type="text"
                                                         class="form-control commercial_remarks"
-                                                        name="data[1][remarks_for_legal]">
+                                                        name="data[1][remarks_for_legal]" required>
 
                                                 </div>
                                             </div>
@@ -2620,14 +2621,13 @@ if (in_array($ar[1], $extensions)) {
                                             <div class="row">
                                                 <div class="col-4">
 
-                                                    <label for="customer_agreement">Customer Agreement <span
-                                                            style="color: red">*</span></label>
+                                                    <label for="customer_agreement">Customer Agreement </label>
                                                     <input type="hidden" name="data[0][document_type]"
                                                         value="Customer Agreement" />
                                                 </div>
                                                 <div class="col-8">
                                                     <input id="customer_agreement" type="file"
-                                                        class="form-control " name="data[0][document_link]" required>
+                                                        class="form-control " name="data[0][document_link]">
 
                                                 </div>
                                             </div>
@@ -2644,7 +2644,7 @@ if (in_array($ar[1], $extensions)) {
                                                 <div class="col-8">
                                                     <input id="customer_remarks_id" type="text"
                                                         class="form-control customer_remarks"
-                                                        name="data[0][remarks_for_legal]" required>
+                                                        name="data[0][remarks_for_legal]">
 
                                                 </div>
                                             </div>
