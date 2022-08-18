@@ -3530,23 +3530,38 @@ if (!empty($viewlead->customer->gst_file)) {
             if (document.getElementById("LOB_select").value == 4 || document.getElementById("LOB_select").value ==
                 6) {
                 document.getElementById("area_id").style.display = "block";
+                $("#Area").prop('required', true);
 
             } else {
 
                 document.getElementById("area_id").style.display = "none";
+                $("#Area").prop('required', false);
             }
         })
 
 
         $("#Services_select").on('change', function() {
 
-            if (document.getElementById("Services_select").value == 18 || document.getElementById("Services_select")
-                .value == 23) {
+
+
+
+
+
+            if ((document.getElementById("Services_select").value == 18 || document.getElementById(
+                        "Services_select")
+                    .value == 23) && (document.getElementById("LOB_select").value == 7 || document.getElementById(
+                        "LOB_select").value ==
+                    9)) {
                 document.getElementById("area_id").style.display = "block";
+                $("#Area").prop('required', true);
 
-            } else {
-
+            } else if (!(document.getElementById("LOB_select").value == 4 || document.getElementById("LOB_select")
+                    .value ==
+                    6)) {
                 document.getElementById("area_id").style.display = "none";
+                $("#Area").prop('required', false);
+                // document.getElementById("area_id").style.display = "block";
+
             }
         })
     </script>
