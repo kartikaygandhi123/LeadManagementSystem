@@ -1878,34 +1878,20 @@ if (in_array($ar[1], $extensions)) {
 
 
 
-
-    {{-- open requirements map default --}}
-    {{-- <script>
+    <script>
         $(document).ready(function() {
 
 
+            if ("{!! $openremarks !!}" == "YES") {
 
-            if ("{!! $openrequirements !!}" == "YES") {
-                $('.nav-tabs a[href="#requirements"]').tab('show');
-
+                $('.nav-tabs a[href="#timeline"]').tab('show');
             }
 
         });
-    </script> --}}
-
-    {{-- open proposal default --}}
-    {{-- <script>
-        $(document).ready(function() {
+    </script>
 
 
 
-            if ("{!! $openproposal !!}" == "YES") {
-                $('.nav-tabs a[href="#businessproposal"]').tab('show');
-
-            }
-
-        });
-    </script> --}}
 
     <script>
         var today = new Date();

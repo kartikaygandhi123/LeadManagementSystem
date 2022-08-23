@@ -709,10 +709,9 @@ class LeadsController extends Controller
             $stage->Lead_Status = "Document Revised";
             LeadLogger(['lead_id' => $request->lead_id, "message" => "Legal Team Sent Executed Document and remarks "]);
 
-
-            return redirect('view_lead_legal/' . $request->lead_id)->with("success", "Remarks And Executed Documents sent to BD Team");
+            return redirect('view_lead_legal/' . $request->lead_id . "?remarks=YES")->with("success", "Remarks And Executed Documents sent to BD Team");
         } else {
-            return redirect('view_lead_legal/' . $request->lead_id)->with("error", "Please upload a file");
+            return redirect('view_lead_legal/' . $request->lead_id . "?remarks=YES")->with("error", "Please upload a file");
         }
     }
 
