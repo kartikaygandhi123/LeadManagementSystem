@@ -167,7 +167,7 @@
                                         <b> Contact Number: </b>
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $viewlead->Contact_Number }}
+                                        {{ $viewlead->Contact_Number ? $viewlead->Contact_Number : ' - ' }}
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
 
                                     <div class="col-md-6">
 
-                                        {{ $viewlead->Email }}
+                                        {{ $viewlead->Email ? $viewlead->Email : ' - ' }}
                                     </div>
                                 </div>
                             </div>
@@ -2028,11 +2028,11 @@ if (in_array($ar[1], $extensions)) {
                                                                 ?>
                                                         <a href="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                             target="_blank">
-                                                            <img style="width:37px;height:37px"
+                                                            <img style="width:37px;height:37px;"
                                                                 src="/uploads/{{ $viewlead->requirements->upload_requirement_documents }}"
                                                                 alt='SLA Document'>
 
-                                                        </a>
+                                                        </a>Preview
 
                                                         <?php
                                                             } else {
@@ -2047,7 +2047,7 @@ if (in_array($ar[1], $extensions)) {
                                                         <?php
                                                             }
                                                         }
-                                                        ?>Preview</span>
+                                                        ?></span>
 
                                                 </div>
                                             </div>
@@ -2081,6 +2081,21 @@ if (in_array($ar[1], $extensions)) {
 
                                                 </div>
                                             </div>
+                                            {{-- <div id="area_id" class="form-group col-md-6" style="display: none"> --}}
+                                            <div id="area_id" class="row" style="display: none;margin-top:19px">
+                                                <div class="col-4">
+                                                    <label for="Area" class="control-label">Area (Sq Ft.)<span
+                                                            class="danger">*</span></label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="number" value=""
+                                                        id="Area" name="area">
+                                                </div>
+                                            </div>
+                                            {{-- </div> --}}
+
+
+
                                         </div>
 
                                         <div class="form-group col-md-6">
@@ -2255,18 +2270,7 @@ if (in_array($ar[1], $extensions)) {
 
 
 
-                                        <div id="area_id" class="form-group col-md-6" style="display: none">
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <label for="Area">Area (Sq Ft.)<span
-                                                            class="danger">*</span></label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input class="form-control" type="number" value=""
-                                                        id="Area" name="area">
-                                                </div>
-                                            </div>
-                                        </div>
+
 
 
 
@@ -2286,7 +2290,7 @@ if (in_array($ar[1], $extensions)) {
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class=" col-4">
-                                                    <label for="map_requirements">Share Business Proposal:</label>
+                                                    <label for="map_requirements">Business Proposal Shared ?</label>
                                                 </div>
 
                                                 <div class="col-2">
@@ -3162,7 +3166,7 @@ if (!empty($viewlead->customer->gst_file)) {
 
     <div class="pull-right" style="top: 116px; position:absolute ;right:54px;font-size:4px">
 
-        <button class="btn btn-danger btn-block btn-shadow margin-bottom" type="button" alt="default"
+        <button class="btn btn-danger btn-block btn-sm btn-shadow margin-bottom" type="button" alt="default"
             id="stage_button" data-toggle="modal" data-target=".bs-example-modal-lg">Lost/Dormant</button>
 
     </div>
@@ -3529,7 +3533,7 @@ if (!empty($viewlead->customer->gst_file)) {
             // alert(document.getElementById("LOB_select").value);
             if (document.getElementById("LOB_select").value == 4 || document.getElementById("LOB_select").value ==
                 6) {
-                document.getElementById("area_id").style.display = "block";
+                document.getElementById("area_id").style.display = "flex";
                 $("#Area").prop('required', true);
 
             } else {
@@ -3552,7 +3556,7 @@ if (!empty($viewlead->customer->gst_file)) {
                     .value == 23) && (document.getElementById("LOB_select").value == 7 || document.getElementById(
                         "LOB_select").value ==
                     9)) {
-                document.getElementById("area_id").style.display = "block";
+                document.getElementById("area_id").style.display = "flex";
                 $("#Area").prop('required', true);
 
             } else if (!(document.getElementById("LOB_select").value == 4 || document.getElementById("LOB_select")

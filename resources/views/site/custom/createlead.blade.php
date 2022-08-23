@@ -351,6 +351,7 @@
                         email: true
                     },
                     Contact_Number: {
+                        number: true,
                         maxlength: 10,
                         minlength: 10
                     },

@@ -341,6 +341,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('allstageshow', [MastersAllStageController::class, 'AllStageShow']);
     Route::post('addstage', [MastersAllStageController::class, 'AddStage'])->name('addstage');
 
+
+
+    Route::get('/filterresult', [ReportsController::class, 'FilterResult']);
     Route::get('logout', function () {
         return view('errors.404');
     });

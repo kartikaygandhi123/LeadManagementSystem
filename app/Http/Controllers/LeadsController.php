@@ -758,7 +758,7 @@ class LeadsController extends Controller
         $stageupdate->Email =   $request->Email;
         $stageupdate->cost_center = $request->cost_center;
         $stageupdate->Industry =  $request->Industry;
-        $stageupdate->Lead_Status = "Pending Verification";
+        // $stageupdate->Lead_Status = "Pending Verification";
         $stageupdate->update();
 
 
