@@ -19,7 +19,7 @@
                 <div class="row filter-row">
                     <div class="col-sm-6 col-md-2 col-lg-2">
                         <div class="form-group form-focus">
-
+                            <label class="focus-label">Customer Name</label>
                             <select class="select2 form-control floating" id="" name='name[]' multiple>
 
                                 <option value="">-- Select --</option>
@@ -28,11 +28,12 @@
                                 @endforeach
                             </select>
 
-                            <label class="focus-label">Customer Name</label>
+
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-2 col-lg-2">
                         <div class="form-group form-focus select-focus">
+                            <label class="focus-label">Stage</label>
                             <select class="select2 form-control floating" id="" name='stage[]' multiple>
 
                                 <option value="">-- Select --</option>
@@ -40,23 +41,25 @@
                                     <option value="{{ $stage->stage }}">{{ $stage->stage }}</option>
                                 @endforeach
                             </select>
-                            <label class="focus-label">Stage</label>
+
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-2 col-lg-2">
                         <div class="form-group form-focus select-focus">
+                            <label class="focus-label">Lead Source</label>
                             <select class="select2 form-control floating" id="" name="lead_source[]" multiple>
                                 <option value="">Select --</option>
                                 @foreach ($lead_source as $lead_source)
                                     <option value="{{ $lead_source->lead_source }}">{{ $lead_source->lead_source }}</option>
                                 @endforeach
                             </select>
-                            <label class="focus-label">Lead Source</label>
+
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-2 col-lg-2">
                         <div class="form-group form-focus select-focus">
+                            <label class="focus-label">User</label>
                             <select class="select2 form-control floating" id="" name="user[]" multiple>
                                 <option value="">Select --</option>
                                 @foreach ($user as $user)
@@ -64,16 +67,22 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <label class="focus-label">User</label>
+
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+
+                        <div class="form-group form-focus select-focus">
+                            <label class="focus-label">DateRange</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+
+                                <input name="daterange" type="text" class="form-control pull-right" id="reservation" />
                             </div>
-                            <input name="daterange" type="text" class="form-control pull-right" id="reservation" />
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -81,7 +90,10 @@
                     <input id="to" type="hidden" name="to">
 
                     <div class="col-sm-6 col-md-1 col-lg-1">
-                        <button type="submit" class="btn btn-sm btn-bitbucket ">Search</button>
+                        <div class="form-group form-focus select-focus">
+                            <label class="focus-label"><i class="fa fa-filter">Filter</i></label>
+                            <button type="submit" class="btn btn-sm btn-bitbucket w-fit-content">Filter</button>
+                        </div>
                     </div>
 
 
