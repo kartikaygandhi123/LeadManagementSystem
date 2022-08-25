@@ -217,23 +217,6 @@
             $('#to').val(end);
 
 
-
-
-
-
-            // $.ajax({
-            //     type: "Get",
-            //     url: "/filterresult",
-            //     data: {
-            //         start: start,
-            //         end: end,
-
-            //     },
-            //     dataType: "json",
-            //     success: function(response) {
-            //         console.log(response);
-            //     }
-            // });
         })
     </script>
 

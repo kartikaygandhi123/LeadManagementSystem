@@ -136,8 +136,8 @@
                                     <label for="Contact_Number" class=" control-label">Contact Number</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
-                                        maxlength="10" id="Contact_Number" />
+                                    <input type="number" pattern="[0-9]{10}" name="Contact_Number" class="form-control"
+                                        id="Contact_Number" />
                                 </div>
                             </div>
                         </div>
@@ -344,27 +344,37 @@
 
 
                 rules: {
-                    Customer_Name: "required",
-                    POC_Name: "required",
+                    Customer_Name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    POC_Name: {
+                        required: true,
+                        minlength: 2
+                    },
 
                     Email: {
                         email: true
                     },
                     Contact_Number: {
                         number: true,
-                        maxlength: 10,
-                        minlength: 10
+                        minlength: 10,
+                        maxlength: 10
+
                     },
                     Industry: "required",
                     Lead_Source: "required",
                     First_Contact_Date: "required",
                     Lead_Status: "required",
-                    lead_description: "required",
+                    lead_description: {
+                        required: true,
+                        minlength: 5
+                    },
 
                 },
                 messages: {
-                    Customer_Name: "This field is required",
-                    POC_Name: "This field is required",
+                    Customer_Name: "Customer Name must consist of atleast 2 characters",
+                    POC_Name: "POC Name must consist of atleast 2 characters",
 
                     Email: "Enter valid email",
                     Contact_Number: "Enter valid 10-digit number",
@@ -372,7 +382,7 @@
                     Lead_Source: "Select Source",
                     First_Contact_Date: "This field is required",
                     Lead_Status: "This field is required",
-                    lead_description: "This field is required",
+                    lead_description: "Lead description must consist of atleast 5 characters",
 
 
                 }

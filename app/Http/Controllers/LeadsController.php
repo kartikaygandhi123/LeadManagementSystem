@@ -29,6 +29,9 @@ class LeadsController extends Controller
 
     function LeadsShow()
     {
+        $stage = Stages::get();
+        $lead_source = LeadSource::get();
+        $user = User::get();
         $leads = Lead::with('created_by_user')
             ->when(isset(\auth()->user()->lob_id), function ($q1) {
                 $q1->where('lob_id', \auth()->user()->lob_id);
@@ -42,7 +45,7 @@ class LeadsController extends Controller
             ->get();
 
         //   dd(\auth()->user()->id);
-        return view('site.leads.leads', ['leads' => $leads]);
+        return view('site.leads.leads', ['leads' => $leads, 'stage' => $stage, 'lead_source' => $lead_source, 'user' => $user]);
     }
 
 

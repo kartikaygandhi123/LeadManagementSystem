@@ -344,6 +344,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::post('/filterresult', [ReportsController::class, 'FilterResult']);
+    Route::post('/leadsfilterresult', [ReportsController::class, 'Leads_FilterResult']);
     Route::get('logout', function () {
         return view('errors.404');
     });
