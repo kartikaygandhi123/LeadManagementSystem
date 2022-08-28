@@ -840,20 +840,23 @@ class LeadsController extends Controller
     function SaveRequirementsMap(Request $request)
     {
 
+        // to make required upload docs only uncomment the else condition and remove the empty initializd doclink variable
+
         try {
 
 
             $stageupdate = Lead::where('id', $request->id)->first();
 
-
+            $doclink = '';
             if (isset($request->upload_requirement_documents)) {
                 $doclink = getName($request->upload_requirement_documents);
-            } else {
-
-                $data = RequirementsMap::where('lead_id', $request->id)->first();
-
-                $doclink = $data->upload_requirement_documents;
             }
+            // else {
+
+            //     $data = RequirementsMap::where('lead_id', $request->id)->first();
+
+            //     $doclink = $data->upload_requirement_documents;
+            // }
             // $requirements->lead_id = $request->id;
 
 

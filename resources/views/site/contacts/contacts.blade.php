@@ -7,7 +7,6 @@
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
             <h4 class="box-title">Contacts</h4>
-            <h6 class="box-subtitle text-white-50">Export data to Copy, CSV, Excel, PDF & Print</h6>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
