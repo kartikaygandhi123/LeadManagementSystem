@@ -153,15 +153,10 @@
                             <th>Lead_Source</th>
                             <th>Email</th>
                             <th>First_Contact_Date</th>
-
                             <th>Created By</th>
-
-
                             <th>Reason For Lost</th>
                             <th>Reason For Dormant</th>
                             <th>Reason</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -323,8 +318,6 @@
         $('input[name="daterange"]').daterangepicker();
         $('#reservation').on('apply.daterangepicker', function(ev, picker) {
 
-            // console.log(picker.startDate.format('YYYY-MM-DD'));
-            // console.log(picker.endDate.format('YYYY-MM-DD'));
 
             var start = picker.startDate.format('YYYY-MM-DD');
             var end = picker.endDate.format('YYYY-MM-DD');

@@ -1808,94 +1808,67 @@ if (in_array($ar[1], $extensions)) {
 
 
 
-    {{-- open requirements map default --}}
-    {{-- <script>
-        $(document).ready(function() {
-
-
-
-            if ("{!! $openrequirements !!}" == "YES") {
-                $('.nav-tabs a[href="#requirements"]').tab('show');
-
-            }
-
-        });
-    </script> --}}
-
-    {{-- open proposal default --}}
-    {{-- <script>
-        $(document).ready(function() {
-
-
-
-            if ("{!! $openproposal !!}" == "YES") {
-                $('.nav-tabs a[href="#businessproposal"]').tab('show');
-
-            }
-
-        });
-    </script> --}}
 
 
     <script>
-        function fetch_holibook_cc() {
-            $.ajax({
-                type: "GET",
-                url: "{{ url('get-cost-centers') }}",
-                success: function(res) {
-                    if (res.success) {
-                        for (let i = 0; i < res.data.length; i++) {
-                            $('#cost_center_select').append(`<option value="${res.data[i].cost_center_name}">
-                                       ${res.data[i].cost_center_name}
-                                  </option>`);
-                        }
+        // function fetch_holibook_cc() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "{{ url('get-cost-centers') }}",
+        //         success: function(res) {
+        //             if (res.success) {
+        //                 for (let i = 0; i < res.data.length; i++) {
+        //                     $('#cost_center_select').append(`<option value="${res.data[i].cost_center_name}">
+    //                                ${res.data[i].cost_center_name}
+    //                           </option>`);
+        //                 }
 
 
 
-                        let selectedval = "{!! $viewlead->cost_center !!}";
+        //                 let selectedval = "{!! $viewlead->cost_center !!}";
 
 
 
-                        $("#cost_center_select").val(selectedval).change();
+        //                 $("#cost_center_select").val(selectedval).change();
 
 
-                    } else {
-                        alert(res.message);
-                    }
-                },
-                error: function(error) {
-                    alert(error);
-                }
-            });
-        }
-
-
-
-
-        function fetch_holibook_locations() {
-            $.ajax({
-                type: "GET",
-                url: "{{ url('get-holibook-locations') }}",
-                success: function(res) {
-                    if (res.success) {
-                        for (let i = 0; i < res.data.length; i++) {
-                            $('#Locationlistselect').append(`<option value="${res.data[i].location_name}">
-                                       ${res.data[i].location_name}
-                                  </option>`);
-                        }
+        //             } else {
+        //                 alert(res.message);
+        //             }
+        //         },
+        //         error: function(error) {
+        //             alert(error);
+        //         }
+        //     });
+        // }
 
 
 
 
-                    } else {
-                        alert(res.message);
-                    }
-                },
-                error: function(error) {
-                    alert(error);
-                }
-            });
-        }
+        // function fetch_holibook_locations() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "{{ url('get-holibook-locations') }}",
+        //         success: function(res) {
+        //             if (res.success) {
+        //                 for (let i = 0; i < res.data.length; i++) {
+        //                     $('#Locationlistselect').append(`<option value="${res.data[i].location_name}">
+    //                                ${res.data[i].location_name}
+    //                           </option>`);
+        //                 }
+
+
+
+
+        //             } else {
+        //                 alert(res.message);
+        //             }
+        //         },
+        //         error: function(error) {
+        //             alert(error);
+        //         }
+        //     });
+        // }
 
 
         function fetch_lob_service(id) {
@@ -1935,8 +1908,8 @@ if (in_array($ar[1], $extensions)) {
 
         $().ready(function() {
 
-            fetch_holibook_cc();
-            fetch_holibook_locations();
+            // fetch_holibook_cc();
+            // fetch_holibook_locations();
 
             $("#LOB_select").on('change', function() {
                 $("#Services_select").empty();

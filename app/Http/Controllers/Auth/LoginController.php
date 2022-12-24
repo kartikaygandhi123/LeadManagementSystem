@@ -57,32 +57,7 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
 
-            //            if (auth()->user()->role_id == 1) {
-            //                return redirect()->route('retailbdhead.dashboard');
-            //            } elseif (auth()->user()->role_id == 2) {
-            //
-            //                return redirect()->route('iplbdhead.dashboard');
-            //            } elseif (auth()->user()->role_id == 3) {
-            //
-            //                return redirect()->route('techbdhead.dashboard');
-            //            } elseif (auth()->user()->role_id == 4) {
-            //
-            //                return redirect()->route('retailbd.dashboard');
-            //            } elseif (auth()->user()->role_id == 5) {
-            //
-            //                return redirect()->route('techbd.dashboard');
-            //            } elseif (auth()->user()->role_id == 6) {
-            //
-            //                return redirect()->route('admin.dashboard');
-            //            } elseif (auth()->user()->role_id == 7) {
-            //
-            //                return redirect()->route('superuser.dashboard');
-            //            } elseif (auth()->user()->role_id == 8) {
-            //
-            //                return redirect()->route('iplbd.dashboard');
-            //            } else {
-            //                return view('site.errorinternal');
-            //            }
+            //           
 
             return redirect()->route('dashboard');
         } else {

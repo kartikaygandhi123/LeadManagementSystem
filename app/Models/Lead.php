@@ -17,6 +17,7 @@ class Lead extends Model
 
     public function customer()
     {
+        
         return $this->hasOne(BrandProfile::class, 'id', 'customer_id');
     }
 
